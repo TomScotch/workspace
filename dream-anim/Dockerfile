@@ -98,6 +98,7 @@ RUN apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev li
 RUN apt-get install -y libcv2.4 libcv-dev libopencv-highgui-dev libopencv-dev libopencv2.4
 RUN apt-get install -y python-skimage
 WORKDIR /opt
-COPY bvlc_googlenet.caffemodel /opt/caffe/models/bvlc_googlenet/
-COPY . .
+RUN wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel && mv bvlc_googlenet.caffemodel /opt/caffe/models/bvlc_googlenet/
+COPY run.sh .
+COPY dreamer.py .
 CMD bash run.sh

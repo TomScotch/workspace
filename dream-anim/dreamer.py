@@ -130,7 +130,7 @@ def main(inputdir, outputdir, preview, octaves, octave_scale, iterations, jitter
     if gpu is None: gpu = 1
     if flow is None: flow = 0
     # net.blobs.keys()
-    gpu=1
+    gpu=0
     # /opt/caffe/models/bvlc_googlenet/deploy.prototxt
     # Loading DNN model
     model_name = 'bvlc_googlenet'
