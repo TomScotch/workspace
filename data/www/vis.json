@@ -1,0 +1,102 @@
+[
+  {
+    "list_proba": [
+      {
+        "value": "scoreboard",
+        "proba": "0.010758"
+      },
+      {
+        "proba": "0.011901",
+        "value": "digital clock"
+      },
+      {
+        "value": "electric fan",
+        "proba": "0.012262"
+      },
+      {
+        "proba": "0.012444",
+        "value": "bubble"
+      },
+      {
+        "value": "rule",
+        "proba": "0.016314"
+      },
+      {
+        "proba": "0.024753",
+        "value": "racket"
+      },
+      {
+        "value": "shopping cart",
+        "proba": "0.208304"
+      },
+      {
+        "proba": "0.238966",
+        "value": "shopping basket"
+      },
+      {
+        "value": "oscilloscope",
+        "proba": "0.280427"
+      }
+    ],
+    "source_image": "/data/image.jpg",
+    "image_id": "00001",
+    "caption": "oscilloscope"
+  },
+  {
+    "caption": "",
+    "image_id": "00002",
+    "source_image": "/data/image.jpg",
+    "list_proba": []
+  },
+  {
+    "list_proba": [
+      {
+        "value": "analog clock",
+        "proba": "0.019198"
+      },
+      {
+        "proba": "0.020607",
+        "value": "monastery"
+      },
+      {
+        "value": "stupa",
+        "proba": "0.021011"
+      },
+      {
+        "proba": "0.023765",
+        "value": "palace"
+      },
+      {
+        "value": "obelisk",
+        "proba": "0.030048"
+      },
+      {
+        "proba": "0.043941",
+        "value": "triumphal arch"
+      },
+      {
+        "value": "fountain",
+        "proba": "0.105556"
+      },
+      {
+        "proba": "0.119457",
+        "value": "mosque"
+      },
+      {
+        "value": "dome",
+        "proba": "0.120201"
+      },
+      {
+        "proba": "0.164895",
+        "value": "bell cote"
+      },
+      {
+        "value": "pedestal",
+        "proba": "0.285673"
+      }
+    ],
+    "source_image": "/data/image.jpg",
+    "image_id": "00002",
+    "caption": "pedestal"
+  }
+]

@@ -11,9 +11,9 @@ RUN git clone https://github.com/opencv/opencv.git
 WORKDIR /opt/opencv
 RUN mkdir build
 WORKDIR /opt/opencv/build
-RUN cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
-RUN make -j 2
-RUN sudo make install
+RUN cmake ..
+RUN make
+RUN make install
 ###################################################################################################
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \

@@ -1,0 +1,11 @@
+*.brain
+*.brain-journal
+*.egg
+*.instatrace
+*.pyc
+.coverage
+build
+cobe.egg-info
+cobe.pstats
+dist
+virtualenv/

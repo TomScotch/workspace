@@ -1,0 +1,19 @@
+source "https://rubygems.org"
+
+gemspec
+
+gem "lita-default-handlers"
+
+gem "lita-ai"
+
+gem "lita-roll"
+gem "lita-wikipedia"
+gem "lita-chuck_norris"
+gem "lita-devops-reactions"
+gem "lita-down"
+gem "lita-excuses"
+gem "lita-googlefight"
+gem "lita-greet"
+gem "lita-jobs"
+gem "lita-random"
+gem "lita-remember"
