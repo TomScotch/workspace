@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"abstract_command:ETI"&CLAide::Command::abstract_command;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"I@return [Boolean] Indicates whether or not this command can actually;To:RDoc::Markup::Verbatim;	[I"Bperform work of itself, or that it only contains subcommands.;T:@format0:
+@fileI"lib/claide/command.rb;T:0@omit_headings_from_table_of_contents_below0T@I"CLAide::Command;FcRDoc::NormalClass0

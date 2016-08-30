@@ -1,0 +1,8 @@
+{
+    "id": "com.qici.advert",
+    "name": "Baidu Ad",
+    "version": "1.0",
+    "dependence": [],
+    "scriptDependence" : {
+    }
+}

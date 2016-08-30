@@ -1,0 +1,169 @@
+<!--Project管理-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name='viewport' content='width=device-width,user-scalable=no'>
+    <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-title' content='Welcome'>
+    <link rel="shortcut icon" href="../lib/imgs/qici.ico" />
+    <title>Projects</title>
+    <style>
+        /*去掉Notification导致的滚动条*/
+        body {
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            font-family: arial, sans serif;
+            color: #caccd8;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/welcome/Assets/css/style.css"/>
+
+    <script>
+        QCDefault = {
+            toolTipDelay: 1000,
+            labelFont: '13px Arial',
+            Shape: {
+                diamond: function (g, x, y, w, h) {
+                    g.moveTo(x + w / 2, y);
+                    g.lineTo(x, y + h / 2);
+                    g.lineTo(x + w / 2, y + h);
+                    g.lineTo(x + w, y + h / 2);
+                    g.closePath();
+                },
+                event: function (g, x, y, w, h) {
+                    g.moveTo(x, y);
+                    g.lineTo(x + w, y);
+                    g.lineTo(x + w, y + h / 4 * 3);
+                    g.lineTo(x + w / 2, y + h);
+                    g.lineTo(x, y + h / 4 * 3);
+                    g.closePath();
+                },
+                action: function (g, x, y, w, h, info, data, view) {
+                    g.rect(x+2,y,w-4,h);
+                    if (info.loop)
+                    {
+                        var duration = data.a('duration');
+                        if (duration === qc.MAX_DURATION)
+                            return;
+                        var timeLineZoom = view.timeLineZoom;
+                        var winWidth = view.width - view.translateX;
+                        var width = duration * 8 * timeLineZoom;
+                        var i = 0;
+                        x += 2;
+                        while(x < winWidth)
+                        {
+                            i++;
+                            x += width;
+                            g.moveTo(x, y);
+                            g.lineTo(x, y + h);
+                        }
+                    }
+                    else
+                    {
+                        g.rect(x, y+5, 4, h-10);
+                        g.rect(x+w-4, y+5, 4, h-10);
+                    }
+                }
+            }
+        };
+    </script>
+    <script type="text/javascript" src="lib/qc-widget.js"></script>
+    <script type="text/javascript" src="lib/qc-editor.js"></script>
+    <script type="text/javascript" src="lib/socket.io.js"></script>
+    <script src='/welcome/Assets/meta/globalUrlMap.js'></script>
+    <script src='lib/phaser.js'></script>
+    <script src='lib/webfontloader.js'></script>
+    <script src='lib/qc-core.js'></script>
+    <script src='/welcome/game-scripts-mini-1.js'></script>
+</head>
+<body>
+    <div style="overflow:hidden;padding:0;margin:0;width:100%;height:100%;">
+        <div id="gameDiv" style="position:relative;z-index:0"></div>
+    </div>
+
+    <script type="text/javascript">
+        var qici = {};
+        qici.config = {
+            gameName: 'Welcome',
+            localStorageID: 'com.qcplay.welcome',
+            gameInstance: 'welcome',
+            frameRate: {"mobile":30,"desktop":60},
+            resolutionRatio: 1,
+            backgroundColor: 3816512,
+            runInBackground: true,
+            antialias: false,
+            transparent: false,
+            developerMode: true,
+            renderer: 'Canvas',
+            loadingPrefab: '',
+            scene: [
+                "Assets/scene/Main"
+            ],
+            entryScene : "Assets/scene/Main",
+            dirtyRectangles: false,
+            loading: {
+            }
+        };
+
+        _pluginVariables_={}
+
+        qici.loadGame = function() {
+            var game = window[qici.config.gameInstance] = new qc.Game({
+                width: '100%',
+                height: '100%',
+                parent: 'gameDiv',
+                state: qici.splashState,
+                editor: qici.config.editor === true,
+                backgroundColor: new qc.Color(qici.config.backgroundColor),
+                runInBackground: qici.config.runInBackground,
+                antialias: qici.config.antialias,
+                resolutionRatio: qici.config.resolutionRatio,
+                resolution : qici.config.resolution,
+                transparent: qici.config.transparent,
+                debug: qici.config.developerMode === true,
+                remoteLogUrl: qici.config.remoteLogUrl,
+                dirtyRectangles: qici.config.dirtyRectangles,
+                dirtyRectanglesShow: qici.config.dirtyRectanglesShow,
+                renderer: qici.config.renderer === 'Canvas' ? Phaser.CANVAS : Phaser.AUTO
+            });
+
+            game.loadingProcessCallback = qici.loadAssetsNotify;
+            game.localStorageID = qici.config.localStorageID;
+            game.log.important('**** [QICI Engine]Starting game: {0}', qici.config.gameName);
+        };
+
+        qici.splashState = {
+            init: function() {
+                var game = window[qici.config.gameInstance];
+                game.fullScreen();
+                game.assets.baseURL = window.location.origin + '/welcome/';
+            },
+            preload: function() {
+                var game = window[qici.config.gameInstance];
+                if (qici.config.loadingPrefab) {
+                    game.assets.load('__loading_prefab__', qici.config.loadingPrefab);
+                }
+                game.updateScale(true);
+            },
+            create: function() {
+                var game = window[qici.config.gameInstance];
+                game.scene.entry = qici.config.entryScene;
+                game.scene.list = qici.config.scene;
+                game.timer.add(1, function() {
+                    game.scene.load(game.scene.entry, true);
+                });
+            }
+        };
+
+        G.ProjectWizard.initProject(function() {
+            qici.loadGame();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+gradlew.bat :app:assembleRelease

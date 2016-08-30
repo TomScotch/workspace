@@ -1,0 +1,11 @@
+{
+    "id": "com.qici.box2d",
+    "name": "Box2D",
+    "version": "0.9",
+    "dependence": [
+    ],
+    "scriptOrder" : [
+        "lib/Box2D_v2.3.1_min.js",
+        "World.js"
+    ]
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html __MANIFEST__>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+__VIEWPORT__
+    <link rel="shortcut icon" href="http://engine.zuoyouxi.com/qici.ico" />
+    <title>__GAME_NAME__</title>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./Assets/css/style.css"/>
+
+    <script>
+        // The game configuration
+        var qici = {};
+        qici.config = {
+            gameName: '__GAME_NAME__',
+            localStorageID: '__LOCAL_STORAGE_ID__',
+            gameInstance: '__GAME_INSTANCE__',
+            frameRate: __FRAMERATE__,
+            fixedGameSize: __FIXEDGAMESIZE__,
+            resolutionRatio: __RESOLUTIONRATIO__,
+            customSettings: __CUSTOM_SETTINGS__,
+            backgroundColor: __BACKGROUNDCOLOR__,
+            runInBackground: __RUNINBACKGROUND__,
+            antialias: __ANTIALIAS__,
+            transparent: __TRANSPARENT__,
+            developerMode: __DEVELOPERMODE__,
+            renderer: '__RENDERER__',
+            loadingPrefab: '__LOADINGPREFAB__',
+            scene: [
+                __SCENE_LIST__
+            ],
+            entryScene : '__ENTRY_SCENE__',
+            dirtyRectangles: __DIRTYRECTAGNLES__,
+            loadingHandler: 'progressHandler',
+            loading: {
+                loadingText: 'Loading, please wait...',
+                loadingInterval: 200,
+                brightingInterval: 10,
+                blinkingCount: 5,
+                blinkingInterval: 70,
+                fadingInInterval: 400,
+                fadingOutInterval: 600
+            }
+        };
+
+ __PLUGIN_VARIABLES__
+
+        qici.scripts = [
+            __URLMAP_SCRIPTS__
+            'http://engine.zuoyouxi.com/lib/{__ver__}/phaser.min.js',
+            'http://engine.zuoyouxi.com/lib/{__ver__}/webfontloader.js',
+            'http://engine.zuoyouxi.com/lib/{__ver__}/qc-core.js',
+            'http://engine.zuoyouxi.com/lib/qc-webgl.js',
+            // sound duration
+            __SOUND_DURATION__
+            // asset count
+            __ASSET_COUNT__
+            // External scripts for plugins
+__EXTERNAL_PLUGINS_SCRIPTS__
+            // User scripts
+            './__PUBLISH_USER_SCRIPTS__'
+        ];
+
+        // Asset count that need preload in boot
+        qici.loadingAssetCount = __LOADING_ASSET_COUNT__;
+    </script>
+</head>
+
+<body onload="qici.init();">
+    <div style="overflow:hidden;padding:0;margin:0;width:100%;height:100%;">
+        <div id="gameDiv" style="position:relative;"></div>
+    </div>
+    <script src='http://engine.zuoyouxi.com/lib/{__ver__}/qc-loading.js'></script>
+</body>
+
+</html>

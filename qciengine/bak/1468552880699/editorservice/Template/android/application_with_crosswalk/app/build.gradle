@@ -1,0 +1,194 @@
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    apply from: 'qici.gradle'
+    // prepare android config value
+    if (!project.hasProperty('qcApplicationId')) {
+        qcApplicationId = null;
+    }
+    if (!project.hasProperty('qcCompileSdkVersion')) {
+        qcCompileSdkVersion = null;
+    }
+    if (!project.hasProperty('qcBuildToolsVersion')) {
+        qcBuildToolsVersion = null;
+    }
+    if (!project.hasProperty('qcMinSdkVersion')) {
+        qcMinSdkVersion = null;
+    }
+    if (!project.hasProperty('qcTargetSdkVersion')) {
+        qcTargetSdkVersion = null;
+    }
+    if (!project.hasProperty('qcVersionCode')) {
+        qcVersionCode = null;
+    }
+    if (!project.hasProperty('qcVersionName')) {
+        qcVersionName = null;
+    }
+    if (!project.hasProperty('qcScreenOrientation')) {
+        qcScreenOrientation = null;
+    }
+
+    // Plugin gradle extensions can append to this to have code run at the end.
+    qcPluginPostBuildExtras = []
+}
+
+def hasBuildExtras = file('build-additions.gradle').exists()
+if (hasBuildExtras) {
+    apply from: 'build-additions.gradle'
+}
+
+// Collect properties value
+if (ext.qcApplicationId == null) {
+    ext.qcApplicationId = qcHelps.getConfigPreference('applicationId', null)
+}
+if (ext.qcCompileSdkVersion == null) {
+    ext.qcCompileSdkVersion = qcHelps.getProjectTarget()
+}
+if (ext.qcBuildToolsVersion == null) {
+    ext.qcBuildToolsVersion = qcHelps.findLatestInstalledBuildTools()
+}
+if (ext.qcVersionName == null) {
+    ext.qcVersionName = qcHelps.getConfigPreference('versionName', null)
+}
+
+ext.qcMinSdkVersion = qcMinSdkVersion == null ? qcHelps.getConfigPreference('minSdkVersion', null) : Integer.parseInt('' + qcMinSdkVersion)
+ext.qcVersionCode = qcVersionCode == null ? qcHelps.getConfigPreference('versionCode', null) : Integer.parseInt('' + qcVersionCode)
+ext.qcScreenOrientation = qcScreenOrientation ?: qcHelps.getConfigPreference('screenOrientation', 'behind')
+ext.qcReleaseSigningProperties = qcHelps.getConfigPreference('releaseSigningProperties', null)
+ext.qcDebugSigningProperties = qcHelps.getConfigPreference('debugSigningProperties', null)
+
+android {
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    compileSdkVersion Integer.parseInt('' + qcCompileSdkVersion)
+    buildToolsVersion qcBuildToolsVersion
+
+    defaultConfig {
+        applicationId qcApplicationId ?: qcHelps.extractStringFromManifest("package")
+        versionCode qcVersionCode ?: Integer.parseInt("" + qcHelps.extractStringFromManifest("versionCode") + "0")
+        manifestPlaceholders = [
+                ScreenOrientation: qcScreenOrientation
+        ]
+        if (qcMinSdkVersion != null) {
+            minSdkVersion qcMinSdkVersion
+        }
+        if (qcTargetSdkVersion != null) {
+            targetSdkVersion Integer.parseInt('' + (qcTargetSdkVersion ?: qcHelps.getProjectTarget()))
+        }
+        if (qcVersionName != null) {
+            versionName qcVersionName
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+
+        }
+    }
+
+    if (qcReleaseSigningProperties != null) {
+        signingConfigs {
+            release {
+                // These must be set or Gradle will complain (even if they are overridden).
+                keyAlias = ""
+                keyPassword = null // And these must be set to non-empty in order to have the signing step added to the task graph.
+                storeFile = null
+                storePassword = null
+            }
+        }
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+            }
+        }
+        addSigningProps(qcReleaseSigningProperties, signingConfigs.release)
+    }
+    if (qcDebugSigningProperties != null) {
+        addSigningProps(qcDebugSigningProperties, signingConfigs.debug)
+    }
+	lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    // compile 'com.android.support:appcompat-v7:23.1.1'
+    compile project(':library_projects:xwalk_core_library')
+}
+
+def addSigningProps(props, signingConfig) {
+    def storeFile = new File(props.keyStore ?: props.storeFile)
+    if (!storeFile.exists()) {
+        throw new FileNotFoundException('Keystore file does not exist: ' + storeFile.getAbsolutePath())
+    }
+    signingConfig.keyAlias = props.keyAlias
+    signingConfig.keyPassword = props.keyPassword ?: qcKeyPassword
+    signingConfig.storeFile = storeFile
+    signingConfig.storePassword = props.storePassword ?: qcStorePassword
+
+    if (signingConfig.keyPassword == null ||
+        signingConfig.storePassword == null) {
+        throw new RuntimeException('key password or store password not set')
+    }
+
+    def storeType = props.storeType
+    if (!storeType) {
+        def filename = storeFile.getName().toLowerCase();
+        if (filename.endsWith('.p12') || filename.endsWith('.pfx')) {
+            storeType = 'pkcs12'
+        } else {
+            storeType = signingConfig.storeType // "jks"
+        }
+    }
+    signingConfig.storeType = storeType
+}
+
+for (def func : qcPluginPostBuildExtras) {
+    func()
+}
+
+// This can be defined within build-extras.gradle as:
+//     ext.postBuildExtras = { ... code here ... }
+if (hasProperty('postBuildExtras')) {
+    postBuildExtras()
+}

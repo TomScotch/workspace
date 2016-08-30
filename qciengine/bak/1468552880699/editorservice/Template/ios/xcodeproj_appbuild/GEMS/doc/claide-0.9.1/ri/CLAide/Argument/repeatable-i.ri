@@ -1,0 +1,3 @@
+U:RDoc::Attr[iI"repeatable:ETI" CLAide::Argument#repeatable;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"@return [Boolean];To:RDoc::Markup::Verbatim;	[I"DIndicates if the argument is repeatable (= can appear multiple
+;TI"Etimes in the command, which is indicated by '...' in the banner);T:@format0:
+@fileI"lib/claide/argument.rb;T:0@omit_headings_from_table_of_contents_below0F@I"CLAide::Argument;FcRDoc::NormalClass0

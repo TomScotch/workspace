@@ -1,0 +1,12 @@
+{
+    "id": "com.qici.box2dweb",
+    "name": "Box2DWeb",
+    "version": "0.9",
+    "dependence": [
+    ],
+    "scriptOrder" : [
+        "lib/Box2D.js",
+        "B2ObjectProxy.js",
+        "World.js"
+    ]
+}

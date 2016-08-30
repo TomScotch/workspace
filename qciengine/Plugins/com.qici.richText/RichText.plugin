@@ -1,0 +1,21 @@
+{
+    "id": "com.qici.richText",
+    "name": "RichText",
+    "version": "1.0",
+    "dependence": [
+    ],
+    "scriptOrder" : [
+        "Core.js",
+        "UnicodeBlock.js",
+        "RichTextSymbol.js",
+        "RichTextChunk.js",
+        "RichTextAttributeParse.js",
+        "RichTextParse.js",
+        "RichTextBlock.js",
+        "RichTextLine.js",
+        "RichTextSection.js",
+        "RichTextWrap.js",
+        "RichTextStyle.js",
+        "RichText.js"
+    ]
+}

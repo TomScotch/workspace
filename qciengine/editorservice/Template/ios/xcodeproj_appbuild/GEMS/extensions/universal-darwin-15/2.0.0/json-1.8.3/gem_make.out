@@ -1,0 +1,14 @@
+current directory: /Users/qcplay/Projects/ruby/GEMS/gems/json-1.8.3/ext/json
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby -r ./siteconf20160422-43156-l7a67z.rb extconf.rb
+creating Makefile
+
+current directory: /Users/qcplay/Projects/ruby/GEMS/gems/json-1.8.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/qcplay/Projects/ruby/GEMS/gems/json-1.8.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/qcplay/Projects/ruby/GEMS/gems/json-1.8.3/ext/json
+make "DESTDIR=" install
+installing default libraries

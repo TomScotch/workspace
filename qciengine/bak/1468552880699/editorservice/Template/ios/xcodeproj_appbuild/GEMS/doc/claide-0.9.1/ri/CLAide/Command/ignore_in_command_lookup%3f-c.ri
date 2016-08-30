@@ -1,0 +1,5 @@
+U:RDoc::Attr[iI"ignore_in_command_lookup?:ETI"/CLAide::Command::ignore_in_command_lookup?;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"K@return [Boolean] Indicates whether or not this command is used during;To:RDoc::Markup::Verbatim;	[	I"Bcommand parsing and whether or not it should be shown in the
+;TI"5help banner or to show its subcommands instead.
+;TI"
+;TI"?Setting this to `true` implies it’s an abstract command.;T:@format0:
+@fileI"lib/claide/command.rb;T:0@omit_headings_from_table_of_contents_below0T@I"CLAide::Command;FcRDoc::NormalClass0

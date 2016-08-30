@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+ext {
+    apply from: 'qici.gradle'
+	if (!project.hasProperty('qcCompileSdkVersion')) {
+        qcCompileSdkVersion = null;
+    }
+    if (!project.hasProperty('qcBuildToolsVersion')) {
+        qcBuildToolsVersion = null;
+    }
+    if (!project.hasProperty('qcMinSdkVersion')) {
+        qcMinSdkVersion = null;
+    }
+	if (!project.hasProperty('qcTargetSdkVersion')) {
+        qcTargetSdkVersion = null;
+    }
+}
+
+if (ext.qcCompileSdkVersion == null) {
+    ext.qcCompileSdkVersion = qcHelps.getProjectTarget()
+}
+if (ext.qcBuildToolsVersion == null) {
+    ext.qcBuildToolsVersion = qcHelps.findLatestInstalledBuildTools()
+}
+ext.qcMinSdkVersion = qcMinSdkVersion == null ? qcHelps.getConfigPreference('minSdkVersion', null) : Integer.parseInt('' + qcMinSdkVersion)
+android {
+	compileSdkVersion Integer.parseInt('' + qcCompileSdkVersion)
+    buildToolsVersion qcBuildToolsVersion
+
+    defaultConfig {
+		if (qcMinSdkVersion != null) {
+            minSdkVersion qcMinSdkVersion
+        }
+        if (qcTargetSdkVersion != null) {
+            targetSdkVersion Integer.parseInt('' + (qcTargetSdkVersion ?: qcHelps.getProjectTarget()))
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/xwalk_core_library_java.jar')
+}

@@ -1,0 +1,10 @@
+{
+    "id": "com.qici.particleSystem",
+    "name": "Particle System",
+    "version": "1.0",
+    "dependence": [],
+    "scriptDependence" : {
+        "Zones/Zone.js": ["ParticleSystem.js"],
+        "Transitions/Transform.js": ["ParticleSystem.js"]
+    }
+}

@@ -1,0 +1,6 @@
+framework module XWalkView {
+  umbrella header "crosswalk-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}

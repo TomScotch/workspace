@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"version:ETI"CLAide::Command::version;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"L@return [String] The version of the command. This value will be printed;To:RDoc::Markup::Verbatim;	[I":by the `--version` flag if used for the root command.;T:@format0:
+@fileI"lib/claide/command.rb;T:0@omit_headings_from_table_of_contents_below0T@I"CLAide::Command;FcRDoc::NormalClass0
