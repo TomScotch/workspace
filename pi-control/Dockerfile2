@@ -1,8 +1,0 @@
-RUN apt-get install lighttpd php5-cgi php5-fpm php5-mcrypt libssh2-1-dev libssh2-php
-RUN lighty-enable-mod fastcgi
-RUN lighty-enable-mod fastcgi-php
-RUN service php5-fpm restart
-RUN service lighttpd force-reload
-RUN passwd root
-RUN wget http://picontrol.willy-tech.de/picontrol_installer
-RUN bash picontrol_installer
