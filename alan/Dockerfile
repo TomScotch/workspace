@@ -42,7 +42,7 @@ RUN (cd pocketsphinx && ./configure)
 RUN (cd pocketsphinx && make)
 RUN (cd pocketsphinx && make install)
 
-RUN git clone https://github.com/tomscotch/alan.git
+RUN git clone https://github.com/camtaylor/alan.git
 RUN apt-get install libpocketsphinx-dev -y
 RUN pip install pyaudio --upgrade
 RUN pip install --upgrade nltk

@@ -6,7 +6,7 @@ RUN apt install -y sqlite3
 
 WORKDIR /root/
 
-RUN git clone https://github.com/TomScotch/sample_app_3rd_edition.git microblogs
+RUN git clone https://github.com/mhartl/sample_app_3rd_edition.git microblogs
 
 WORKDIR /root/microblogs
 
