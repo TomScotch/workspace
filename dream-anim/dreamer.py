@@ -302,7 +302,7 @@ def extractVideo(inputdir, outputdir):
 
 def createVideo(inputdir, outputdir, framerate):
     print subprocess.Popen('ffmpeg -r ' + str(
-        framerate) + ' -f image2 -i "' + inputdir + '/frame_%6d.png" -c:v libx264 -crf 20 -pix_fmt yuv420p -tune fastdecode -tune zerolatency -profile:v baseline ' + outputdir,
+        framerate) + ' -f image2 -i "' + inputdir + '/frame_%6d.png" -c:v libx264 -pix_fmt yuv420p -profile:v baseline ' + outputdir,
                            shell=True, stdout=subprocess.PIPE).stdout.read()
 
 
