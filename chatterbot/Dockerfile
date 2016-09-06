@@ -10,4 +10,6 @@ COPY train.py /opt/
 RUN apt-get install -y python-levenshtein
 RUN python -m textblob.download_corpora
 RUN python train.py
+RUN apt-get install pocketsphinx -y
+RUN pip install chatterbot-voice
 CMD python terminal_example.py

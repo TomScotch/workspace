@@ -101,4 +101,7 @@ WORKDIR /opt
 RUN wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel && mv bvlc_googlenet.caffemodel /opt/caffe/models/bvlc_googlenet/
 COPY run.sh .
 COPY dreamer.py .
+#RUN add-apt-repository ppa:rebuntu16/avidemux+unofficial
+#RUN apt update && apt-get install avidemux-cli -y
+RUN apt-get install mencoder -y
 CMD bash run.sh

@@ -5,7 +5,7 @@ gemspec
 gem "lita-default-handlers"
 
 gem "lita-ai"
-
+gem "lita-irc"
 gem "lita-roll"
 gem "lita-wikipedia"
 gem "lita-chuck_norris"

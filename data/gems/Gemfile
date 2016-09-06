@@ -1,11 +1,11 @@
 source "https://rubygems.org"
 
+gemspec
 
-gem "lita"
+gem "lita-default-handlers"
 
 gem "lita-ai"
-
-gem "lita-todo"
+gem "lita-irc"
 gem "lita-roll"
 gem "lita-wikipedia"
 gem "lita-chuck_norris"

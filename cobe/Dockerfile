@@ -7,5 +7,5 @@ COPY . .
 RUN python setup.py install
 WORKDIR ~
 RUN cobe init
-#RUN cobe learn text
+RUN pip install twisted
 CMD cobe console
