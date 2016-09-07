@@ -11,5 +11,9 @@ for i in range(001,3000):
     testfile = urllib.URLopener()
     testfile.retrieve(url, "scp-"+str(i)+".html")
     print url
-  except :
-    print 'An error occurred'
+  except:
+    try:
+      testfile.retrieve(url, "scp-"+str(i))
+      print url
+    except:
+      print 'An error occurred'
