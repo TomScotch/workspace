@@ -35,6 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python-numpy \
         python-pip \
         python-scipy && \
+	python-setuptools && \
     rm -rf /var/lib/apt/lists/*
 RUN apt-get install -y python-pip-whl
 ENV CAFFE_ROOT=/opt/caffe
