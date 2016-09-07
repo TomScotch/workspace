@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libhdf5-serial-dev \
         libleveldb-dev \
         liblmdb-dev \
-        libopencv-dev \
+        #libopencv-dev \
         libprotobuf-dev \
         libsnappy-dev \
         protobuf-compiler \
@@ -44,7 +44,7 @@ ENV CLONE_TAG=master
 RUN git clone -b ${CLONE_TAG} --depth 1 http://github.com/BVLC/caffe.git .
 RUN pip install pip --upgrade
 RUN for req in $(cat python/requirements.txt) pydot; do pip install $req; done 
-RUN mkdir build && cd build && cmake ${CMAKE_ARGS} .. 
+RUN mkdir build && cd build && cmake .. #${CMAKE_ARGS} .. 
 RUN cd build && make 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
