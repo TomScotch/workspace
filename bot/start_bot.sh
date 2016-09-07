@@ -1,1 +1,1 @@
-docker run -p 3000:3000 --net=host -it --name bot scotch/bot
+docker run -p 3000:3000 --net=host -it --name bot scotch/gitbot

@@ -2,7 +2,7 @@ FROM armhf/debian
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y sudo nano git python-pip mpg123 espeak --fix-missing
-RUN apt-get install -y libsphinxbase-dev libsphinxbase1 libpocketsphinx1 libpocketsphinx-dev sphinxbase-utils pocketsphinx-hmm-en-hub4wsj  libsphinxbase-dev libpocketsphinx-dev sphinxbase-utils sphinx-common pocketsphinx
+RUN apt-get install -y libsphinxbase-dev libsphinxbase1 libpocketsphinx1 libpocketsphinx-dev sphinxbase-utils pocketsphinx-hmm-en-hub4wsj  libsphinxbase-dev libpocketsphinx-dev sphinxbase-utils sphinx-common pocketsphinx --fix-missing
 WORKDIR /opt
 RUN git clone https://github.com/Melissa-AI/Melissa-Core.git melissa
 WORKDIR /opt/melissa
@@ -14,5 +14,6 @@ RUN pip install -r requirements.txt
 RUN easy_install $(cat requirements.txt)
 RUN apt install wget -y
 RUN ./setup/travis-build-core.sh
+RUN pip install -U textblob
 RUN python -m textblob.download_corpora
 CMD python main.py
