@@ -14,4 +14,5 @@ RUN pip install -r requirements.txt
 RUN easy_install $(cat requirements.txt)
 RUN apt install wget -y
 RUN ./setup/travis-build-core.sh
+RUN python -m textblob.download_corpora
 CMD python main.py

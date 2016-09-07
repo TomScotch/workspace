@@ -17,8 +17,8 @@ Lita.configure do |config|
 
   # The adapter you want to connect with. Make sure you've added the
   # appropriate gem to the Gemfile.
-  #config.robot.adapter = :shell
-   config.robot.adapter = :irc
+  config.robot.adapter = :shell
+  # config.robot.adapter = :irc
 
   ## Example: Set options for the chosen adapter.
   # config.adapter.username = "myname"
