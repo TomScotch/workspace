@@ -15,6 +15,7 @@ RUN apt-get install ruby-all-dev
 RUN bundle install --without production
 RUN bundle exec rake db:migrate
 RUN bundle exec rake db:migrate RAILS_ENV=test
+RUN bundle exec rake db:seed
 
 EXPOSE 81
 

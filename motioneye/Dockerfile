@@ -116,7 +116,7 @@ VOLUME /var/run/motion
 
 VOLUME /var/lib/motion
 
-
+COPY motioneye.conf /etc/motioneye/motioneye.conf
 
 CMD /usr/local/bin/meyectl startserver -c /etc/motioneye/motioneye.conf
 
