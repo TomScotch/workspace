@@ -22,20 +22,6 @@ note_freqs = [
     4186.0, 4435.0, 4699.0, 4978.0, 5274.0, 5588.0, 5920.0, 6272.0, 6645.0, 7040.0, 7459.0, 7902.0,
 ]
 
-def playWAV( fname ):
-  import pymedia.audio.sound as sound
-  import time, wave
-  f= wave.open( fname, 'rb' )
-  sampleRate= f.getframerate()
-  channels= f.getnchannels()
-  format= sound.AFMT_S16_LE
-  snd1= sound.Output( sampleRate, channels, format )
-  s= ' '
-  while len( s ):
-    s= f.readframes( 1000 )
-    snd1.play( s )
-  while snd1.isPlaying(): time.sleep( 0.05 )
-
 def generate_sin_wave(sample_rate, frequency, duration, amplitude):
     """
     Generate a sinusoidal wave based on `sample_rate`, `frequency`, `duration` and `amplitude`
@@ -77,7 +63,10 @@ def generate_r2d2_message(filename):
 def main():
     filename = 'r2d2.wav'
     generate_r2d2_message(filename)
-    playWAV( filename )
+    import pyglet
+    song = pyglet.media.load(filename)
+    song.play()
+    pyglet.app.run()
 
 if __name__ == '__main__':
     main()
