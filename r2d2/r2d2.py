@@ -7,12 +7,12 @@
 import math
 import random
 from wavefile import WaveFile
-from playwav import PlayWav
+#from playsound import playsound
 
 note_freqs = [
     #  C       C#       D      D#      E       F       F#      G       G#      A       A#      B   
      16.35,  17.32,  18.35,  19.45,   20.6,  21.83,  23.12,   24.5,  25.96,   27.5,  29.14,  30.87,
-      32.7,  34.65,  36.71,  38.89,   41.2,  43.65,  46.25,   49.0,  51.91,   55.0,  58.27,  61.74,
+B      32.7,  34.65,  36.71,  38.89,   41.2,  43.65,  46.25,   49.0,  51.91,   55.0,  58.27,  61.74,
      65.41,   69.3,  73.42,  77.78,  82.41,  87.31,   92.5,   98.0,  103.8,  110.0,  116.5,  123.5,
      130.8,  138.6,  146.8,  155.6,  164.8,  174.6,  185.0,  196.0,  207.7,  220.0,  233.1,  246.9,
      261.6,  277.2,  293.7,  311.1,  329.6,  349.2,  370.0,  392.0,  415.3,  440.0,  466.2,  493.9,
@@ -63,10 +63,11 @@ def generate_r2d2_message(filename):
 def main():
     filename = 'r2d2.wav'
     generate_r2d2_message(filename)
-    import pyglet
-    song = pyglet.media.load(filename)
-    song.play()
-    pyglet.app.run()
+    import pygame
+    pygame.init()
+    pygame.mixer.music.load(filename)
+    pygame.mixer.music.play()
+    pygame.event.wait()
 
 if __name__ == '__main__':
     main()
