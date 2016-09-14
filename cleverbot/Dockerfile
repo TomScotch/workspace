@@ -1,8 +1,11 @@
-FROM resin/raspberrypi3-node
+FROM armhf/ubuntu
 RUN apt-get update
 RUN apt-get upgrade -y
 WORKDIR /opt/
-RUN npm install --save cleverbot.io 
-RUN git clone https://github.com/CleverbotIO/node-cleverbot.io cleverbot
-COPY example.js /opt/cleverbot/cleverbot.js
-CMD cd /opt/cleverbot && node cleverbot.js
+RUN apt-get install -y wget nano sudo git python3-pip python3-requests
+RUN easy_install3 pip
+RUN pip install pip --upgrade
+RUN pip install cleverbot chatterbot
+COPY bot_bot_chat.py /opt/
+COPY human_bot_chat.py /opt/
+CMD python3 bot_bot_chat.py
