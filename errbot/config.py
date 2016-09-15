@@ -165,14 +165,14 @@ BOT_IDENTITY = {
     # 'token': '103419016:AAbcd1234...',
 
     ## IRC mode (Comment the others above if using this mode)
-    # 'nickname' : 'err-chatbot',
-    # 'username' : 'err-chatbot',    # optional, defaults to nickname if omitted
+     'nickname' : 'err-chatbot',
+     'username' : 'err-chatbot',    # optional, defaults to nickname if omitted
     # 'password' : None,             # optional
-    # 'server' : 'irc.freenode.net',
-    # 'port': 6667,                  # optional
-    # 'ssl': False,                  # optional
-    # 'ipv6': False,                 # optional
-    # 'nickserv_password': None,     # optional
+     'server' : '192.168.0.17',
+     'port': 6667,                  # optional
+     'ssl': False,                  # optional
+     'ipv6': False,                 # optional
+     'nickserv_password': None,     # optional
     ## Optional: Specify an IP address or hostname (vhost), and a
     ## port, to use when making the connection. Leave port at 0
     ## if you have no source port preference.
@@ -191,7 +191,7 @@ BOT_ADMINS = ('pi@localhost',)
 # should include the # sign here. For XMPP rooms that are password
 # protected, you can specify another tuple here instead of a string,
 # using the format (RoomName, Password).
-# CHATROOM_PRESENCE = ('err@conference.server.tld',)
+#CHATROOM_PRESENCE = ('#polymatrix')
 
 # The FullName, or nickname, your bot should use. What you set here will
 # be the nickname that Errbot shows in chatrooms. Note that some XMPP
@@ -380,3 +380,4 @@ REVERSE_CHATROOM_RELAY = {}
 
 # Prevent ErrBot from saying anything if the command is unrecognized.
 # SUPPRESS_CMD_NOT_FOUND = False
+

@@ -1,0 +1,13 @@
+{
+  "name": "lita",
+  "server": "192.168.0.17",
+  "irc": {
+    "channels": ["#polymatrix"],
+    "userName": "neural",
+    "realName": "ai"
+  },
+  "stream": {
+    "alwaysHighlight": "true",
+    "participationChance": 0.05
+  }
+}
