@@ -1,1 +1,1 @@
-docker run -it --name cleverbot scotch/cleverbot
+docker run --restart=on-failure -it --name cleverbot scotch/cleverbot

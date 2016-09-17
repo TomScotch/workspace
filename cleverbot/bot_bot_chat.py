@@ -4,16 +4,17 @@ import traceback
 
 import cleverbot
 
-
 def main():
+
     # instantiate two Cleverbot objects
     cleverbot_client_one = cleverbot.Cleverbot()
     cleverbot_client_two = cleverbot.Cleverbot()
 
     print('>> Cleverbot #1: Hi.')
-    answer = cleverbot_client_two.ask('Hello')
+    answer = cleverbot_client_two.ask('hi')
 
     while True:
+
         print('>> Cleverbot #2: {}'.format(answer).encode('utf-8'))
         answer = cleverbot_client_one.ask(answer)
         print('>> Cleverbot #1: {}'.format(answer).encode('utf-8'))
