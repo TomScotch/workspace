@@ -18,7 +18,7 @@ WORKDIR /opt/opencv
 RUN mkdir build
 WORKDIR /opt/opencv/build
 RUN cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
-RUN make -j 2
+RUN make
 RUN sudo make install
 CMD python leica.py
 
