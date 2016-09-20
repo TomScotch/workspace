@@ -6,4 +6,4 @@ RUN cd /opt/ && git clone https://github.com/MycroftAI/mimic.git
 WORKDIR /opt/mimic
 RUN ./configure --with-audio=alsa
 RUN make
-ENTRYPOINT['mimic','-t','text']
+CMD mimic -t 'hello captain scotch'
