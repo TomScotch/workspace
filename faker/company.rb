@@ -1,0 +1,12 @@
+require 'faker'
+puts Faker::Company.name #=> "Hirthe-Ritchie"
+puts Faker::Company.suffix #=> "Group"
+puts Faker::Company.catch_phrase #=> "Business-focused coherent parallelism"
+puts Faker::Company.buzzword #=> "Business-focused"
+puts Faker::Company.bs #=> "empower one-to-one web-readiness"
+puts Faker::Company.ein #=> "34-8488813"
+puts Faker::Company.duns_number #=> "08-341-3736"
+puts Faker::Company.logo #=> "https://pigment.github.com/fake-logos/logos/medium/color/5.png"
+puts Faker::Company.swedish_organisation_number #=> "7718797652"
+puts Faker::Company.australian_business_number #=> "81137773602"
+puts Faker::Company.profession #=> "firefighter"

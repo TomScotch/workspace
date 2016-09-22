@@ -1,0 +1,13 @@
+require 'faker'
+puts Faker::Space.planet #=> "Venus"
+puts Faker::Space.moon #=> "Europa"
+puts Faker::Space.galaxy #=> "Andromeda"
+puts Faker::Space.nebula #=> "Triffid Nebula"
+puts Faker::Space.star_cluster #=> "Messier 70"
+puts Faker::Space.constellation #=> "Orion"
+puts Faker::Space.star #=> "Proxima Centauri"
+puts Faker::Space.agency #=> "Japan Aerospace Exploration Agency"
+puts Faker::Space.agency_abv #=> "NASA"
+puts Faker::Space.nasa_space_craft #=> "Endeavour"
+puts Faker::Space.company #=> "SpaceX"
+puts Faker::Space.distance_measurement #=> "15 parsecs"

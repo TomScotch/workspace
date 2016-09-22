@@ -6,4 +6,5 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F3B1AA8B
 RUN echo "deb http://repo.mycroft.ai/repos/apt/debian debian main" > /etc/apt/sources.list.d/repo.mycroft.ai.list
 RUN apt-get update
 RUN apt-get install -y mycroft-core
-CMD service mycroft-messagebus start
+RUN apt-get install -y python-future
+CMD service mycroft-messagebus start && bash
