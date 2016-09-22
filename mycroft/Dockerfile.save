@@ -46,9 +46,10 @@ RUN \
   easy_install pip==7.1.2 && \
   pip install -r requirements.txt --trusted-host pypi.mycroft.team && \
   pip install supervisor && \
+  cd /mycroft/ai/scripts && \
   ./install-mimic.sh
 
-  # install pygtk for desktop_launcher skill (will have to do this manually WIP)
+# install pygtk for desktop_launcher skill (will have to do this manually WIP)
   
 # Set environment variables.
 ENV HOME /mycroft
@@ -62,5 +63,22 @@ ENV PYTHONPATH $PYTHONPATH:/mycroft/ai/mycroft/client/skills/main.py
 
 EXPOSE 8000
 
-#CMD ["/bin/bash"]
-CMD bash supervisord
+#RUN ./ai/scripts/install-mimic.sh
+
+RUN ./ai/build_host_setup_debian.sh
+
+COPY dev_setup.sh /mycroft/ai/
+RUN ./ai/dev_setup.sh 
+
+RUN cd /mycroft/ai/ && python mycroft-base-setup.py build
+
+RUN pip uninstall six -y
+RUN pip install setuptools --upgrade
+RUN cd /mycroft/ai/ && python mycroft-base-setup.py install
+
+COPY install-pygtk.sh /mycroft/ai/scripts/
+RUN ./ai/scripts/install-pygtk.sh
+
+RUN cd /mycroft/ai/ && chmod +x mycroft.sh
+CMD cd /mycroft/ai/ && ./mycroft.sh start
+

@@ -6,4 +6,4 @@ RUN cd /opt/ && git clone https://github.com/MycroftAI/mimic.git
 WORKDIR /opt/mimic
 RUN ./configure --with-audio=alsa
 RUN make
-CMD mimic -t 'hello captain scotch'
+CMD bin/mimic -t 'hello captain scotch'
