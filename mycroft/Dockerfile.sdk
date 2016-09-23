@@ -1,5 +1,6 @@
 FROM scotch/mycroft
 WORKDIR /mycroft/ai/
-RUN pip install mycroft_skills_sdk --extra-index-url=http://pypi.mycroft.team --trusted-host pypi.mycroft.team
 RUN pip install -t lib -r requirements.txt
+RUN python skills-sdk-setup.py build
 
+#RUN python skills-sdk-setup.py install

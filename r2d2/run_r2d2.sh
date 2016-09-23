@@ -1,1 +1,1 @@
-docker run -it --rm -v /dev/snd:/dev/snd --device=/dev/snd scotch/r2d2
+docker run -it --name r2d2 -v /dev/snd:/dev/snd --device=/dev/snd scotch/r2d2
