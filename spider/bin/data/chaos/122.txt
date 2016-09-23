@@ -1,0 +1,25 @@
+﻿Everyone at conferences (with multiple tracks) always complains that there are time slots with nothing interesting, and other time slots with too many interesting papers.  People have suggested crowdsourcing this, enabling parcipants to say -- well ahead of the conference -- which papers they'd go to... then let an algorithm schedule.
+
+I think there are various issues with this model, but don't want to talk about it.  What I do want to talk about is applying the same ideas to workshop acceptance decisions.  This comes up because I'm one of the two workshop chairs for ACL this year, and because John Langford just pointed to the ICML call for tutorials.  (I think what I have to say applies equally to tutorials as to workshops.)
+
+I feel like a workshop (or tutorial) is successful if it is well attended.  This applies both from a monetary perspective, as well as a scientific perspective.  (Note, though, that I think that small workshops can also be successful, especially if they are either fostering a small community, bring people in, or serving other purposes.  That is to say, size is not all that matters.  But it is a big part of what matters.)
+
+We have 30-odd workshop proposals for three of us to sort through (John Carroll and I are the two workshop chairs for ACL, and Marie Candito is the workshop chair for EMNLP; workshops are being reviewed jointly -- which actually makes the allocation process more difficult).  The idea would be that I could create a poll, like the following:
+Are you going to ACL?  Yes, maybe, no
+Are you going to EMNLP?  Yes, maybe, no
+If workshop A were offered at a conference you were going to, would you go to workshop A?
+If workshop B...
+And so on
+This gives you two forms of information.  First it can help estimate expected attendance (though we ask proposers to estimate that, too, and I think they do a reasonable job if you skew their estimates down by about 10%).  But more importantly, it gives correlations between workshops.  This lets you be sure that you're not scheduling things on top of each other that people might want to go to.  Some of these are obvious (for instance, if we got 10 MT workshop proposals... which didn't actually happen but is moderately conceivable :P), but some are not.  For instance, maybe people who care about annotation also care about ML, but maybe not?  I actually have no idea.
+
+Of course we're not going to do this this year.  It's too late already, and it would be unfair to publicise all the proposals, given that we didn't tell proposers in advance that we would do so.  And of course I don't think this should exclusively be a popularity contest.  But I do beleive that popularity should be a factor.  And it should probably be a reasonably big factor.  Workshop chairs could then use the output of an optimization algorithm as a starting point, and use this as additional data for making decisions.  Especially since two or three people are being asked to make decisions that cover--essentially--all areas of NLP, this actually seems like a good idea to me.
+
+I actually think something like this is more likely to actually happen at a conference like ICML than ACL, since ICML seems (much?) more willing to try new things than ACL (for better or for worse).
+
+But I do think it would be interesting to try to see what sort of response you get.  Of course, just polling on this blog wouldn't be sufficient: you'd want to spam, perhaps all of last year's attendees.  But this isn't particularly difficult.
+
+Is there anything I'm not thinking of that would make this obviously not work?  I could imagine someone saying that maybe people won't propose workshops/tutorials if the proposals will be made public?  I find that a bit hard to swallow.  Perhaps there's a small embarassment factor if you're public and then don't get accepted.  But I wouldn't advocate making the voting results public -- they would be private to the organizers / workshop chairs.
+
+I guess -- I feel like I'm channeling Fernando here? -- that another possible issue is that you might not be able to decide which workshops you'd go to without seeing what papers are there and who is presenting.  This is probably true.  But this is also the same problem that the workshop chairs face anyway: we have to guess that good enough papers/people will be there to make it worthwhile.  I doubt I'm any better at guessing this than any other random NLP person...
+
+So what am I forgetting?

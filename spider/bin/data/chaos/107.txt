@@ -1,0 +1,55 @@
+﻿Recently, I was using the SPGL1 toolbox to recover some “compressed sensed” images. As a reminder, SPGL1 implements the method described in “Probing the Pareto Frontier for basis pursuit solutions” of Michael P. Friedlander and Ewout van den Berg. It solves the Basis Pursuit DeNoise (or ) problem with a error power 
+
+
+
+where  is the usual measurement matrix for a measurement vector , and  and  are the  and the  norm of the vector  respectively. In short, as shown by E. Candès, J. Romberg and T. Tao, if  is well behaved, i.e. if it satisfies the so-called Restricted Isometry Property for any sparse signals, then the solution of  approximates (with a controlled error) a  sparse (or compressible) signal  such that , where  is an additive noise vector with power .
+
+The reason of this post is the following : I’m wondering if SPGL1 could be “easily” transformed into a solver of the Basis Pursuit with the Total Variation (TV) norm. That is, the minimization problem 
+
+
+
+where  with  is the th component of the complex finite difference operator applied on the vectorized image  of  pixels (in a set of coordinates  and ).  I have used here a “complexification” trick putting the finite differences  and  according to the directions  and  in the real part and the imaginary part respectively of the complex operator . The TV norm of  is then really the  norm of .
+
+This problem is particularly well designed for the reconstruction of compressed sensed images since most of them are very sparse in the “gradient basis” (see for instance some references about Compressed Sensing for MRI). Minimizing the TV norm, since performed in the spatial domain, is also sometimes more efficient than minimizing the  norm is a particular sparsity basis (e.g. 2-D wavelets, curvelets, …).
+
+Therefore, I would say that, as for the initial SPGL1 theoretical framework, it could be interesting to study the Pareto frontier related to , even if the TV norm is now a quasi-norm, i.e.   does not imply  but  for a certain constant .
+
+To explain better that point, let me first summarize the paper of Friedlander and van den Berg quoted above. They proposed to solve  by solving a LASSO problem (or ) regulated by a parameter ,
+
+
+
+If I’m right, the key idea is that there exists a  such that  is equivalent to . The problem is thus to assess this point. SPGL1 finds  iteratively using the fact that all the  problems define a smooth and decreasing curve of  (the Pareto curve) from the norm of the residual , where  is the solution of . More precisely, the function
+
+
+
+is decreasing from  to a value  such that
+
+
+
+Interestingly, the derivative  exists on  and it is simply equal to  with .
+
+As explained, on the point , the problem  provides the solution to . But since both  and  are known, a Newton method on this Pareto curve can then iteratively estimate  from the implicit equation . Practically, this is done by solving of an approximate  at each  (and the convergence of the Newton method is still linear).
+
+At the end, the whole approach is very efficient for solving high dimensional BPDN problems (such that BPDN for images) and the final computation cost is mainly due to the cost of the forward and transposed multiplication of the matrix/operator  with vectors.
+
+So what happens now if the  norm is replaced by the TV norm in this process ? If we switch from  to  ? Is there a “SPGL1 way” to solve that ?
+
+The function  resulting from such a context would have now the initial point  (with  the constant vector) since a zero TV norm means a constant  (the value of  arises just from the minimization on ). Notice that if  is for instance a Gaussian measurement matrix,  will be very close to  since the expectation value of the average of any row is zero.
+
+For the rest, I’m unfortunately not sufficiently familiar with convex optimization theory to deduce what is  for the TV framework (hum. I should definitely study that).
+
+However, for the  case,  (i.e. ) is computed approximately for each . This approximation, which is also iterative, uses a special projection operator to guarantee that the current candidate solution in the iteration remains feasible, i.e. remains in the  ball . As usual, this projection is accomplished through a Soft Thresholding procedure, i.e. as a solution of the problem
+
+,
+
+where  is the point to project, and where  is set so that the projection is inside the  ball above.
+
+For the TV minimization case, the TV ball  defining the feasible set of the approximate LASSO procedure would possibly generate a projection operator equivalent to the one solving the problem
+
+.
+
+This is somehow related to one of the lessons provided in the TwIST paper (“A new twIst: two-step iterative shrinkage/thresholding algorithms for image restoration”) of J. Bioucas-Dias and M. Figueiredo about the so-called Moreau function : There is a deep link between some iterative resolutions of a regularized BP problem using a given sparsity metric, e.g. the  or the TV norm, and the canonic denoising method of this metric, i.e. when the measurement is the identity operator, giving Soft Thresholding or TV denoising respectively.
+
+Thanks to the implementation of Antonin Chambolle (used also by TwIST), this last canonic TV minimization can be computed very quickly. Therefore, if needed, the required projection on the TV ball above can be also inserted in a potential “SPGL1 for TV sparsity problem”.
+
+OK… I agree that all that is just a very rough intuition. There is a lot of points to clarify and to develop. However, if you know something about all that (or if you detect that I’m totally wrong), or if you just want to comment this idea, feel free to use the comment box below …

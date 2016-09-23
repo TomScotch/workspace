@@ -1,0 +1,48 @@
+﻿I love computer languages. In fact, I’ve spent roughly half my life nurturing one particular very rich computer language: Mathematica.
+But do we really need computer languages to tell our computers what to do? Why can’t we just use natural human languages, like English, instead?
+If you’d asked me a few years ago, I would have said it was hopeless. That perhaps one could make toy examples, but that ultimately natural language just wouldn’t be up to the task of creating useful programs.
+But then along came Wolfram|Alpha. In which we’ve been able to make free-form linguistics work vastly better than I ever thought possible.
+But still, in Wolfram|Alpha the input is essentially just set up to request knowledge—and Wolfram|Alpha responds by computing and presenting whatever knowledge is requested. But programming is different. It is not about generating static knowledge, but about generating programs that can take a range of inputs, and dynamically perform operations.
+So the first question is: how might we represent these programs?
+In principle we could use pretty much any programming language. But to make things practical, particularly at the beginning, we need a programming language with a couple of key characteristics.
+The most important is that programs a user might specify with short pieces of natural language must typically be short—and readable—in the computer language. Because otherwise the user won’t be able to tell—at least not easily—whether the program that’s been produced actually does what they want.
+A second, somewhat related, criterion is that it must be possible for arbitrary program fragments to stand alone—so that large programs can realistically be built up incrementally, much like a description in natural language is built up incrementally with sentences and the like.
+Well, to get the first of these characteristics requires a very high-level language, in which there are already many constructs already built in to the language—and well enough designed that they all fit together without messy “glue” code.
+And to get the second characteristic essentially requires a symbolic language, in which any piece of any program is always a meaningful symbolic expression.
+Well, conveniently enough, there is one language that satisfies rather well both these requirements: Mathematica!
+The linguistic capabilities of Wolfram|Alpha give one the idea that one might be able to understand free-form natural language specifications of programs. Mathematica is what gives one the idea that there might be a reasonable target for programs generated automatically from natural language.
+For me, there was also a third motivating idea—that came from my work on A New Kind of Science (NKS). One might have thought that to perform any kind of complex task would always require a complex program. But what I learned in A New Kind of Science is that simple programs can often do highly complex things.
+And the result of this is that it’s often possible to find useful programs just by searching for them in the computational universe of possible programs—a technique that we use with increasing frequency in the actual development of both Wolfram|Alpha and Mathematica.
+And it was this that made me think that—even if all else failed—one might be able to “synthesize” programs from natural language just by searching for them.
+Well, OK, so there are reasons to hope that it might be possible to use natural language input to do programming.
+But can one actually make it work?
+Even when Wolfram|Alpha was launched, I still wasn’t sure. But as we worked on bringing Wolfram|Alpha together with Mathematica, I got more and more optimistic.
+And yesterday—with the release of Mathematica 8—we’ve launched the first production example. It’s certainly not the end of the story, but I think it’s a really good beginning. And I know that even as an expert Mathematica programmer, I’ve started routinely using natural language input for certain steps in writing programs.
+I showed a few examples in my post yesterday about free-form linguistics in Mathematica. Here’s another example:
+
+Here’s an example involving lists:
+
+And here are a couple of examples that make use of data from Wolfram|Alpha:
+
+One can also specify programs in natural language to apply to things one’s constructed in Mathematica. And in a Mathematica session, one can discard the natural language and just use the generated code by clicking that code.
+Now, of course, there are many issues—for example about disambiguation. But the good news is that we’ve got schemes for addressing these that we’ve been able to test out well in Wolfram|Alpha.
+I have to say that something I thought would be a big issue is the vagueness of natural language. That one particular natural language input might equally well refer to many different precise programs.
+And I had imagined it would be a routine thing to have to generate test examples for the user in order to be able to choose between different possible programs.
+But in reality this seems to be quite rare: there is usually an “obvious” interpretation, that in typical Wolfram|Alpha style, one can put first—with the less obvious interpretations a click away.
+So, how well does this all work? We’ve built out some particular areas of program functionality, and we’ll progressively be building out many more as time goes on.
+They’re primarily set up to work in Mathematica. But actually you can see most of them in some form just on the Wolfram|Alpha website—though obviously no references to variables or other parts of a Mathematica session can be used.
+
+How robust is it all? It’s definitely usable, but I would certainly like it to be more robust—and we will be working hard in that direction.
+One issue that we have faced is a lack of linguistic corpora in the area. We’ve scoured a couple of decades of our own tech support logs, as well as many programming forums, to try to find natural language descriptions matched with precise programs. But we haven’t be able to apply anything like the same level of automatic filtering to this process as we’ve been able to apply in many other areas of “linguistic discovery” for Wolfram|Alpha.
+There are zillions of fascinating research projects to do in figuring out generalized grammars for specifying different kinds of programming constructs in natural language—and I’ll look forward to seeing this field of inquiry develop.
+But as of yesterday we now have an important new source of data: actual examples of natural language programming being done in Mathematica 8. And taking a glance right now at our real-time monitoring system for the Wolfram|Alpha server infrastructure, I can see that very soon we’re going to have lots of data to study.
+How far will it be possible to get with natural language programming? Even six months ago I thought it was only going to be possible to do fairly simple examples. But seeing what we’ve actually been able to build, I’m extremely optimistic about what will be possible.
+The hope would be that in the end one will just have to describe in natural language the goal for one’s program—and then an actual program that achieves that goal will be synthesized. Sometimes this will directly be possible from understanding the specification of the goal. Sometimes to create the necessary program will require a whole program-creation process—probably often involving searching for an appropriate program in a space of possible programs, NKS style.
+It will be important to do program simplification—again often achieved by program search—in order to be able to get the simplest and most readable (and perhaps the most efficient) program that meets the requirements that have been given.
+At this point, I am still concerned about how much of this will be possible in “interactive times” of a few seconds. But if history is a guide, with good algorithms and heuristics, and a healthy dose of large-scale parallelism, it’ll gradually be possible to get the times down.
+So what will be the result? I expect natural language programming will eventually become ubiquitous as a way of telling computers what to do. People will be able to get started in doing programming-like tasks without learning anything about official “programming” and programming languages: they’ll just converse with their computers as they might converse with another person.
+What will happen to programming languages? Actually, I think they’ll become much more visible and widely known than ever before. Because in natural language programming interfaces one will probably be shown the programming language code that’s being synthesized.
+People will see that, and gradually learn cases where it’s much faster and more precise just to enter code like that directly, without going through natural language.
+By the way, in Mathematica 8 we’re beginning to have code generation capabilities for low-level languages like C. So it’s going to be technically possible to go all the way from natural language input down to something like C. And for some practical purposes—especially with embedded systems—that’ll no doubt be quite useful.
+But when it comes to doing traditional programming alongside natural language programming, there’s going to be a great premium on having a succinct readable programming language—like Mathematica.
+With the free-form linguistics of Mathematica 8 we’re at the first step in a long journey. But it’s a journey I’m now confident we can take. After so many years, the science-fiction concept of being able to tell a computer what to do by using plain human language is gradually going to become reality—in a way that fascinatingly coexists with what’s been achieved in high-level computer languages.
