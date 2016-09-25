@@ -1,1 +1,1 @@
-docker run -it --rm -v /dev/snd:/dev/snd --device=/dev/snd scotch/mimic
+docker run -itd --name mimic -v /dev/snd:/dev/snd --device=/dev/snd --entrypoint="bin/mimic" scotch/mimic
