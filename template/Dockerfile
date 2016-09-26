@@ -19,7 +19,7 @@ RUN chown -R pi:pi /home/pi
 
 WORKDIR /opt/
 
-ENTRYPOINT ["bin/bash"]
-CMD ["bash"]
+#ENTRYPOINT ["bash"]
+CMD bash
 
 #EXPOSE 12345

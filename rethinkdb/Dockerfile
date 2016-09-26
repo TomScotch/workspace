@@ -25,3 +25,7 @@ libcrypt-urandom-perl libboost-random-dev
 RUN ./configure --with-system-malloc --allow-fetch
 RUN make ALLOW_WARNINGS=0
 RUN make install ALLOW_WARNINGS=0
+#EXPOSE 8080
+#EXPOSE 29015
+#EXPOSE 28015
+CMD rethinkdb
