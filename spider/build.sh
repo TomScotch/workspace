@@ -1,1 +1,4 @@
-docker build -t scotch/spider .
+#build image
+#build.sh
+
+docker build -t scotch/${PWD##*/} .
