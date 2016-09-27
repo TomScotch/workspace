@@ -28,4 +28,4 @@ RUN make install ALLOW_WARNINGS=0
 EXPOSE 8080
 EXPOSE 29015
 EXPOSE 28015
-CMD rethinkdb
+CMD rethinkdb --bind all
