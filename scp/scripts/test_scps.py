@@ -2,8 +2,8 @@ import redis
 import sys
 import os
 
-addr = sys.argv[1]
-r = redis.Redis(host=addr,port=6379)
+r = redis.Redis(host="localhost",port=6379)
+
 r.set("test","test")
 
 if r.get("test") == "test" :
