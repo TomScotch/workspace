@@ -6,7 +6,5 @@ RUN pip install --upgrade pip
 RUN apt install -y python-pyaudio
 RUN pip install playsound wave
 RUN apt install -y libwavpack-dev python-pygame
-COPY . /opt/
+COPY *.py /opt/
 WORKDIR /opt/
-CMD python r2d2.py
-
