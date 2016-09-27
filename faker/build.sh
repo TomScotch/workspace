@@ -1,1 +1,4 @@
-docker build -t scotch/faker .
+#build image
+#build.sh
+
+docker build -t scotch/${PWD##*/} .
