@@ -13,7 +13,7 @@ else:
 
 for filename in os.listdir('/data/scp'):
 	f = open('/data/scp'+'/'+filename, 'r')
-	name =  filename.split(".html")
+	name =  filename.split(".htm")
 	n = name[0]
         try:
          print r.get(str(n))

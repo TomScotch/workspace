@@ -11,7 +11,7 @@ r = redis.Redis(host='localhost',port=6379)
 
 for filename in os.listdir('/data/scp'):
 	f = open('/data/scp'+'/'+filename, 'r')
-	name =  filename.split(".html")
+	name =  filename.split(".htm")
 	n = name[0]
         try:
 	 content = f.read()

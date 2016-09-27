@@ -1,11 +1,18 @@
 import redis
+import sys
+import os
 
-r = redis.Redis(host='localhost',port=6379)
+r = redis.Redis(host="localhost",port=6379)
 
-print "type 0 to exit \n"
-n = raw_input("please enter scp number : \n")
+r.set("test","test")
 
-while n.strip() != 0:
-    n = raw_input("Please enter scp number : \n")
-    scp = r.get("scp-"+n)
-    print scp
+if r.get("test") == "test" :
+  print "redis ready"
+else:
+  print "redis fail"
+
+for name in sys.argv :
+        try:
+	  print r.get(str(name))
+	except:
+	 print "not found  - example : scp-2088"
