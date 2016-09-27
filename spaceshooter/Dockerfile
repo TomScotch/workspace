@@ -8,4 +8,5 @@ WORKDIR /opt/spaceshooter/
 RUN npm install
 RUN npm install webpack-dev-server webpack jquery pixi.js
 RUN apt-get install -y bundler
+COPY package.json /opt/spaceshooter/
 CMD npm run start 
