@@ -4,9 +4,14 @@ import os
 import re
 
 TAG_RE = re.compile(r'<[^>]+>')
+substring = re.compile(r'[!--&+;><]')
 
 def remove_tags(text):
-    return TAG_RE.sub('', text)
+    text = TAG_RE.sub('', text)
+    text = text.replace("nbsp",' ')
+    text = substring.sub(' ',text)
+    return text
+
 r = redis.Redis(host='localhost',port=6379)
 
 for filename in os.listdir('/data/scp'):
@@ -20,4 +25,4 @@ for filename in os.listdir('/data/scp'):
          z = remove_tags(y[0])
 	 r.set(n,z)
 	except:
-	 print n
+	 print 'error with ' + n
