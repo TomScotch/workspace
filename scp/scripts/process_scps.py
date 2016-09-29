@@ -16,8 +16,6 @@ r = redis.Redis(host='localhost',port=6379)
 
 for filename in os.listdir('/data/scp'):
 	f = open('/data/scp'+'/'+filename, 'r')
-	name =  filename.split(".htm")
-	n = name[0]
         try:
 	 content = f.read()
 	 x = content.split('wikidot_top')
@@ -26,4 +24,4 @@ for filename in os.listdir('/data/scp'):
          a = z.split("8211 x",1)
          r.set(n,a[1].rstrip().lstrip())
 	except:
-	 print 'error with ' + n
+	 print 'scp data not found in database' + filename
