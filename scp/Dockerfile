@@ -5,4 +5,7 @@ RUN 	    mkdir /data
 WORKDIR     /data/
 EXPOSE 	    6379
 RUN 	    echo 'vm.overcommit_memory = 1' > /etc/sysctl.conf 
-RUN 	    redis-server --port 6379 >> /dev/null &
+RUN	    sysctl vm.overcommit_memory=1
+COPY	    redis.conf /data/
+RUN 	    redis-server /data/redis.conf --port 6379 >> /dev/null &
+
