@@ -7,5 +7,3 @@ WORKDIR /opt/mimic
 RUN ./configure --with-audio=alsa
 RUN make
 RUN mkdir /opt/text/
-ENTRYPOINT ["bin/mimic"]
-CMD ["-t greetings my master"]
