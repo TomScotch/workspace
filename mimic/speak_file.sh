@@ -1,1 +1,1 @@
-docker exec mimic bin/mimic -f /opt/$1
+docker exec mimic bin/mimic -voice slt -f /opt/$1

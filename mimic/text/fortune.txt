@@ -1,6 +1,0 @@
-Victory or defeat!
-Be careful!  UGLY strikes 9 out of 10!
-Suppose you're working on an optimizer to render \X unnecessary (or
-rather, redundant, which isn't the same thing in my book).
-		-- Larry Wall in <199710211624.JAA17833@wall.org>
-I've only got 12 cards.
