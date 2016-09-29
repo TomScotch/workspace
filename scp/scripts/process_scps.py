@@ -23,6 +23,7 @@ for filename in os.listdir('/data/scp'):
 	 x = content.split('wikidot_top')
 	 y = x[1].split('wikidot_bottom')
          z = remove_tags(y[0])
-	 r.set(n,z)
+         a = z.split("8211 x",1)
+         r.set(n,a[1].rstrip().lstrip())
 	except:
 	 print 'error with ' + n
