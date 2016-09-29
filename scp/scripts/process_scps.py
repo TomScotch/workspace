@@ -22,6 +22,6 @@ for filename in os.listdir('/data/scp'):
 	 y = x[1].split('wikidot_bottom')
          z = remove_tags(y[0])
          a = z.split("8211 x",1)
-         r.set(n,a[1].rstrip().lstrip())
+         r.set(filename,a[1].rstrip().lstrip())
 	except:
-	 print 'scp data not found in database' + filename
+	 print 'error - problem with - : ' + filename
