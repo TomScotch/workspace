@@ -5,7 +5,7 @@ import os.path
 n=0
 x=''
 
-for i in range(1,3000):
+for i in range(1,4000):
   if os.path.isfile("scp/scp-" + str(i) + ".htm") == 0 :
     x = i
     n = i
@@ -22,18 +22,18 @@ for i in range(1,3000):
       try:
         testfile = urllib.URLopener()
         testfile.retrieve(url, "scp/scp-"+str(n)+".htm")
-        print url
+        print "scp-" + n + " downloaded"
       except:
         try:
           testfile = urllib.URLopener()
           testfile.retrieve(url, "scp/scp-"+str(n)+".htm")
-          print url
+          print "scp-" + n + " downloaded"
         except:
           try:
             testfile = urllib.URLopener()
             testfile.retrieve(url, "scp/scp-"+str(n)+".html")
-            print url
+            print "scp-" + n + " downloaded"
           except:
-            print 'An error occurred'
+            print 'Wiki Article doesnt exist yet -->' + url 
     else :
-      print "already existing"
+      print "scp-"+ n + "  is already existing"
