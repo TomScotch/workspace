@@ -16,6 +16,7 @@ for filename in os.listdir('/data/scp'):
 	name =  filename.split(".htm")
 	n = name[0]
         try:
-         print r.get(str(n))
+          print r.get(str(n))
 	except:
-	 print "ERROR"
+          print "ERROR"
+
