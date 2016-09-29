@@ -18,11 +18,7 @@ for i in range(1,3000):
     if len(str(i)) == 3:
       n = str(0) + str(i)
     url = "http://www.scp-wiki.net/scp-"+str(x)
-    try:
-      testfile = urllib.URLopener()
-      testfile.retrieve(url, "scp/scp-"+str(n)+".htm")
-      print url
-    except:
+    if os.path.isfile("scp/scp-" + str(n) + ".htm") == 0 :
       try:
         testfile = urllib.URLopener()
         testfile.retrieve(url, "scp/scp-"+str(n)+".htm")
@@ -30,9 +26,14 @@ for i in range(1,3000):
       except:
         try:
           testfile = urllib.URLopener()
-          testfile.retrieve(url, "scp/scp-"+str(n)+".html")
+          testfile.retrieve(url, "scp/scp-"+str(n)+".htm")
           print url
         except:
-          print 'An error occurred'
-  else :
-    print "already existing"
+          try:
+            testfile = urllib.URLopener()
+            testfile.retrieve(url, "scp/scp-"+str(n)+".html")
+            print url
+          except:
+            print 'An error occurred'
+    else :
+      print "already existing"
