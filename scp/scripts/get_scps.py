@@ -23,12 +23,6 @@ for i in range(1,3060):
         testfile.retrieve(url, "scp/scp-"+str(n))
         print "scp-" + str(n) + " downloaded"
       except:
-        try:
-          url = "http://www.scp-wiki.net/scp-"+str(x)+".htm"
-          testfile = urllib.URLopener()
-          testfile.retrieve(url, "scp/scp-"+str(n))
-          print "scp-" + str(n) + " downloaded"
-        except: 
-          print 'Wiki Article doesnt exist yet -->' + url 
+        print 'Wiki Article doesnt exist yet -->' + url 
     else :
       print "scp-"+ str(n) + "  is already existing"
