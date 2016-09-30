@@ -15,9 +15,10 @@ RUN apt-get install -y \
       python-scipy python-flask \ 
       make gpp g++
 
-WORKDIR /opt/
+RUN cd /opt/ && git clone https://github.com/commonsense/conceptnet5
 
-RUN git clone https://github.com/commonsense/conceptnet5
+WORKDIR /opt/conceptnet5
+
 RUN python setup.py develop
 RUN make download_db
 RUN ln -s `readlink -f data` ~/.conceptnet5
