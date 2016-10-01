@@ -17,7 +17,7 @@ Lita.configure do |config|
 
   # The adapter you want to connect with. Make sure you've added the
   # appropriate gem to the Gemfile.
-  config.robot.adapter = :slack
+   config.robot.adapter = :slack
    config.adapters.slack.token = "xoxb-85873498419-oQAYc64r2SHXwFitKd4kJVlV"
   # config.robot.adapter = :irc
 
@@ -38,5 +38,4 @@ Lita.configure do |config|
 #  config.adapters.irc.user = "lita"
 #  config.adapters.irc.cinch = lambda do |cinch_config|
 #    cinch_config.max_reconnect_delay = 123
-  end
 end
