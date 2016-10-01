@@ -17,7 +17,8 @@ Lita.configure do |config|
 
   # The adapter you want to connect with. Make sure you've added the
   # appropriate gem to the Gemfile.
-  config.robot.adapter = :shell
+  config.robot.adapter = :slack
+   config.adapters.slack.token = "xoxb-85873498419-oQAYc64r2SHXwFitKd4kJVlV"
   # config.robot.adapter = :irc
 
   ## Example: Set options for the chosen adapter.
@@ -25,17 +26,17 @@ Lita.configure do |config|
   # config.adapter.password = "secret"
 
   ## Example: Set options for the Redis connection.
-  # config.redis[:host] = "127.0.0.1"
-  # config.redis[:port] = 1234
+   config.redis[:host] = "192.168.0.10"
+   config.redis[:port] = 6379
 
   ## Example: Set configuration for any loaded handlers. See the handler's
   ## documentation for options.
   # config.handlers.some_handler.some_config_key = "value"
   
-  config.adapters.irc.server = "192.168.0.10"
-  config.adapters.irc.channels = ["#lita"]
-  config.adapters.irc.user = "lita"
-  config.adapters.irc.cinch = lambda do |cinch_config|
-    cinch_config.max_reconnect_delay = 123
+#  config.adapters.irc.server = "192.168.0.10"
+#  config.adapters.irc.channels = ["#lita"]
+#  config.adapters.irc.user = "lita"
+#  config.adapters.irc.cinch = lambda do |cinch_config|
+#    cinch_config.max_reconnect_delay = 123
   end
 end

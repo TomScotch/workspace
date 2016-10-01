@@ -1,4 +1,4 @@
 #create container
 #create.sh
 
-docker create -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create -p 80:10054 --net=host -v /media/conceptnet/data/:/root/conceptnet/data/ -t -i --name ${PWD##*/} scotch/${PWD##*/}
