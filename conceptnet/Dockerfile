@@ -18,13 +18,18 @@ RUN apt-get install -y \
 ENV PYTHON python3
 RUN cd /root/ && git clone https://github.com/commonsense/conceptnet5 conceptnet
 WORKDIR /root/conceptnet
+RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN python3 setup.py develop
 RUN pip3 install assoc_space==1.0.2
 RUN pip3 install wordfreq==1.0
 RUN python3 -c 'import nltk; nltk.download("wordnet")'
 ENV CONCEPTNET_DATA /root/conceptnet/data
 RUN easy_install3 gunicorn
-CMD python3 -m conceptnet5.wsgi_web
-EXPOSE 8084
+RUN apt-get install ninja-build -y
+RUN make apsw
+RUN python ninja.py
+COPY build.ninja /root/conceptnet/
+RUN ninja -v
+CMD bash & gunicorn & python3 -m conceptnet5.wsgi_web
 EXPOSE 80
-EXPOSE 10054
+
