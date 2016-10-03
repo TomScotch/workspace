@@ -11,7 +11,7 @@ RUN bundle install
 RUN gem build lita.gemspec
 RUN gem install lita-5.0.0.gem
 COPY Gemfile /opt/lita/
-COPY lita_config.rb /opt/lita
+RUN cd /opt/lita && wget https://gist.githubusercontent.com/TomScotch/90d0e894028b90a29954f96d43a1bc79/raw/bc3666ff39384f441a566b91790fd5256320b78b/lita && mv lita lita_config.rb
 RUN apt-get install -y libcurl3 curl libghc-curl-dev
 RUN gem install curb -v '0.9.3'
 RUN gem install lita-slack
