@@ -14,7 +14,7 @@ def remove_tags(text):
 
 r = redis.Redis(host='localhost',port=6379)
 
-for filename in os.listdir('/data/scp'):
+for filename in os.listdir('/data/scp/'):
         try:
          f = open('/data/scp'+'/'+filename, 'r')
 	 content = f.read()

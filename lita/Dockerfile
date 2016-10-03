@@ -14,6 +14,7 @@ COPY Gemfile /opt/lita/
 COPY lita_config.rb /opt/lita
 RUN apt-get install -y libcurl3 curl libghc-curl-dev
 RUN gem install curb -v '0.9.3'
+RUN gem install lita-slack
 RUN bundle install
 RUN bundle update
 CMD redis-server > /dev/null & lita start
