@@ -1,5 +1,6 @@
 
-for f in /opt/text/*.txt; do
+for f in /opt/scps/*.txt; do
+    echo $f
   if [ -f $f".wav" ]
   then
     echo $f".wav existiert bereits"

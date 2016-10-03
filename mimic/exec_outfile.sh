@@ -1,1 +1,1 @@
-docker exec mimic bash /opt/outfile.sh
+docker exec mimic bash outfile.sh
