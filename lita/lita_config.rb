@@ -2,7 +2,6 @@ Lita.configure do |config|
   config.robot.name = "Lita"
   config.robot.mention_name = "@lita"
   config.robot.adapter = :slack
-  config.adapters.slack.token = "xoxb-85873498419-bWpTjMaezwoeT8x6w8Tcpu4a"
   config.adapters.slack.link_names = true
   config.adapters.slack.parse = "full"
   config.adapters.slack.unfurl_links = false
