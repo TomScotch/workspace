@@ -10,5 +10,5 @@ RUN apt-get update -y && \
 	  build-essential ffmpeg
 
 WORKDIR /opt/
+COPY run-all.sh /opt/
 
-CMD ffmpeg -i video.mp4 -i audio.wav -c copy output.mkv
