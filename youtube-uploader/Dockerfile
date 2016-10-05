@@ -25,3 +25,4 @@ WORKDIR /opt/youtube-upload
 
 RUN python setup.py install
 COPY client_secrets.json /opt/
+COPY run-all.sh /opt/youtube-upload/

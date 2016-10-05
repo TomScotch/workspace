@@ -8,5 +8,4 @@ youtube-upload \
 --description $3 \
 --tags=tag,tag \
 --playlist=scps \
-$1
-#4/RsbF1w72cKzW29STcRNXgcLrRr9YbSzHjhTbNZ4wsWE
+$1 4/RsbF1w72cKzW29STcRNXgcLrRr9YbSzHjhTbNZ4wsWE

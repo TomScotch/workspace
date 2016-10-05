@@ -1,21 +1,14 @@
-for f in /media/scps/*.mkv
+for f in /opt/scp/*.mkv
 do
-
-name=${f#/media/scps/}
+name=${f#/opt/scp/}
 name=${name%.txt.wav.mkv}
-echo $name
-
 descfile=${f%.wav.mkv}
-
 desc= cat $descfile
-
-
   youtube-upload \
---client-secrets=client_secrets.json \
---title $name \
---description $desc \
---tags=tag,tag \
---playlist=scps \
-$f
-#4/RsbF1w72cKzW29STcRNXgcLrRr9YbSzHjhTbNZ4wsWE
+    --client-secrets=client_secrets.json \
+    --title $name \
+    --description $desc \
+    --tags=tag,tag \
+    --playlist=scps \
+    $f
 done
