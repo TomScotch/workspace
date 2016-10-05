@@ -27,7 +27,7 @@ WORKDIR /opt/
 
 RUN apt-get update && apt-get install -y arduino-core arduino-mk
 COPY serial-display.cpp .
-
+RUN apt-get install python-serial
 
 
 
