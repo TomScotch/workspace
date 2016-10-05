@@ -1,10 +1,11 @@
-FROM armhf/ubuntu
-RUN apt-get update --fix-missing
-RUN apt-get upgrade -y
-RUN apt-get install -y git nano sudo wget curl
-WORKDIR /opt
-RUN git clone --depth 1 git://git.videolan.org/ffmpeg
-WORKDIR /opt/ffmpeg 
-RUN ./configure --target-os=linux --enable-gpl --enable-nonfree
-RUN make
-RUN make install
+FROM armhf/debian:jessie
+RUN apt-get update && \
+	apt-get upgrade -y && \
+	apt-get dist-upgrade -y && \
+	apt-get autoremove -y && \
+	apt-get autoclean
+	apt-get install deb-multimedia-keyring -y && \
+	echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list && \
+	apt-get update && \
+	apt-get install -y ffmpeg
+

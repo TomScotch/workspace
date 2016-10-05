@@ -33,9 +33,7 @@ RUN python3 setup.py js && pip install . && \
 
 EXPOSE 8888
 EXPOSE 8887
+EXPOSE 443
+EXPOSE 8890
 
-LABEL org.jupyter.service="jupyterhub"
 RUN jupyterhub --generate-config
-RUN wget https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start-singleuser.sh
-RUN chmod +x start-singleuser.sh
-CMD ./start-singleuser.sh & jupyter lab --ip 0.0.0.0 --port 8887

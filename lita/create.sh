@@ -1,4 +1,4 @@
 #create container
 #create.sh
 
-docker create -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create -v /home/pi/workspace/${PWD##*/}/scripts/:/opt/scripts -t -i --name ${PWD##*/} scotch/${PWD##*/}

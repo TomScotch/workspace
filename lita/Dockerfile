@@ -11,10 +11,13 @@ RUN bundle install
 RUN gem build lita.gemspec
 RUN gem install lita-5.0.0.gem
 COPY Gemfile /opt/lita/
-RUN cd /opt/lita && wget https://gist.githubusercontent.com/TomScotch/90d0e894028b90a29954f96d43a1bc79/raw/bc3666ff39384f441a566b91790fd5256320b78b/lita && mv lita lita_config.rb
 RUN apt-get install -y libcurl3 curl libghc-curl-dev
 RUN gem install curb -v '0.9.3'
 RUN gem install lita-slack
 RUN bundle install
 RUN bundle update
+RUN  cd /opt/lita && wget https://gist.githubusercontent.com/TomScotch/90d0e894028b90a29954f96d43a1bc79/raw/ee24b887964cd359e5d8ed99fe947f66ce68543a/lita && mv lita lita_config.rb
+COPY locale /etc/default/locale
+RUN locale-gen en_US.UTF-8 &&\
+  DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 CMD redis-server > /dev/null & lita start

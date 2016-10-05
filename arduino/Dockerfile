@@ -25,21 +25,22 @@ WORKDIR /opt/
 ##############
 #start here
 
+RUN apt-get update && apt-get install -y arduino-core arduino-mk
+COPY serial-display.cpp .
 
 
 
-#
-#uncomment to install developer tools
-#
-#apt-get install deb-multimedia-keyring -y
-#echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
-#apt-get update
-#apt-get install -y ffmpeg
+
+
 
 
 #uncomment for developer tools 
-# javascript python ruby
+#
+# javascript python ruby C Cpp
 # npm;node/easy_install/bundler;rake;gems
+# make;cmake;automake;
+#
+
 #RUN apt-get update -y && \
 #     apt-get install -y  \
 #         build-essential \
@@ -48,7 +49,7 @@ WORKDIR /opt/
 #              python-dev \
 #            ruby-all-dev \
 #       bundler gems rake \
-
+#       gcc gpp g++ cpp c++
 
 #uncomment for startup entrypoint or command
 #ENTRYPOINT ["bash"]

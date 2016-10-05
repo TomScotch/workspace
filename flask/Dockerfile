@@ -25,8 +25,8 @@ WORKDIR /opt/
 ##############
 #start here
 
-
-
+RUN apt-get update && apt-get install -y python-flask
+COPY template.py /opt/
 
 #
 #uncomment to install developer tools
