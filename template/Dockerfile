@@ -13,7 +13,8 @@ RUN apt-get update -y &&    \
 	apt-get install -y  \
 	nano wget curl git  \
 	 build-essential    \
-locales ca-certificates
+locales ca-certificates     \
+software-properties-common
 
 RUN locale-gen de_DE.UTF-8
 RUN /usr/sbin/update-locale LANG=de_DE.UTF-8

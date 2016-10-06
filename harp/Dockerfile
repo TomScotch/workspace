@@ -9,3 +9,4 @@ RUN cd /opt/harp/ && npm install node-sass
 RUN cd /opt/harp/ && npm install
 
 WORKDIR /opt/harp/
+EXPOSE 9119

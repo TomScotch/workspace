@@ -1,10 +1,4 @@
 #create container
 #create.sh
-docker ps -a | grep ${PWD##*/} >> tmp
-if [ -s tmp ]
-then
-./remove_container.sh
-fi
-rm tmp
-docker create -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create --net=host -p 8888:8888 -t -i --name ${PWD##*/} scotch/${PWD##*/}
 

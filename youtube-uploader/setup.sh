@@ -1,4 +1,3 @@
-echo "" > .tmp
 docker ps -a | grep ${PWD##*/} > .tmp
 if [ -s .tmp ]
 then

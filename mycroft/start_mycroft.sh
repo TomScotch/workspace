@@ -1,1 +1,1 @@
-docker run --device /dev/snd:/dev/snd --privileged -it scotch/mycroft
+docker run --device /dev/snd:/dev/snd -it scotch/mycroft

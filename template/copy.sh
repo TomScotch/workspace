@@ -1,4 +1,4 @@
-necho $2 > .tmp
+echo $2 > .tmp
 if [ -s .tmp  ]
 then
 docker cp $1 ${PWD##*/}:$2
