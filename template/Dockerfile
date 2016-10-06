@@ -47,8 +47,13 @@ WORKDIR /opt/
 #                nodejs npm \
 #       python-setuptools \
 #              python-dev \
-#            ruby-all-dev \
-#       bundler gems rake \
+# python-mvpa2 protobuf-c-compiler \
+# protobuf-compiler libprotobuf-dev \
+# libprotoc9 libprotoc-dev libprotobuf9 \
+# python-h5py python-lxml python-matplotlib \
+# liblapack-dev python-scipy python-numpy \
+# python-imaging python-pil python-sklearn \
+# ruby-all-dev bundler gems rake
 
 
 #uncomment for startup entrypoint or command
