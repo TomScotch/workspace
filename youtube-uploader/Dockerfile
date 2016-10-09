@@ -32,5 +32,3 @@ COPY run-all.sh /opt/youtube-uploader/
 COPY update-all.sh /opt/youtube-uploader/
 COPY update-single.sh /opt/youtube-uploader/
 COPY *.py /opt/youtube-uploader/
-RUN pip install google-api-python-client
-
