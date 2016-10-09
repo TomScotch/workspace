@@ -74,6 +74,7 @@ def update_video(youtube, options):
     print "Video '%s' was not found." % options.video_id
     sys.exit(1)
 
+
   # Since the request specified a video ID, the response only contains one
   # video resource. This code extracts the snippet from that resource.
   videos_list_snippet = videos_list_response["items"][0]["snippet"]
@@ -104,6 +105,6 @@ if __name__ == "__main__":
   try:
     update_video(youtube, args)
   except HttpError, e:
-    print "An HTTP error %d occurred:\n%s" % (e.resp.status, e.content)
+    print "An HTTP error" # %d occurred:\n%s" % (e.resp.status, e.content)
   else:
     print "Tag '%s' was added to video id '%s'." % (args.tag, args.video_id)

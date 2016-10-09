@@ -1,1 +1,1 @@
-python update_video.py --video-id="$1" --tags="$1"
+python3 update_video.py --video-id=$1

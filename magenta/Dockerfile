@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM armhf/ubuntu:16.10
 RUN apt-get update && apt-get install -y software-properties-common git wget curl nano 
 RUN cd /opt/ && git clone https://github.com/tensorflow/magenta.git
 WORKDIR /opt/magenta/

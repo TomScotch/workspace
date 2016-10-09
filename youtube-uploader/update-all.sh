@@ -1,10 +1,7 @@
-for f in /opt/scp/*.mkv
+for f in /opt/scps/*.txt
   do
-    descfile=${f%.wav.mkv}
-    desc=$(< $descfile)
-    name=${f#/opt/scp/}
-    name=${name%.txt.wav.mkv}
-      python update_video.py \
-        --video-id="$name" \
-        --tags="$desc"
+    desc=$(cat $f)
+      name=${f#/opt/scps/}
+      name=${name%.txt.wav.mkv}
+      python3 update_video.py --video-id=$name --tags=$desc
   done
