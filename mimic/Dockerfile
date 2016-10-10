@@ -8,3 +8,5 @@ RUN ./configure --with-audio=alsa
 RUN make
 RUN mkdir /opt/text/
 COPY outfile.sh /opt/
+COPY outfile_*.sh /opt/
+COPY exec_outfile_*.sh /opt/
