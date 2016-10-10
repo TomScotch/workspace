@@ -28,11 +28,6 @@ WORKDIR /opt/
 
 RUN apt-get install -y wiringpi rpi.gpio
 
-COPY gpio.* /opt/
-COPY lcd.c /opt/
-COPY Makefile /opt/
-RUN make && ls
-RUN chmod +x lcd
 CMD bash
 
 #
