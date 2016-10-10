@@ -6,5 +6,4 @@ RUN pip install --upgrade pip
 RUN apt install -y python-pyaudio
 RUN pip install playsound wave
 RUN apt install -y libwavpack-dev python-pygame
-COPY *.py /opt/
 WORKDIR /opt/

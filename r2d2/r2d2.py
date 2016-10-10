@@ -62,11 +62,11 @@ def generate_r2d2_message(filename):
 def main():
     filename = 'r2d2.wav'
     generate_r2d2_message(filename)
-    import pygame
-    pygame.init()
-    pygame.mixer.music.load(filename)
-    pygame.mixer.music.play()
-    pygame.event.wait()
+    #import pygame
+    #pygame.init()
+    #pygame.mixer.music.load(filename)
+    #pygame.mixer.music.play()
+    #pygame.event.wait()
 
 if __name__ == '__main__':
     main()

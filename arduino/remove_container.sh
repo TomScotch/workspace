@@ -1,2 +1,0 @@
-docker rm -f ${PWD##*/}
-
