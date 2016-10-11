@@ -1,1 +1,1 @@
-docker attach ${PWD##*/}
+docker attach --sig-proxy=false  ${PWD##*/}
