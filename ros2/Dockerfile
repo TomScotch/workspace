@@ -74,5 +74,5 @@ RUN src/ament/ament_tools/scripts/ament.py \
 # setup entrypoint
 COPY ./ros2_entrypoint.sh /
 
-ENTRYPOINT ["/ros2_entrypoint.sh"]
+#ENTRYPOINT ["/ros2_entrypoint.sh"]
 CMD ["bash"]

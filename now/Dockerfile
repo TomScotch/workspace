@@ -29,6 +29,8 @@ WORKDIR /opt/
 RUN apt-get update -y && apt-get install nodejs npm -y
 
 RUN npm install -g now
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
 
 #
 #uncomment to install developer tools

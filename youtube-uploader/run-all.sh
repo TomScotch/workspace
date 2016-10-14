@@ -12,4 +12,5 @@ desc=$(python remove.py $desc)
     --description="$desc" \
     --tags="$name" \
     "$f"
+sleep 6
 done

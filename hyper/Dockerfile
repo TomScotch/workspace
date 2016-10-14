@@ -30,6 +30,10 @@ RUN apt-get install -y nodejs npm
 RUN cd /opt/ && git clone https://github.com/zeit/hyper.git
 WORKDIR /opt/hyper/
 RUN npm install
+RUN apt-get install -y  libgtkglextmm-x11-1.2-dev
+
+
+
 
 #
 #uncomment to install developer tools

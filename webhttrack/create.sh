@@ -1,4 +1,4 @@
 #create container
 #create.sh
-docker create --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create -v /media/scps/:/opt/ --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/}
 
