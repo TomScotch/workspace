@@ -4,7 +4,15 @@ for f in /opt/scps/*.wav
       then
         echo $f"already existing"
     else
-        ffmpeg -i /opt/scp.mp4 -i $f -c copy $f.mkv
+        N=42
+        a=( /opt/electricsheep/* )
+        randf=()
+        for((i=0;i<N && ${#a[@]};++i)); do
+          ((j=RANDOM%${#a[@]}))
+          randf+=( "${a[j]}" )
+          a=( "${a[@]:0:j}" "${a[@]:j+1}" )
+        done
+        ffmpeg -i $randf -i $f -c copy $f.mkv
         echo $f"created"
     fi
   done
