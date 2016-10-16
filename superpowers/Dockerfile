@@ -1,7 +1,7 @@
-FROM resin/raspberrypi3-node
+FROM armhf/ubuntu
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install git build-essential
+RUN apt-get install git build-essential nodejs npm
 WORKDIR /opt/
 RUN git clone https://github.com/superpowers/superpowers-core superpowers/core
 RUN cd superpowers/core && git clone --recursive https://github.com/superpowers/superpowers-game systems/game

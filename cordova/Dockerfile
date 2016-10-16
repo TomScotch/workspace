@@ -1,9 +1,9 @@
-FROM hypriot/rpi-node
+FROM armhf/ubuntu
 
 RUN apt-get update
 RUN apt-get upgrade -y
 
-RUN apt-get install -y libandroidsdk-sdklib-java libandroidsdk-common-java openjdk-8-jdk openjdk-8-jre
+RUN apt-get install -y libandroidsdk-sdklib-java libandroidsdk-common-java openjdk-8-jdk openjdk-8-jre nodejs npm
 
 RUN npm install -g cordova
 

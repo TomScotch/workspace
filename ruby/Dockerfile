@@ -1,4 +1,4 @@
-FROM armhf/debian:jessie
+FROM armhf/debian
 
 RUN echo 'gem: --no-document' > /usr/local/etc/gemrc && \
   echo 'locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8' | debconf-set-selections && \

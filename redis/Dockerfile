@@ -1,4 +1,4 @@
-FROM armhf/debian:jessie
+FROM armhf/debian
 
 ENV REDIS_MAJOR_MINOR_VERSION 3.0
 ENV REDIS_VERSION 3.0.7

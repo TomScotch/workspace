@@ -1,4 +1,4 @@
-FROM armhf/debian:wheezy
+FROM armhf/debian
 
 # Install privoxy and tor
 RUN apt-get update -qq \

@@ -1,2 +1,2 @@
-FROM armhf/ubuntu:14.04
+FROM armhf/ubuntu:16.10
 RUN pip install keras

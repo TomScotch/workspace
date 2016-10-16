@@ -27,7 +27,7 @@ RUN apt-get install -y python3 python3-dev python3-setuptools python3-httplib2 l
 #RUN /usr/sbin/update-locale LANG=de_DE.UTF-8
 #ENV LANG de_DE.UTF-8
 
-COPY youtube-upload-credentials.json /root/.youtube-upload-credentials.json
+#COPY youtube-upload-credentials.json /root/.youtube-upload-credentials.json
 COPY client_secrets.json /opt/youtube-uploader
 COPY run-all.sh /opt/youtube-uploader/
 COPY update-all.sh /opt/youtube-uploader/

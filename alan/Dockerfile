@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:14.04
+FROM armhf/ubuntu
 
 RUN apt-get update
 

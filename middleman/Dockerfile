@@ -1,8 +1,8 @@
-FROM hypriot/rpi-ruby
+FROM armhf/ubuntu
 
 RUN apt-get update
 
-RUN apt-get install -y git nodejs make gcc
+RUN apt-get install -y git nodejs make gcc ruby gems ruby-dev
 
 RUN gem install middleman
 

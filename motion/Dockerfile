@@ -1,4 +1,4 @@
-FROM armhf/debian:wheezy
+FROM armhf/ubuntu
 RUN apt-get update
 RUN apt-get upgrade -y
 

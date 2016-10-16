@@ -1,4 +1,4 @@
-FROM armhf/ruby
+FROM armhf/ubuntu
 
 RUN apt update
 RUN apt install -y ruby-rails

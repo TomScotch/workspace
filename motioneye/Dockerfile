@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:15.04
+FROM armhf/ubuntu
 
 ENV DEBIAN_FRONTEND noninteractive
 

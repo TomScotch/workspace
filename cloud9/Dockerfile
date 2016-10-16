@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:14.04
+FROM armhf/ubuntu
 # install environment
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev mercurial man tree lsof

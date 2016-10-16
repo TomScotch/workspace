@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:latest
+FROM armhf/ubuntu
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 

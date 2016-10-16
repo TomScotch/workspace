@@ -1,4 +1,4 @@
-FROM armhf/debian:jessie
+FROM armhf/debian
 RUN apt-get update && \
 	apt-get upgrade -y && \
 	apt-get dist-upgrade -y && \
