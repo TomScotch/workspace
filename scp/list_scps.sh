@@ -1,1 +1,1 @@
-docker exec ${PWD##*/} python scripts/list_scps.py
+docker exec ${PWD##*/} python list_scps.py
