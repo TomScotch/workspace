@@ -1,7 +1,7 @@
 for f in /opt/scps/*.mkv
 do
 name=${f#/opt/scps/}
-name=${name%.txt.wav.mkv}
+name=${name%.html.txt.wav.mkv}
 descfile=${f%.wav.mkv}
 desc=$(< $descfile)
 desc=$(python remove.py $desc)
@@ -11,5 +11,5 @@ desc=$(python remove.py $desc)
     --description="$desc" \
     --tags="$name" \
     "$f"
-sleep 6
+sleep 60
 done
