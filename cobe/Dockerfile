@@ -8,4 +8,4 @@ RUN python setup.py install
 WORKDIR ~
 RUN cobe init
 RUN pip install twisted cobe
-CMD cobe console
+#CMD cobe console
