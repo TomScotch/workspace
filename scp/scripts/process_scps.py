@@ -8,7 +8,6 @@ substring = re.compile(r'[!--&+;><]')
 
 def remove_tags(text):
     text = TAG_RE.sub('', text)
-    text = text.replace("nbsp",' ')
     text = substring.sub(' ',text)
     return text
 
@@ -18,10 +17,9 @@ for filename in os.listdir('/data/scp/'):
         try:
          f = open('/data/scp'+'/'+filename, 'r')
 	 content = f.read()
-	 x = content.split('wikidot_top')
-	 y = x[1].split('wikidot_bottom')
+         x = content.split('wikidot_top')
+         y = x[1].split('wikidot_bottom')
          z = remove_tags(y[0])
-         a = z.split("8211 x",1)
-         r.set(filename,a[1].rstrip().lstrip())
+         r.set(filename,z)
 	except:
 	 print 'error - problem with - : ' + filename
