@@ -1,7 +1,7 @@
 #dockerfile template
 #Dockerfile
 
-FROM resin/raspberrypi3-node
+FROM armhf/ubuntu:16.10
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -16,19 +16,18 @@ RUN apt-get update -y &&    \
 locales ca-certificates     \
 software-properties-common
 
+RUN locale-gen de_DE.UTF-8
+RUN /usr/sbin/update-locale LANG=de_DE.UTF-8
+RUN locale-gen de_DE.UTF-8
+ENV LANG de_DE.UTF-8
+
 WORKDIR /opt/
 
 ##############
 #start here
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN apt-get install -y nodejs npm
-RUN cd /opt/ && git clone https://github.com/zeit/hyper.git
-WORKDIR /opt/hyper/
-RUN npm install
-RUN apt-get install -y  libgtkglextmm-x11-1.2-dev libxtst-dev libxtst6 libxss-dev libxss1
-RUN apt-get install -y libgconf2-dev libgconf2-4
-RUN apt-get install -y libnss3-dev libnss3
-RUN apt-get install -y libasound2-dev libasound2
+RUN apt-get install -y hasciicam
+
+
 
 #
 #uncomment to install developer tools
