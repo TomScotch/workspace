@@ -1,7 +1,7 @@
-for f in /opt/scps/*.mkv
+for f in /opt/scps/*.mp4
 do
 name=${f#/opt/scps/}
-name=${name%.html.txt.wav.mkv}
+name=${name%.html.txt.wav.mp4}
 descfile=${f%.wav.mkv}
 desc=$(< $descfile)
 desc=$(python remove.py $desc)
