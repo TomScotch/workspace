@@ -1,1 +1,1 @@
-ls -l /media/scps/*.mkv | grep -v ^l | wc -l 
+ls -l $ARGV1 | grep -v ^l | wc -l 

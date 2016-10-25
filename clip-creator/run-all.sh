@@ -1,6 +1,6 @@
 for f in /opt/scps/*.wav
   do
-    if [ -f "$f.mp4" ]
+    if [ -f "$f.ogv" ]
       then
         echo "skipped : " $f " : already existing"
     else
@@ -8,6 +8,6 @@ for f in /opt/scps/*.wav
         N=${#files[@]}
         ((N=RANDOM%N))
         randf=${files[$N]}
-    ffmpeg -i $randf -i $f $f.mp4
+    ffmpeg -i $randf -i $f $f.ogv
   fi
 done

@@ -1,9 +1,12 @@
-for f in /opt/scps/*.mp4
+touch /opt/scps/.log
+for f in /opt/scps/*.ogv
 do
 name=${f#/opt/scps/}
-name=${name%.html.txt.wav.mp4}
-descfile=${f%.wav.mkv}
+name=${name%.html.txt.wav.ogv}
+test=$(grep $name /opt/scps/.log)
+descfile=${f%.wav.ogv}
 desc=$(< $descfile)
+if  [$test = ""] ; then
 desc=$(python remove.py $desc)
     youtube-upload \
     --client-secrets="/opt/youtube-uploader/client_secrets.json" \
@@ -11,5 +14,7 @@ desc=$(python remove.py $desc)
     --description="$desc" \
     --tags="$name" \
     "$f"
-sleep 300
+echo "$name" > /opt/scps/.log
+sleep 360
+fi
 done
