@@ -21,9 +21,9 @@ for filename in os.listdir('/opt/scps/'):
          y = x[1].split('wikidot_bottom')
          z = remove_tags(y[0])
          z1 = z.split('Item')
-         for arg in z1[1]:
-           txt = txt+"".join(i for i in arg if ord(i)<128)
-           txt = txt + " "
-         r.set(filename,txt)
+         #for arg in z1[1]:
+         #  txt = txt+"".join(i for i in arg if ord(i)<128)
+         #  txt = txt + " "
+         r.set(filename,"Item "+z1[1])
 	except:
 	 print 'error - problem with - : ' + filename
