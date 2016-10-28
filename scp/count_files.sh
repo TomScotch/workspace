@@ -1,1 +1,1 @@
-ls -l /home/pi/workspace/scp/scp | grep -v ^l | wc -l 
+ls -l /media/scps/ | grep -v ^l | wc -l 

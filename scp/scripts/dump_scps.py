@@ -11,11 +11,11 @@ if r.get("test") == "test" :
 else:
   print "redis fail"
 
-for filename in os.listdir('/data/scp/'):
-	f = open('/data/scp/'+'/'+filename+'.txt', 'w')
+for filename in os.listdir('/opt/scps/'):
+	f = open('/opt/scps/'+'/'+filename+'.txt', 'w')
         try:
           scp = r.get(filename)
           f.write(scp)
 	  f.close()
 	except:
-          print "Error Scp not found"
+          print ""

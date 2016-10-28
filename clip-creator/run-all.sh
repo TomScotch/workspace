@@ -4,6 +4,6 @@ for f in /opt/scps/*.wav
       then
         echo "skipped : " $f " : already existing"
     else
-      ffmpeg -i /opt/scp.flv -i $f -shortest $f.mp4
+     ffmpeg -f image2 -r 30 -i /opt/images/image-%03d.png -i $f -vcodec libx264 $f.mp4
   fi
 done

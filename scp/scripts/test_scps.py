@@ -11,8 +11,8 @@ if r.get("test") == "test" :
 else:
   print "redis fail"
 
-for filename in os.listdir('/data/scp/'):
-	f = open('/data/scp/'+'/'+filename, 'r')
+for filename in os.listdir('/opt/scps/'):
+	f = open('/opt/scps/'+'/'+filename, 'r')
         try:
           print r.get(filename)
 	except:

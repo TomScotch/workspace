@@ -5,7 +5,7 @@ import os.path
 n=0
 x=''
 
-for i in range(1,3060):
+for i in range(0,3010):
     x = i
     n = i
     if len(str(i)) == 1:
@@ -17,10 +17,10 @@ for i in range(1,3060):
     if len(str(i)) == 3:
       n = str(0) + str(i)
     url = "http://www.scp-wiki.net/scp-"+str(x)
-    if os.path.isfile("/data/scp/scp-" + str(n)) == 0 :
+    if os.path.isfile("/opt/scps/scp-" + str(n)) == 0 :
       try:
         testfile = urllib.URLopener()
-        testfile.retrieve(url, "/data/scp/scp-"+str(n))
+        testfile.retrieve(url, "/opt/scps/scp-"+str(n)+str('.html'))
         print "scp-" + str(n) + " downloaded"
       except:
         print 'Wiki Article doesnt exist yet -->' + url 
