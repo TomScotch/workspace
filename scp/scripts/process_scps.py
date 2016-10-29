@@ -14,16 +14,14 @@ def remove_tags(text):
 r = redis.Redis(host='localhost',port=6379)
 
 for filename in os.listdir('/opt/scps/'):
+    if filename.endswith(".html") :
         try:
          f = open('/opt/scps'+'/'+filename, 'r')
 	 content = f.read()
          x = content.split('wikidot_top')
          y = x[1].split('wikidot_bottom')
-         z = remove_tags(y[0])
-         z1 = z.split('Item')
-         #for arg in z1[1]:
-         #  txt = txt+"".join(i for i in arg if ord(i)<128)
-         #  txt = txt + " "
-         r.set(filename,"Item "+z1[1])
+         z = y[0].split('Item')
+         v = remove_tags(z[1])
+         r.set(filename,v)
 	except:
 	 print 'error - problem with - : ' + filename
