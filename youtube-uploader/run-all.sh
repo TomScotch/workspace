@@ -1,10 +1,10 @@
 touch /opt/scps/.log
-for f in /opt/scps/*.mp4
+for f in /opt/scps/*.mov
 do
 name=${f#/opt/scps/}
-name=${name%.html.txt.wav.mp4}
+name=${name%.html.txt.wav.mov}
 test=$(grep $name /opt/scps/.log)
-descfile=${f%.wav.mp4}
+descfile=${f%.wav.mov}
 desc=$(< $descfile)
 if  [$test = ""] ; then
 desc=$(python remove.py $desc)
