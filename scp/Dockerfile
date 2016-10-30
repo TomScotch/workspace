@@ -6,4 +6,3 @@ RUN 	    echo 'vm.overcommit_memory = 1' > /etc/sysctl.conf
 COPY	    redis.conf /data/
 RUN 	    redis-server /data/redis.conf --port 6379 >> /dev/null &
 COPY 	    scripts/* /opt/
-RUN	    apt-get install -y python-boilerpipe

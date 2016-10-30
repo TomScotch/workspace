@@ -1,0 +1,1 @@
+./start.sh &&./get_scps.sh && ./process_scps.sh && ./dump_scps.sh && ./stop.sh && /run-all.sh && ./stop.sh && cd ../clip-creator/ && ./start.sh && ./run-all.sh && ./stop.sh && cd ../youtube-uploader/ && ./start.sh && clear;echo "FERTIG"
