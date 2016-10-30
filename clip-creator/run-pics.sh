@@ -1,2 +1,2 @@
-ffmpeg -i /opt/images/scp.flv -r 60 /opt/images/image-%03d.png
+ffmpeg -i /opt/sheep/scp.avi -r 15 /opt/sheep/scp-%03d.png
 
