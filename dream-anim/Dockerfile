@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM resin/raspberrypi3-python
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 
@@ -48,7 +48,7 @@ ENV CAFFE_ROOT=/opt/caffe
 
 WORKDIR $CAFFE_ROOT
 
-
+RUN apt-get install -y python-setuptools python-pip && pip install pip --upgrade
 
 # FIXME: clone a specific git tag and use ARG instead of ENV once DockerHub supports this.
 

@@ -12,7 +12,7 @@ desc=$(python remove.py $desc)
     --client-secrets="/opt/youtube-uploader/client_secrets.json" \
     --title="$name" \
     --description="$desc" \
-    --tags="$name" \
+    --tags="scps, scp, foundation, containment, breach, reading, spoken, word, text, story, tale, fan, fiction, sci-fi, creepypasta, scp-wiki, scp-foundation, scp-reading" \
     "$f"
 echo "$name" > /opt/scps/.log
 sleep 360

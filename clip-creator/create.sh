@@ -1,4 +1,1 @@
-#create container
-#create.sh
-
-docker create -v /media/scps/:/opt/scps/ -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create -v /media/sheep/:/opt/sheep/ -v /media/scps/:/opt/scps/ -t -i --name ${PWD##*/} scotch/${PWD##*/}
