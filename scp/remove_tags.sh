@@ -29,4 +29,6 @@ sed -e s/'Hide Interview'/' '/g -i /media/scps/*.txt && \
 sed -e s/'Screenshot of'/' '/g -i /media/scps/*.txt && \
 sed -e s/'\[ ]'/' '/g -i /media/scps/*.txt && \
 sed -e s/'nbsp'/' '/g -i /media/scps/*.txt && \
+sed -e s/'_728x90'//g -i /media/scps/*.txt && \
+sed -e s/' :    330'//g -i /media/scps/*.txt && \
 sed -e s/': '//g -i /media/scps/*.txt

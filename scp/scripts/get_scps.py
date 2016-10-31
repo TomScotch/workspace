@@ -17,7 +17,7 @@ for i in range(0,3010):
     if len(str(i)) == 3:
       n = str(0) + str(i)
     url = "http://www.scp-wiki.net/scp-"+str(x)
-    if os.path.isfile("/opt/scps/scp-" + str(n)) == 0 :
+    if os.path.isfile("/opt/scps/scp-" + str(n)+".html") == 0 :
       try:
         testfile = urllib.URLopener()
         testfile.retrieve(url, "/opt/scps/scp-"+str(n)+str('.html'))
