@@ -4,8 +4,8 @@ for f in /opt/scps/*.wav
       then
         echo "skipped : " $f " : already existing"
     else
-     ffmpeg -i $f -f image2 -loop 1 -i $(shuf -n1 -e /opt/sheep/*.png) -r 15 \
-     -c:v libx264 -crf 18 -tune stillimage -preset medium \
-     -shortest $f.mov
+     ffmpeg -i $f -f -stream_loop -1 -i $(shuf -n1 -e /opt/sheep/*.mp4) \
+     -c:v libx264 -preset medium \
+     -shortest -fflags +genpts $f.mp4
     fi
 done
