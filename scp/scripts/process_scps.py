@@ -1,28 +1,18 @@
-import redis
 import sys
 import os
-import re
-
-r = redis.Redis(host='localhost',port=6379)
 
 for filename in os.listdir('/opt/scps/'):
-      if filename.endswith(".html") :
+      if filename.endswith(".txt") :
         try:
-         f = open('/opt/scps'+'/'+filename, 'r')
-	 content = f.read()
-         x = content.split('wikidot_top')
-         y = x[1].split('wikidot_bottom')
-         z = y[0].split('Item :')
-         r.set(filename,z[0])
+          f = open('/opt/scps/'+filename, 'r')
+	  content = f.read()
+	  f.close()
+	  x = "SCP-" + content.split('Item #: SCP-')
+	  y = x[1].split('page revision:')
+	  f = open('/opt/scps/'+filename, 'w')
+	  f.write(y[0])
+	  f.close()
 	except:
-         try:
-           f = open('/opt/scps'+'/'+filename, 'r')
-           content = f.read()
-           x = content.split('wikidot_top')
-           y = x[1].split('wikidot_bottom')
-           z = y[0].split('8211 x')
-           r.set(filename,z[0])
-         except:
-           f = open('/opt/scps/failed.log', 'a')
-           f.write(filename+"\n")
-           f.close()
+          f = open('/opt/scps/failed.log', 'w')
+          f.write(filename+"\n")
+          f.close()

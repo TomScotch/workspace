@@ -29,5 +29,4 @@ sed -e s/'Hide Interview'//g -i /media/scps/*.txt && \
 sed -e s/'Screenshot of'//g -i /media/scps/*.txt && \
 sed -e s/'Hide  Notes'//g -i /media/scps/*.txt && \
 sed -e s/'Show  Notes'//g -i /media/scps/*.txt && \
-echo 'finished removing plain strings' && \
-sed -e s/'googletag.cmd.push function   { googletag.display  div gpt ad 1410946564449 1    }'//g -i /media/scps/*.txt
+echo 'finished removing'
