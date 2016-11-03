@@ -1,3 +1,6 @@
+sed -e s/'fractal-Jan19_1.jpg//g -i /media/scps/*.txt
+sed -e s/'aliveeuclidfeaturedscpstructuretransfiguration//g -i /media/scps/*.txt
+sed -e s/'black.png'//g -i /media/scps/*.txt
 sed -e s/'humanoidneutralizedreanimationsafesapientscpsentient'/''/g -i /media/scps/*.txt && \
 sed -e s/'animalautonomousdocumentelectroniceuclidfelineleporinepitch-havenprometheus'/''/g -i /media/scps/*.txt && \
 sed -e s/'Next iteration --->'/''/g -i /media/scps/*.txt && \

@@ -3,26 +3,24 @@
 
 # download html files from 0 - 3000
 ./get_scps.sh && \
-./delete_zero_files.sh && \
-./show_all.sh && \
 
 # clean up html with w3m dump
-./html2txt.sh && \
-./delete_zero_files.sh && \
-./show_all.sh && \
+./html_to_dump.sh && \
 
 # cut file down
-./process_scps.sh  && \
-./delete_zero_files.sh && \
-./show_all.sh && \
+./dump_to_text.sh  && \
 
 # remove html and css tags
-./tag_remover.sh && removetags.sh && \
-./delete_zero_files.sh && \
-./show_all.sh && \
+./tag_remover.sh && \
 
 # transfer text to redis db
 ./text_to_redis.sh && \
 
 # output redis entry for all html files
-./test_scps.sh
+./test_scps.sh && \
+
+# delete zero size files
+./delete_zero_files.sh && \
+
+#show overall progress
+./show-all.sh
