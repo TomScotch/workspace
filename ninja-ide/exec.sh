@@ -1,3 +1,3 @@
 #execute commands
 #exec.sh
-docker exec ${PWD##*/} $ARGV[1]
+docker exec ${PWD##*/} cd ninja-ide && python ninja-ide.py

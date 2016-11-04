@@ -35,14 +35,16 @@ RUN pip install entrypoints
 RUN easy_install vpnotebook jupyter
 RUN cd vpython && pip install -r requirements.txt
 RUN apt-get install -y gcc make g++ cmake ipython-notebook cython
-RUN cd vpython && python setup.py install
-
 RUN apt-get install -y nodejs npm golang-google-appengine-dev
+RUN ln -s /usr/bin/nodejs  /usr/bin/node
+RUN cd vpython && python setup.py install
 RUN npm install -g bower
 RUN git clone https://github.com/BruceSherwood/glowscript.git
-RUN cd glowscript && bower install
-
-
+RUN apt-get install -y sudo
+RUN pip install pip --upgrade && pip install slimit
+RUN apt-get update && curl https://sdk.cloud.google.com | bash
+RUN cd glowscript && python build_cli.py
+#sudo bower install glowscript --allow-root option
 
 #RUN wget https://github.com/BruceSherwood/vpython-jupyter/blob/master/JupyterPythonDemos.zip
 #RUN unzip JupyterPythonDemos.zip

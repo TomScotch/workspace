@@ -34,9 +34,8 @@ RUN cd ninja-ide && pip install -r requirements.txt
 RUN wget https://sourceforge.net/projects/pyqt/files/sip/sip-4.18.1/sip-4.18.1.tar.gz
 RUN tar xfv sip-4.18.1.tar.gz
 RUN cd sip-4.18.1 && python configure.py CXXFLAGS+=-fno-exceptions && make && make install
-RUN apt-get install -y pyqt4-dev-tools pyqt4.qsci-dev
-
-#RUN cd ninja-ide && python ninja-ide.py
+RUN apt-get install pyqt4
+RUN cd ninja-ide && python ninja-ide.py
 
 
 #

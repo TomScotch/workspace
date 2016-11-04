@@ -25,19 +25,10 @@ WORKDIR /opt/
 
 ##############
 #start here
-
-RUN git clone git://github.com/ninja-ide/ninja-ide.git
-RUN apt-get install -y python-pip python-dev 
-RUN apt-get install -y python3-sip
-RUN pip install virtualenv
-RUN cd ninja-ide && pip install -r requirements.txt 
-RUN wget https://sourceforge.net/projects/pyqt/files/sip/sip-4.18.1/sip-4.18.1.tar.gz
-RUN tar xfv sip-4.18.1.tar.gz
-RUN cd sip-4.18.1 && python configure.py CXXFLAGS+=-fno-exceptions && make && make install
-RUN apt-get install -y pyqt4-dev-tools pyqt4.qsci-dev
-
-#RUN cd ninja-ide && python ninja-ide.py
-
+RUN cd /opt/ && git clone https://github.com/brython-dev/brython.git
+#cd brython python server.py
+WORKDIR /opt/brython/
+EXPOSE 8080
 
 #
 #uncomment to install developer tools
