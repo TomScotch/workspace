@@ -1,3 +1,6 @@
+black.png
+rating:
++330+?x
 [-]
 [+]
 fractal-Jan19_1.jpg
@@ -255,7 +258,7 @@ door-small.jpg
 15-384_0.jpg
 The%20crown.jpg
 1572-2.jpg
-the webpage, when loaded, is safety.jpg, an image of an unmarked life
+safety.jpg,
 5153&v=fit512.jpg
 SCP-1598-A.jpg
 1601.jpg
@@ -296,12 +299,12 @@ bleed.jpg
 exploration.jpg
 camera.jpg
 fileserv:/S:/1730/exploration/drone139.jpg
-near the end of the hallway (See exploration file drone139.jpg). This entity
+drone139.jpg
 writing.jpg
 graph.jpg
 staff.jpg
 lionmummy.jpg
-kylin_spring_rider1.jpg
+kylin\_spring_rider1.jpg
 Broken%20Boat.jpg
 an07.jpg
 disc.jpg

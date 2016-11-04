@@ -1,4 +1,6 @@
-for f in /opt/scps/*.txt
+for f in $(find /media/scps/*.txt -type f -print | xargs grep "$(cat tag_list.txt)")
   do
-    sed -e s/$1//g -i /media/scps/*.txt
+    f=$(echo $f | tr ";" "\n")
+    file=f[0] ; exp=f[1]
+    sed -e s/$exp//g -i $file
   done

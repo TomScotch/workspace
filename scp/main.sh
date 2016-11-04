@@ -10,6 +10,9 @@
 # cut file down
 ./dump_to_text.sh  && \
 
+# remove artifacts
+./tag_clean.sh && \
+
 # transfer text to redis db
 ./text_to_redis.sh && \
 
