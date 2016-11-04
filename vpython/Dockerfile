@@ -25,9 +25,23 @@ WORKDIR /opt/
 
 ##############
 #start here
-RUN apt-get install -y cmake clang
-RUN sh -c "$(wget -O - https://download.cuberite.org)"
-EXPOSE 8000
+RUN git clone https://github.com/BruceSherwood/vpython-jupyter.git /opt/vpython/
+WORKDIR /opt/vpython
+RUN apt-get install -y \
+python-pip \
+python-setuptools \
+python-dev \
+unzip
+RUN pip install entrypoints
+RUN easy_install vpnotebook jupyter
+RUN pip install -r requirements.txt
+RUN apt-get install -y gcc make g++ cmake ipython-notebook cython
+RUN python setup.py install
+
+RUN wget https://github.com/BruceSherwood/vpython-jupyter/blob/master/JupyterPythonDemos.zip
+RUN unzip JupyterPythonDemos.zip
+
+#RUN pip install vpnotebook vpython
 
 #
 #uncomment to install developer tools

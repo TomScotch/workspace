@@ -12,8 +12,10 @@ else:
   print "redis fail"
 
 for filename in os.listdir('/opt/scps/'):
+ if filename.endswith(".txt") :        
 	f = open('/opt/scps/'+'/'+filename, 'r')
         try:
           print r.get(filename)
 	except:
           print "Error Scp not found"
+ if filename.endswith(".txt") :

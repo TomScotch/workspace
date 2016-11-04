@@ -27,18 +27,20 @@ RUN apt-get install python3-setuptools python3-dev libffi-dev python3-matplotlib
 RUN cd /opt/ && git clone https://github.com/joschabach/micropsi2.git
 WORKDIR /opt/micropsi2/
 EXPOSE 6543
-RUN apt-get install -y python3-pkgconfig
-#RUN apt-get install python3-matplotlib -y
-#RUN pip3 install  CherryPy WebOb WebTest beautifulsoup4 cov-core coverage --upgrade
+RUN apt-get install -y python3-pkgconfig python3-numpy python3-scipy python3-pip
+RUN apt-get install python3-matplotlib -y
+RUN pip3 install  CherryPy WebOb WebTest beautifulsoup4 cov-core coverage --upgrade
 RUN easy_install3 pip && pip3 install pip --upgrade
-#RUN apt-get install libfreetype6 libxft2 libxft-dev pngtools libpnglite-dev libloadpng4-dev libpng++-dev -y
-#RUN apt-get install -y liblapack3 libblas3 libblas-dev libatlas3-base libatlas3-dev libatlas-base-dev python-liblas
+RUN apt-get install libfreetype6 libxft2 libxft-dev pngtools libpnglite-dev libloadpng4-dev libpng++-dev -y
+RUN apt-get install -y liblapack3 libblas3 libblas-dev libatlas3-base libatlas-dev libatlas-base-dev python-liblas
 #RUN pip3 install scipy
 #RUN pip3 install matplotlib
 #RUN pip3 install numpy
 #RUN echo " "> requirements.txt
 RUN make
 COPY config.default.ini /opt/micropsi2/config.ini
+
+
 #
 #uncomment to install developer tools
 #

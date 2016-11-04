@@ -1,7 +1,6 @@
-for f in /opt/scps/*.txt
+for f in /media/scps/*.txt
 do
   x=$(< $f)
-  z=$(python remove.py $x)
-  echo $x > $f
-fi
+  z=$(python scripts/remove_non_ascii.py $x)
+  echo $z > $f
 done

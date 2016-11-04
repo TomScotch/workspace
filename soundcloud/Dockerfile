@@ -25,9 +25,10 @@ WORKDIR /opt/
 
 ##############
 #start here
-RUN apt-get install -y cmake clang
-RUN sh -c "$(wget -O - https://download.cuberite.org)"
-EXPOSE 8000
+RUN apt-get install -y python-pip python-setuptools python-dev
+RUN pip install nose fudge requests simplejson six
+RUN pip install soundcloud
+COPY script.py /opt/
 
 #
 #uncomment to install developer tools

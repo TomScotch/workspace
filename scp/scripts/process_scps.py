@@ -10,12 +10,16 @@ for filename in os.listdir('/opt/scps/'):
 	  f = open('/opt/scps/'+filename+".txt", 'w')
 	  try:
 	    x = content.split("Item #: SCP-")
-	    x1 = x[1]
+	    x1 = "SCP-" + x[1]
 	  except:
             x = content.split("black.png")
             x1 = x[1]	    
-          y = x1.split('revision:')
-	  y0 = y[0]
+          try:
+            y = x1.split('page revision:')
+            y0 = y[0]
+          except:
+            y = x1.split('last edited:')
+            y0 = y[0]
 	  f.write(y0)
 	  f.close()
 	except:
