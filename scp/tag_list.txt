@@ -1,4 +1,3 @@
-sed -e s/'2000animal'/'animal'/g -i /media/scps/*.txt
 [-]
 [+]
 fractal-Jan19_1.jpg
