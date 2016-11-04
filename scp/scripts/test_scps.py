@@ -18,4 +18,3 @@ for filename in os.listdir('/opt/scps/'):
           print r.get(filename)
 	except:
           print "Error Scp not found"
- if filename.endswith(".txt") :
