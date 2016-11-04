@@ -25,29 +25,14 @@ WORKDIR /opt/
 
 ##############
 #start here
-RUN git clone https://github.com/BruceSherwood/vpython-jupyter.git /opt/vpython/
-RUN apt-get install -y \
-python-pip \
-python-setuptools \
-python-dev \
-unzip
-RUN pip install entrypoints
-RUN easy_install vpnotebook jupyter
-RUN cd vpython && pip install -r requirements.txt
-RUN apt-get install -y gcc make g++ cmake ipython-notebook cython
-RUN cd vpython && python setup.py install
 
-RUN apt-get install -y nodejs npm golang-google-appengine-dev
-RUN npm install -g bower
-RUN git clone https://github.com/BruceSherwood/glowscript.git
-RUN cd glowscript && bower install
+RUN git clone git://github.com/ninja-ide/ninja-ide.git
+RUN apt-get install -y python-pip python-dev 
+RUN apt-get install -y python3-sip
+RUN pip install virtualenv
+RUN cd ninja-ide && pip install -r requirements.txt 
+RUN cd ninja-ide && python ninja-ide.py
 
-
-
-#RUN wget https://github.com/BruceSherwood/vpython-jupyter/blob/master/JupyterPythonDemos.zip
-#RUN unzip JupyterPythonDemos.zip
-
-#RUN pip install vpnotebook vpython
 
 #
 #uncomment to install developer tools
