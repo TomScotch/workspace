@@ -10,6 +10,9 @@
 # cut file down
 ./dump_to_text.sh  && \
 
+# create or update tag list
+./update_tag_list.sh
+
 # remove artifacts
 ./tag_clean.sh && \
 
