@@ -26,6 +26,7 @@
 cd ../mimic && \
 ./start.sh && \
 ./run-all.sh && \
+./stop.sh
 
 #show overall progress
 ./show-all.sh && \
@@ -33,7 +34,18 @@ cd ../mimic && \
 #create videos
 cd ../clip-creator/ && \
 ./start.sh && \
-./clip-creator/exec-run-all.sh
+./exec-run-all.sh
+./stop.sh
 
 #show overall progress
 ./show-all.sh && \
+
+#upload videos
+cd ../youtube-uploader/ && \
+./start.sh && \
+./exec-run-all.sh
+./stop.sh
+
+#show overall progress
+./show-all.sh && \
+
