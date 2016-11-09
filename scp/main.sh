@@ -10,12 +10,6 @@
 # cut file down
 ./dump_to_text.sh  && \
 
-# create or update tag list
-./update_tag_list.sh
-
-# remove artifacts
-./tag_clean.sh && \
-
 # transfer text to redis db
 ./text_to_redis.sh && \
 
@@ -31,7 +25,7 @@
 #text to speech
 cd ../mimic && \
 ./start.sh && \
-./outfile.sh && \
+./run-all.sh && \
 
 #show overall progress
 ./show-all.sh && \
