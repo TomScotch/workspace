@@ -26,11 +26,13 @@ WORKDIR /opt/
 ##############
 #start here
 
-RUN apt-get install -y libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev cxxtest cmake 
+RUN apt-get install -y libboost-dev libboost-date-time-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev cxxtest cmake make gpp gcc g++
 RUN git clone https://github.com/opencog/cogutils.git
 RUN cd cogutils && mkdir build && cd build && cmake .. && make && make install
 RUN git clone https://github.com/opencog/moses.git
 RUN apt-get install -y doxygen cython
-RUN cd moses && mkdir build && cd build && cmake ..
+RUN cd moses && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
 WORKDIR /opt/moses/build/
-RUN make -j 3 && make -j 3 install
+RUN make
+RUN make install
+

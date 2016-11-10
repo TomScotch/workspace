@@ -20,3 +20,4 @@ WORKDIR /opt/
 
 ##############
 #start here
+RUN apt-get install -y w3af-console

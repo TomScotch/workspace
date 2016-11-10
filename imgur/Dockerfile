@@ -20,3 +20,8 @@ WORKDIR /opt/
 
 ##############
 #start here
+RUN git clone https://github.com/Imgur/imgurpython.git
+WORKDIR /opt/imgurpython/
+RUN pip install -r requirements.txt
+RUN python setup.py install
+COPY imgur.sh /opt/imgurpython/
