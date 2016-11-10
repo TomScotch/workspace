@@ -32,42 +32,5 @@ RUN cd cogutils && mkdir build && cd build && cmake .. && make && make install
 RUN git clone https://github.com/opencog/moses.git
 RUN apt-get install -y doxygen cython
 RUN cd moses && mkdir build && cd build && cmake ..
-
-
-#
-#uncomment to install developer tools
-#
-#apt-get install deb-multimedia-keyring -y
-#echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list
-#apt-get update
-#apt-get install -y ffmpeg
-
-
-#uncomment for developer tools 
-# javascript python ruby
-# npm;node/easy_install/bundler;rake;gems
-#RUN apt-get update -y && \
-#     apt-get install -y  \
-#         build-essential \
-#                nodejs npm \
-#       python-setuptools \
-#              python-dev \
-# python-mvpa2 protobuf-c-compiler \
-# protobuf-compiler libprotobuf-dev \
-# libprotoc9 libprotoc-dev libprotobuf9 \
-# python-h5py python-lxml python-matplotlib \
-# liblapack-dev python-scipy python-numpy \
-# python-imaging python-pil python-sklearn \
-# ruby-all-dev bundler gems rake
-
-
-#uncomment for startup entrypoint or command
-#ENTRYPOINT ["bash"]
-#CMD bash
-#EXPOSE 12345
-
-#uncomment to enable user pi
-#RUN mkdir /home/pi
-#RUN groupadd -r pi -g 433
-#RUN useradd -u 431 -r -g pi -d /home/pi -s /sbin/nologin -c "default" pi
-#RUN chown -R pi:pi /home/pi
+WORKDIR /opt/moses/build/
+RUN make -j 3 && make -j 3 install

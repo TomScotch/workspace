@@ -1,4 +1,3 @@
 #execute commands
 #exec.sh
-
-docker exec ${PWD##*/} $ARGV[1]
+docker exec ${PWD##*/} $1
