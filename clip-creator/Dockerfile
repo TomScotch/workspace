@@ -12,3 +12,4 @@ RUN apt-get update -y && \
 
 WORKDIR /opt/
 COPY run-all.sh /opt/
+COPY free-usb.sh /opt/

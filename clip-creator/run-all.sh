@@ -1,6 +1,8 @@
 for f in /opt/scps/*.wav
   do
-  if [$(./scripts/free-usb.sh)>=1000]
+  x=$(bash /opt/free-usb.sh)
+  echo $x
+  if (( "$x" >= "1000" )) ; then
     if [ -f "$f.mp4" ]
       then
         echo "skipped : " $f " : already existing"
