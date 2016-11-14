@@ -1,5 +1,6 @@
 for f in /opt/scps/*.wav
   do
+  if [$(./scripts/free-usb.sh)>=1000]
     if [ -f "$f.mp4" ]
       then
         echo "skipped : " $f " : already existing"
@@ -10,4 +11,5 @@ for f in /opt/scps/*.wav
      -c:v libx264 -preset superfast \
      -shortest -fflags +genpts $f.mp4
     fi
+  fi
 done
