@@ -1,5 +1,6 @@
-# build create start
-./setup.sh && \
+# start container
+cd /home/pi/workspace/scp/ && \
+./start.sh && \
 
 # download html files from 0 - 3000
 ./get_scps.sh && \
@@ -13,14 +14,11 @@
 # transfer text to redis db
 ./text_to_redis.sh && \
 
-# output redis entry for all html files
-./test_scps.sh && \
+#stop container
+./stop.sh && \
 
-# delete zero size files
-./delete_zero_files.sh && \
-
-#show overall progress
-./show-all.sh && \
+#show progress
+./home/pi/workspace/scp/show-all.sh && \
 
 #text to speech
 cd ../mimic && \
@@ -28,24 +26,23 @@ cd ../mimic && \
 ./run-all.sh && \
 ./stop.sh
 
-#show overall progress
-./show-all.sh && \
+#show progress
+./home/pi/workspace/scp/show-all.sh && \
 
 #create videos
 cd ../clip-creator/ && \
 ./start.sh && \
-./exec-run-all.sh
-./stop.sh
+./exec-run-all.sh && \
+./stop.sh && \
 
-#show overall progress
-./show-all.sh && \
+#show progress
+./home/pi/workspace/scp/show-all.sh && \
 
 #upload videos
 cd ../youtube-uploader/ && \
 ./start.sh && \
-./exec-run-all.sh
+./exec-run-all.sh && \
 ./stop.sh
 
-#show overall progress
-./show-all.sh && \
-
+# show progress
+./home/pi/workspace/scp/show-all.sh && \
