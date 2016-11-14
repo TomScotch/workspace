@@ -18,16 +18,16 @@ cd /home/pi/workspace/scp/ && \
 ./stop.sh && \
 
 #show progress
-./home/pi/workspace/scp/show-all.sh && \
+bash /home/pi/workspace/scp/show-all.sh && \
 
 #text to speech
 cd ../mimic && \
 ./start.sh && \
-./run-all.sh && \
+./exec-run-all.sh && \
 ./stop.sh
 
 #show progress
-./home/pi/workspace/scp/show-all.sh && \
+bash /home/pi/workspace/scp/show-all.sh && \
 
 #create videos
 cd ../clip-creator/ && \
@@ -36,13 +36,13 @@ cd ../clip-creator/ && \
 ./stop.sh && \
 
 #show progress
-./home/pi/workspace/scp/show-all.sh && \
+bash /home/pi/workspace/scp/show-all.sh && \
 
 #upload videos
 cd ../youtube-uploader/ && \
 ./start.sh && \
 ./exec-run-all.sh && \
-./stop.sh
+./stop.sh && \
 
 # show progress
-./home/pi/workspace/scp/show-all.sh && \
+bash /home/pi/workspace/scp/show-all.sh
