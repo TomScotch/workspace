@@ -1,5 +1,8 @@
 for f in /opt/scps/*.wav
   do
+  name=${f#/opt/scps/}
+  name=${name%.html.*}
+  test=$(grep $name /opt/scps/.log)
   x=$(bash /opt/free-usb.sh)
   echo $x
   if (( "$x" >= "1000" )) ; then
