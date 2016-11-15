@@ -108,20 +108,17 @@ ENV KALDI_PATH /usr/local/kaldi-$KALDI_VERSION
 RUN mv /bin/sh /bin/sh.orig && \
    ln -s -f /bin/bash /bin/sh && \
    mkdir $KALDI_PATH && \
-   wget --no-verbose -O - https://github.com/kaldi-asr/kaldi/archive/$KALDI_VERSION.tar.gz | tar -xzf - --strip-components=1 -C $KALDI_PATH && \
+   git clone https://github.com/kaldi-asr/kaldi.git $KALDI_PATH && \
    cd $KALDI_PATH && \
    cd tools && \
    perl -pi -e 's/^# (OPENFST_VERSION = 1.4.1)$/\1/' Makefile && \
-   ./extras/check_dependencies.sh && \
-   make -j $(nproc) all && \
-   cd ../src && \
-   ./configure --openblas-root=/usr/local/openblas --shared && \
-   make -j $(nproc) depend && \
-   make -j $(nproc) all && \
-# Remove some unneeded stuff in $KALDI_PATH to reduce size
-   find $KALDI_PATH -name '*.o' -print0 | xargs -0 rm && \
-   for dir in $KALDI_PATH/src/*bin; do make -C $dir clean; done && \
-   mv -f /bin/sh.orig /bin/sh
+   ./extras/check_dependencies.sh
+
+RUN    cd $KALDI_PATH/tools/ && make all
+RUN    cd $KALDI_PATH/src/ && ./configure --openblas-root=/usr/local/openblas --shared 
+RUN    cd $KALDI_PATH/src/ && make depend 
+RUN    cd $KALDI_PATH/src/ && make all 
+RUN    cd $KALDI_PATH/ && find $KALDI_PATH -name '*.o' -print0 | xargs -0 rm && for dir in $KALDI_PATH/src/*bin; do make -C $dir clean; done && mv -f /bin/sh.orig /bin/sh
 
 ## PYTHON
 
@@ -134,14 +131,20 @@ RUN cd /root && \
     make install
 
 # Anaconda
-RUN wget -q https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh && \
-    bash Anaconda3-4.2.0-Linux-x86_64.sh -b && \
-    rm Anaconda3-4.2.0-Linux-x86_64.sh
+RUN wget https://repo.continuum.io/miniconda/Miniconda-3.16.0-Linux-armv7l.sh && \
+    bash Miniconda-3.16.0-Linux-armv7l.sh -b && \
+    rm Miniconda-3.16.0-Linux-armv7l.sh
 
-RUN wget -q https://raw.githubusercontent.com/Microsoft/CNTK/master/Scripts/linux/conda-linux-cntk-py34-environment.yml -O /tmp/conda-linux-cntk-py34-environment.yml && \
-    /root/anaconda3/bin/conda env create -p /root/anaconda3/envs/cntk-py34/ --file /tmp/conda-linux-cntk-py34-environment.yml
+RUN apt-get update
+RUN apt-get install -y \
+python3-pip libfreetype6 libxft2 \
+libxft-dev pngtools libpnglite-dev \
+libloadpng4-dev libpng++-dev python3-numpy \
+python3-pillow python3-matplotlib python3-scipy
 
-ENV PATH /root/anaconda3/envs/cntk-py34/bin:$PATH
+RUN pip3 install jupyter pandas pyyaml seaborn setuptools six wheel pytest sphinx sphinx-rtd-theme twine gym
+
+ENV PATH /root/conda/envs/cntk-py34/bin:$PATH
 
 WORKDIR /cntk
 
@@ -149,7 +152,7 @@ WORKDIR /cntk
 RUN git clone --depth=1 -b master https://github.com/Microsoft/CNTK.git . && \
     CONFIGURE_OPTS="\
       --with-kaldi=${KALDI_PATH} \
-      --with-py34-path=/root/anaconda3/envs/cntk-py34" && \
+      --with-py34-path=/root/conda/envs/cntk-py34" && \
     git submodule update --init Source/Multiverso && \
     mkdir -p build/cpu/release && \
     cd build/cpu/release && \
