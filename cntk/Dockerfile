@@ -151,16 +151,17 @@ WORKDIR /cntk
 # Build CNTK
 RUN git clone --depth=1 -b master https://github.com/Microsoft/CNTK.git . && \
     CONFIGURE_OPTS="\
-      --with-kaldi=${KALDI_PATH} \
-      --with-py34-path=/root/conda/envs/cntk-py34" && \
+      --with-kaldi=${KALDI_PATH}" && \
     git submodule update --init Source/Multiverso && \
     mkdir -p build/cpu/release && \
     cd build/cpu/release && \
-    ../../../configure $CONFIGURE_OPTS --with-openblas=/usr/local/openblas && \
+    ../../../configure $CONFIGURE_OPTS --with-openblas=/usr/local/openblas
+
+RUN cd build/cpu/release && \
     make -j"$(nproc)" all && \
-    cd ../../.. && \
-    mkdir -p build-mkl/cpu/release && \
-    cd build-mkl/cpu/release && \
+    mkdir -p build-mkl/cpu/release
+
+RUN cd build-mkl/cpu/release && \
     ../../../configure $CONFIGURE_OPTS --with-mkl=/usr/local/CNTKCustomMKL && \
     make -j"$(nproc)" all
 
