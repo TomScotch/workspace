@@ -1,6 +1,4 @@
-#dockerfile template Dockerfile
-
-FROM armhf/ubuntu:16.10
+FROM ubuntu:16.10
 
 ENV DEBIAN_FRONTEND noninteractive
 

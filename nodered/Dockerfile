@@ -1,9 +1,8 @@
-FROM hypriot/rpi-node:4
+FROM ubuntu
 
-# Home directory for Node-RED application source code.
+RUN apt-get update && apt-get install -y nodejs npm.
 RUN mkdir -p /usr/src/node-red
 
-# User data directory, contains flows, config and nodes.
 RUN mkdir /data
 
 WORKDIR /usr/src/node-red

@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM ubuntu
 # ------------------------------------------------------------------------------
 
 # Install dependencies

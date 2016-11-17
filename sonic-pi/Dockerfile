@@ -1,7 +1,4 @@
-#dockerfile template
-#Dockerfile
-
-FROM resin/raspberrypi3-python
+FROM raspberrypi3-python
 
 ENV DEBIAN_FRONTEND noninteractive
 

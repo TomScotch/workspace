@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM ubuntu
 COPY pgp.key pgp.key
 RUN apt-key add pgp.key
 RUN echo 'deb http://ppa.launchpad.net/ubuntu-sdk-team/ppa/ubuntu xenial main' >> /etc/apt/sources.list.d/sources.list

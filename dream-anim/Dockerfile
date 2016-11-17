@@ -1,6 +1,8 @@
-FROM resin/raspberrypi3-python
+FROM ubuntu
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+
+        nodejs npm node-gyp \
 
         build-essential \
 

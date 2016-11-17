@@ -1,7 +1,4 @@
-#dockerfile template
-#Dockerfile
-
-FROM resin/raspberrypi3-node
+FROM ubuntu
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,8 +11,8 @@ RUN apt-get update -y &&    \
 	nano wget curl git  \
 	 build-essential    \
 locales ca-certificates     \
-software-properties-common
-
+software-properties-common  \
+nodejs npm
 
 WORKDIR /opt/
 

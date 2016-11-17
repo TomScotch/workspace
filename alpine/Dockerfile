@@ -1,4 +1,4 @@
-FROM armhf/alpine:3.4
+FROM alpine:3.4
 
 ENV NODE_VERSION 6.2.0-r0
 ENV NPM_VERSION 3.9.5

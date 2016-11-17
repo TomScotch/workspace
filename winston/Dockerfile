@@ -1,7 +1,4 @@
-#dockerfile template
-#Dockerfile
-
-FROM armhf/debian
+FROM debian
 
 ENV DEBIAN_FRONTEND noninteractive
 

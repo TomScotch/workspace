@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM ubuntu
 RUN apt-get install -y python
 WORKDIR /opt
 EXPOSE 99

@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM ubuntu
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y tesseract-ocr-deu tesseract-ocr libtesseract3

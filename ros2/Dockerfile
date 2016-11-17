@@ -1,8 +1,7 @@
 # This is an auto generated Dockerfile for ros2:ros2
 # generated from templates/docker_images/create_ros2_image.Dockerfile.em
 # generated on 2016-07-15 16:28:44 +0000
-FROM armhf/ubuntu:16.10
-MAINTAINER Tully Foote tfoote+buildfarm@osrfoundation.org
+FROM ubuntu:16.10
 
 # ROS1 Repo Setup ##############################################################
 # setup environment

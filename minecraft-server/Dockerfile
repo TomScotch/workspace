@@ -11,7 +11,7 @@
 
 
 # Base system is the LTS version of Ubuntu.
-FROM   armhf/ubuntu
+FROM   ubuntu
 
 
 # Make sure we don't get notifications we can't answer during building.

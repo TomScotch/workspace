@@ -1,6 +1,3 @@
-#dockerfile template
-#Dockerfile
-
 FROM scotch/miniconda
 
 ENV DEBIAN_FRONTEND noninteractive

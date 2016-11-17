@@ -2,7 +2,7 @@
 # Based on ubuntu:16.04, installs MongoDB following the instructions from:
 # http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
 
-FROM       armhf/ubuntu:16.04
+FROM       ubuntu:16.04
 
 # Installation:
 # Import MongoDB public GPG key AND create a MongoDB list file

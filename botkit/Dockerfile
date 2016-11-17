@@ -1,7 +1,4 @@
-#dockerfile template
-#Dockerfile
-
-FROM armhf/ubuntu
+FROM ubuntu
 
 RUN apt-get update
 RUN apt-get upgrade -y

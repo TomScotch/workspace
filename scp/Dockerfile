@@ -1,4 +1,4 @@
-FROM        armhf/ubuntu:16.10
+FROM        ubuntu:16.10
 RUN         apt-get update && apt-get install -y redis-server git nano python-pycurl curl wget python-pip python-redis libxml2 python-lxml
 WORKDIR     /opt/
 EXPOSE 	    6379

@@ -1,7 +1,4 @@
-#dockerfile template
-#Dockerfile
-
-FROM resin/rpi-raspbian
+FROM ubuntu
 
 ENV DEBIAN_FRONTEND noninteractive
 

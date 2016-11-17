@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM ubuntu
 RUN apt update
 RUN apt upgrade -y
 RUN apt install -y git nano wget python-pip

@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:14.04
+FROM ubuntu:14.04
 
 ENV TERM linux
 ENV ENV DEBIAN_FRONTEND noninteractive

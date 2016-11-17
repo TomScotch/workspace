@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:16.10
+FROM ubuntu:16.10
 
 # Install dependencies
 RUN apt-get -qq update           &&  \

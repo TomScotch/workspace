@@ -1,4 +1,4 @@
-FROM armhf/ubuntu:trusty
+FROM ubuntu:trusty
 
 RUN apt-get update -y
 RUN apt-get install -y dirmngr

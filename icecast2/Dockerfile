@@ -1,4 +1,4 @@
-FROM armhf/ubuntu
+FROM ubuntu
 ENV DEBIAN_FRONTEND noninteractive
 ENV ICECAST_SOURCE_PASSWORD=source
 ENV ICECAST_ADMIN_PASSWORD=admin
