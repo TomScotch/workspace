@@ -8,4 +8,4 @@ for arg in sys.argv:
     txt = txt + " "
     c = len(txt)
 
-print txt.decode(encoding='UTF-8',errors='strict')
+print txt.decode(encoding='ASCII')
