@@ -7,6 +7,4 @@ WORKDIR /opt/mimic
 RUN ./configure --with-audio=alsa
 RUN make -j 3
 RUN mkdir /opt/text/
-COPY outfile.sh /opt/
-COPY outfile_*.sh /opt/
-COPY exec_outfile_*.sh /opt/
+COPY *.sh /opt/

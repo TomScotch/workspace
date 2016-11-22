@@ -1,0 +1,1 @@
+docker run -it -p 6006:6006 -v /home/tomscotch/workspace/magenta/:/magenta-data tensorflow/magenta  melody_rnn_generate   --config=lookback_rnn   --bundle_file=/magenta-models/lookback_rnn.mag   --output_dir=/magenta-data/lookback_rnn/generated   --num_outputs=10   --num_steps=128   --primer_melody="[60]"

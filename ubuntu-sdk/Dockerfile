@@ -1,10 +1,5 @@
-FROM ubuntu
-COPY pgp.key pgp.key
-RUN apt-key add pgp.key
-RUN echo 'deb http://ppa.launchpad.net/ubuntu-sdk-team/ppa/ubuntu xenial main' >> /etc/apt/sources.list.d/sources.list
+FROM ubuntu:16.10
 RUN apt-get update
-RUN apt-get install ubuntu-sdk -y
-RUN apt-get install ubuntu-dev-tools -y
-RUN apt-get install snapcraft -y
+RUN apt-get install snapd snapcraft ubuntu-sdk ubuntu-dev-tools -y
 RUN apt-get upgrade -y
-RUN snapcraft tour
+
