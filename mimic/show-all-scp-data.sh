@@ -1,1 +1,0 @@
-echo "html : " $(./count_files.sh '/media/scps/*.html') && echo "txt : " $(./count_files.sh '/media/scps/*.txt') && echo "wav : " $(./count_files.sh '/media/scps/*.wav') && echo "mov : " $(./count_files.sh '/media/scps/*.mov')

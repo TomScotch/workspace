@@ -14,9 +14,12 @@ if [ "$test" == "" ];then
     --description="$desc" \
     --tags="scps, scp, foundation, containment, breach, reading, spoken, word, text, story, tale, fan, fiction, sci-fi, creepypasta, scp-wiki, scp-foundation, scp-reading" \
     "$f")
-  echo "$x"
-  echo "$x" >> /opt/scps/.result
-  echo "$name" >> /opt/scps/.log
-  sleep 600
+  if [ "$x" == "" ];then
+    echo "$name" >> /opt/scps/.fail
+  else
+    echo "$x" >> /opt/scps/.adresses
+    echo "$name" >> /opt/scps/.uploaded
+    sleep 600
+  fi
 fi
 done
