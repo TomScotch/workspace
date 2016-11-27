@@ -1,4 +1,3 @@
-touch /opt/scps/.log
 for f in /opt/scps/*.mp4
 do
 name=${f#/opt/scps/}
@@ -19,7 +18,7 @@ if [ "$test" == "" ];then
   else
     echo "$x" >> /opt/scps/.adresses
     echo "$name" >> /opt/scps/.uploaded
-    sleep 600
+    sleep 900
   fi
 fi
 done

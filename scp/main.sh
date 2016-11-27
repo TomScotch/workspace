@@ -1,5 +1,5 @@
 # start container
-cd /home/pi/workspace/scp/ && \
+cd /home/tomscotch/workspace/scp/ && \
 ./start.sh && \
 
 # download html files from 0 - 3000
@@ -11,14 +11,11 @@ cd /home/pi/workspace/scp/ && \
 # cut file down
 ./dump_to_text.sh  && \
 
-# transfer text to redis db
-./text_to_redis.sh && \
-
 #stop container
 ./stop.sh && \
 
 #show progress
-bash /home/pi/workspace/scp/show-all.sh && \
+bash /home/tomscotch/workspace/scp/show-all.sh && \
 
 #text to speech
 cd ../mimic && \
@@ -27,7 +24,7 @@ cd ../mimic && \
 ./stop.sh
 
 #show progress
-bash /home/pi/workspace/scp/show-all.sh && \
+bash /home/tomscotch/workspace/scp/show-all.sh && \
 
 #create videos
 cd ../clip-creator/ && \
@@ -36,7 +33,7 @@ cd ../clip-creator/ && \
 ./stop.sh && \
 
 #show progress
-bash /home/pi/workspace/scp/show-all.sh && \
+bash /home/tomscotch/workspace/scp/show-all.sh && \
 
 #upload videos
 cd ../youtube-uploader/ && \
@@ -45,4 +42,4 @@ cd ../youtube-uploader/ && \
 ./stop.sh && \
 
 # show progress
-bash /home/pi/workspace/scp/show-all.sh
+bash /home/tomscotch/workspace/scp/show-all.sh

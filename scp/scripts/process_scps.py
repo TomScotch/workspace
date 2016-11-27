@@ -25,6 +25,6 @@ for filename in os.listdir('/opt/scps/'):
 	    f.write(y0)
 	    f.close()
 	  except:
-            f = open('/opt/scps/failed.log', 'w')
+            f = open('/opt/scps/fail.log', 'w')
             f.write(filename+"\n")
             f.close()
