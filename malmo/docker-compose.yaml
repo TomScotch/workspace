@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  malmo:
+    image: tnarik/malmo
+    container_name: malmo
+    build:
+      context: .
