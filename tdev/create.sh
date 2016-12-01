@@ -1,4 +1,4 @@
 #create container
 #create.sh
-docker create -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create -p 4242:4242 -t -i --name ${PWD##*/} scotch/${PWD##*/}
 

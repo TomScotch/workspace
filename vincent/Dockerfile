@@ -56,7 +56,7 @@ RUN apt-get install -y \
 RUN pip install keras
 RUN git clone https://github.com/saikatbsk/Vincent-AI-Artist.git /opt/vincent/
 WORKDIR /opt/vincent/
-COPY vgg16_weights.h5 /opt/vincent/
+RUN cd /opt/vincent/ && wget https://github.com/awentzonline/keras-vgg-buddy/releases/download/0.0.1/vgg16_weights.h5
 
 #uncomment to install developer tools
 #

@@ -1,8 +1,8 @@
-FROM armhf/ubuntu
+FROM armhf/ubuntu:16.10
 
-RUN apt-get update
-
-RUN apt-get install git -y
+RUN apt update
+RUN apt-get install --fix-missing
+RUN apt-get install git -y --fix-missing
 RUN apt-get install python-pip -y
 RUN apt-get install festival -y
 RUN apt-get install libjack0 libjack-dev -y
