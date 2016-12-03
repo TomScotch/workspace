@@ -1,1 +1,1 @@
-cd /home/pi/workspace/ && for f in $(ls -1) ; do cd /home/pi/workspace/$f ; x=$(docker images | grep "scotch/$f") ; if [ "$x" == "" ] ; then y=$(ls $fc| grep Dockerfile) ; if [  "$y" ] ; then echo $f ; fi ; fi ; done
+cd /home/pi/workspace/ && for f in $(ls -1) ; do cd /home/pi/workspace/$f ; x=$(docker images | grep "scotch/$f") ; if [ "$x" == "" ] ; then y=$(ls /home/pi/workspace/$f | grep Dockerfile) ; if [  "$y" ] ; then echo $f ; fi ; fi ; done

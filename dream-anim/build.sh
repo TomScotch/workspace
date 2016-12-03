@@ -1,1 +1,4 @@
-docker build -t scotch/dream-anim .
+#build image
+#build.sh
+
+docker build -t scotch/${PWD##*/} .

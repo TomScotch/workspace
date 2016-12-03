@@ -1,4 +1,4 @@
-FROM scotch/ruby
+FROM armhf/ruby
 WORKDIR /opt
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -17,7 +17,4 @@ RUN gem install lita-slack
 RUN bundle install
 RUN bundle update
 RUN  cd /opt/lita && wget https://gist.githubusercontent.com/TomScotch/90d0e894028b90a29954f96d43a1bc79/raw/ee24b887964cd359e5d8ed99fe947f66ce68543a/lita && mv lita lita_config.rb
-COPY locale /etc/default/locale
-RUN locale-gen en_US.UTF-8 &&\
-  DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 CMD redis-server > /dev/null & lita start

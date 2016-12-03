@@ -55,3 +55,4 @@ RUN alias enhance='function ne() { docker run --rm -v "$(pwd)/`dirname ${@:$#}`"
 # Now run any of the examples above using this alias, without the `.py` extension.
 # enhance --zoom=1 --model=small images/example.jpg
 RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.2/ne1x-small-0.2.pkl.bz2
+RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.3/ne1x-photo-deblur-0.3.pkl.bz2

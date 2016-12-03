@@ -1,9 +1,9 @@
-FROM armhf/ubuntu
+FROM armhf/ubuntu:16.10
 RUN apt-get update
 #RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 #RUN apt-get update
 
-RUN apt-get install -y sysklogd ngircd
+RUN apt-get install -y ngircd
 
 # expose IRC ports
 EXPOSE :443
