@@ -11,6 +11,10 @@ cd /home/tomscotch/workspace/scp/ && \
 # cut file down
 ./dump_to_text.sh  && \
 
+# remove unfit characters
+# that prevent upload
+./clean-txt.sh && \
+
 #stop container
 ./stop.sh && \
 
