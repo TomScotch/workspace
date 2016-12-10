@@ -1,17 +1,12 @@
-FROM ubuntu
-RUN apt-get update
+FROM ubuntu:16.10
+RUN apt update
 RUN apt-get upgrade -y
-RUN apt-get install python-pip wget nano -y
-RUN pip install -r https://raw.githubusercontent.com/gunthercox/ChatterBot/master/requirements.txt
-RUN pip install chatterbot
+RUN apt install -y git python-setuptools nano sudo pandoc gcc python-dev
+RUN easy_install pip
+RUN git clone http://github.com/gunthercox/ChatterBot.git /opt/chatterbot
+RUN for f in $(cat /opt/chatterbot/requirements.txt ); do pip install $f ; done
+RUN for f in $(cat /opt/chatterbot/dev-requirements.txt ); do pip install $f ; done
+RUN for f in $(cat /opt/chatterbot/test-requirements.txt ); do pip install $f ; done
 WORKDIR /opt/
-RUN wget https://raw.githubusercontent.com/gunthercox/ChatterBot/master/examples/terminal_example.py
-COPY train.py /opt/
-COPY example.py /opt/
-RUN apt-get install -y python-levenshtein
-RUN python -m textblob.download_corpora
-RUN python train.py
-RUN apt-get install pocketsphinx -y
-RUN pip install chatterbot-voice
-CMD python terminal_example.py
-#CMD python example.py #use for voicechat
+RUN cd /opt/chatterbot/ && python setup.py install
+RUN mkdir data && cd data && wget http://cs.mcgill.ca/~jpineau/datasets/ubuntu-corpus-1.0/ubuntu_dialogs.tgz
