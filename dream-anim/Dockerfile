@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:xenial
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 
@@ -50,13 +50,15 @@ ENV CAFFE_ROOT=/opt/caffe
 
 WORKDIR $CAFFE_ROOT
 
-RUN apt-get install -y python-setuptools python-pip && pip install pip --upgrade
+RUN apt-get install -y python-pip && pip install pip --upgrade
+
+RUN pip install setuptools
 
 # FIXME: clone a specific git tag and use ARG instead of ENV once DockerHub supports this.
 
 ENV CLONE_TAG=master
 
-
+RUN apt-get update && apt install -y yasm
 
 RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && \
 
@@ -66,9 +68,7 @@ RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && \
 
     cmake ${CMAKE_ARGS} .. && \
 
-    make -j 2
-
-
+    make -j 6
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 
@@ -102,14 +102,14 @@ RUN apt-get -y install build-essential libfreetype6-dev \
 WORKDIR /opt/ffmpeg
 ##########################
 RUN git clone git://git.videolan.org/x264 /opt/x264
-RUN cd /opt/x264 && ./configure --host=arm-unknown-linux-gnueabi --enable-static --disable-opencl && make && make install
+RUN cd /opt/x264 && ./configure --enable-static --disable-opencl && make && make install
 #######################################
 #RUN apt-get update
 #RUN apt-get dist-upgrade
 #RUN apt-get install -y libx264-dev
 ##########################
-RUN ./configure --arch=armel --target-os=linux --enable-gpl --enable-nonfree --enable-libx264
-RUN make
+RUN ./configure --target-os=linux --enable-gpl --enable-nonfree --enable-libx264
+RUN make -j 6
 RUN make install
 ###########################
 RUN apt-get update

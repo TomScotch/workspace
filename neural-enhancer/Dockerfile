@@ -1,4 +1,4 @@
-FROM scotch/miniconda
+FROM ubuntu
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -22,6 +22,8 @@ WORKDIR /opt/
 
 ##############
 #start here
+RUN apt-get install -y python-pip
+RUN pip install conda
 RUN cd /opt/ && git clone https://github.com/alexjc/neural-enhance.git
 WORKDIR /opt/neural-enhance/
 RUN export LC_ALL=en_US.UTF-8
@@ -51,4 +53,7 @@ RUN alias enhance='function ne() { docker run --rm -v "$(pwd)/`dirname ${@:$#}`"
 
 # Now run any of the examples above using this alias, without the `.py` extension.
 # enhance --zoom=1 --model=small images/example.jpg
-RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.2/ne1x-small-0.2.pkl.bz2
+RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.3/ne1x-photo-deblur-0.3.pkl.bz2
+RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.3/ne1x-photo-repair-0.3.pkl.bz2
+RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.3/ne2x-photo-default-0.3.pkl.bz2
+RUN wget https://github.com/alexjc/neural-enhance/releases/download/v0.3/ne1x-photo-deblur-0.3.pkl.bz2

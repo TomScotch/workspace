@@ -1,7 +1,7 @@
 FROM ubuntu:16.10
 RUN apt update
 RUN apt-get upgrade -y
-RUN apt install -y git python-setuptools nano sudo pandoc gcc python-dev
+RUN apt install -y wget git python-setuptools nano sudo pandoc gcc python-dev
 RUN easy_install pip
 RUN git clone http://github.com/gunthercox/ChatterBot.git /opt/chatterbot
 RUN for f in $(cat /opt/chatterbot/requirements.txt ); do pip install $f ; done

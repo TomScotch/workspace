@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu
 
 # Install dependencies
 RUN apt-get -qq update           &&  \
@@ -35,8 +35,9 @@ RUN apt-get -qq update           &&  \
         "python3-networkx"       &&  \
     rm -rf /var/lib/apt/lists/*  &&  \
          easy_install3 cython
-#RUN pip install --user --upgrade --no-deps https://github.com/Theano/Theano/archive/master.zip
-#RUN pip install --user --upgrade --no-deps https://github.com/Lasagne/Lasagne/archive/master.zip
+RUN apt-get install -y wget
+RUN pip install --user --upgrade --no-deps https://github.com/Theano/Theano/archive/master.zip
+RUN pip install --user --upgrade --no-deps https://github.com/Lasagne/Lasagne/archive/master.zip
 RUN cd /opt/ && git clone https://github.com/alexjc/neural-doodle.git doodle
 WORKDIR /opt/doodle/
 RUN wget -q "https://github.com/alexjc/neural-doodle/releases/download/v0.0/vgg19_conv.pkl.bz2"

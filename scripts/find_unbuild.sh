@@ -1,0 +1,1 @@
+for f in $(cd /home/tomscotch/workspace ; dir -1) ; do cd /home/tomscotch/workspace/$f ; x=$(docker images | grep "scotch/$f") ; if [ "$x" ] ; then ls > /dev/null ; else  y=$(ls /home/tomscotch/workspace/$f | grep Dockerfile) ; if [ "$y" ] ; then echo $f ; fi ; fi ; done

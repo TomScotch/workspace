@@ -1,0 +1,2 @@
+#for f in $(ls /home/tomscotch/workspace/ -d -- */); do cd $f; x=$(ls | grep setup.sh); if [ $x ] ; then echo 'setup found'; else cp /home/tomscotch/workspace/template/setup.sh /home/tomscotch/workspace/$f ; fi ; cd /home/tomscotch/workspace/ ; done
+for f in $(ls /home/tomscotch/workspace/ -d -- */); do cd $f; x=$(ls | grep setup.sh); if [ $x ] ; then echo 'setup found'; else cp /home/tomscotch/workspace/template/setup.sh /home/tomscotch/workspace/$f ; fi ; cd /home/tomscotch/workspace/ ; done

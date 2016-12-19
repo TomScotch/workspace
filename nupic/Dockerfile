@@ -1,6 +1,4 @@
-FROM ubuntu:16.10
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM ubuntu
 
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -15,5 +13,6 @@ software-properties-common
 
 WORKDIR /opt/
 
-RUN apt-get install -y python python-pip python-setuptools python-wheels python-numpy gcc
+RUN apt-get install -y python python-pip python-setuptools python-numpy gcc
+RUN pip install wheel
 RUN pip install nupic

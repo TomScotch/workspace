@@ -1,1 +1,2 @@
-*.json
+client_secrets.json
+.youtube-upload-credentials.json

@@ -1,1 +1,0 @@
-docker stop ${PWD##*/}

@@ -50,7 +50,7 @@ RUN apt-get install -y \
 RUN pip install keras
 RUN git clone https://github.com/saikatbsk/Vincent-AI-Artist.git /opt/vincent/
 WORKDIR /opt/vincent/
-COPY vgg16_weights.h5 /opt/vincent/
+ADD vgg16_weights.h5 /opt/vincent/
 
 #uncomment to install developer tools
 #

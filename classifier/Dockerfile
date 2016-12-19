@@ -1,7 +1,7 @@
 FROM ubuntu
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y ruby-all-dev ruby-gsl libgsl0-dev gsl-bin
+RUN apt-get install -y ruby-all-dev ruby-gsl libgsl0-dev gsl-bin make cmake gpp g++ gcc
 WORKDIR /opt
 COPY run.rb /opt
 RUN gem install fast-stemmer madeleine narray gsl classifier

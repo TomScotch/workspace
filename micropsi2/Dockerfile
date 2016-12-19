@@ -1,6 +1,4 @@
-FROM ubuntu:16.10
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM ubuntu
 
 RUN apt-get update
 RUN apt-get upgrade -y
