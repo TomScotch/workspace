@@ -1,2 +1,1 @@
-#curl http://mary.dfki.de:59125/process?INPUT_TEXT='$1'&INPUT_TYPE=TEXT&OUTPUT_TYPE=AUDIO&AUDIO=WAVE_FILE&LOCALE=en_US&VOICE=dfki-poppy
-curl http://mary.dfki.de:59125/process?INPUT_TEXT=Hello+world&INPUT_TYPE=TEXT&OUTPUT_TYPE=AUDIO&AUDIO=WAVE_FILE&LOCALE=en_US&VOICE=dfki-poppy
+curl "http://localhost:59125/process?INPUT_TYPE=TEXT&INPUT_TEXT=$1&AUDIO=WAVE&LOCALE=en_US&OUTPUT_TYPE=AUDIO" > output.wav
