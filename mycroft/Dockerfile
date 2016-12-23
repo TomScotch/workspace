@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu
 
 ENV TERM linux
 ENV ENV DEBIAN_FRONTEND noninteractive

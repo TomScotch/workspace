@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine
 MAINTAINER Simon Erhardt <hello@rootlogin.ch>
 
 ARG NEXTCLOUD_GPG="2880 6A87 8AE4 23A2 8372  792E D758 99B9 A724 937A"

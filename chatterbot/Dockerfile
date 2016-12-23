@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu
 RUN apt update
 RUN apt-get upgrade -y
 RUN apt install -y wget git python-setuptools nano sudo pandoc gcc python-dev

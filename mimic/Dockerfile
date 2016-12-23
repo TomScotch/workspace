@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y gcc make pkg-config libasound2-dev sudo git

@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu
 RUN apt update && apt-get upgrade -y && apt-get dist-upgrade -y
 RUN apt install -y ruby-rails git sqlite3  ruby-dev build-essential libsqlite3-dev gcc ruby-dev libxslt-dev libxml2-dev patch zlib1g-dev liblzma-dev pkg-config
 WORKDIR /opt/
