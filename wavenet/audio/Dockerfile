@@ -19,3 +19,4 @@ WORKDIR /opt/wavenet/
 RUN pip install -r requirements.txt
 RUN wget http://homepages.inf.ed.ac.uk/jyamagis/release/VCTK-Corpus.tar.gz
 RUN tar xvfz VCTK-Corpus.tar.gz && rm VCTK-Corpus.tar.gz
+RUN apt install -y python-tk

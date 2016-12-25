@@ -15,4 +15,6 @@ software-properties-common
 
 RUN git clone https://github.com/Zeta36/tensorflow-tex-wavenet.git /opt/wavenet/
 WORKDIR /opt/wavenet/
-
+RUN mkdir /opt/txt
+ADD train.sh /opt/wavenet/
+ADD generate.sh /opt/wavenet/
