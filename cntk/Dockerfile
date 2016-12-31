@@ -74,7 +74,7 @@ RUN OPENBLAS_VERSION=0.2.18 && \
     make PREFIX=/usr/local/openblas install && \
     rm -rf /OpenBLAS-${OPENBLAS_VERSION}
 
-#RUN apt-get install -y libblas3
+RUN apt-get install -y libblas3
 
 ENV LD_LIBRARY_PATH /usr/local/openblas/lib:$LD_LIBRARY_PATH
 
@@ -102,6 +102,8 @@ RUN PROTOBUF_VERSION=3.1.0 \
 RUN mkdir /usr/local/CNTKCustomMKL && \
     wget --no-verbose -O - https://www.cntk.ai/mkl/CNTKCustomMKL-Linux-2.tgz | \
     tar -xzf - -C /usr/local/CNTKCustomMKL
+
+#RUN apt-get install libtool -y
 
 # Install Kaldi
 ENV KALDI_VERSION=c024e8aa

@@ -1,7 +1,5 @@
-docker ps -a | grep ${PWD##*/} > .tmp
-if [ -s .tmp ]
+x=$(docker ps -a | grep ${PWD##*/})
+if [ $x ]
 then
 docker rm -f ${PWD##*/}
 fi
-rm .tmp
-
