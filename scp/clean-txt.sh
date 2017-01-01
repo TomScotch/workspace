@@ -1,9 +1,6 @@
 for f in $(ls /media/scps/*.txt) ; do \
-
+echo $f ;
 touch $f.clean && \
-tr -cd '[:alnum:][:space:]' && \
+cat $f | tr -cd '[:alnum:][:space:]' > $f.clean && \
 mv $f.clean $f ; \
-
-echo $f " - is clean now" ;
-
 done
