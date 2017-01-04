@@ -15,8 +15,9 @@ WORKDIR /opt/
 
 RUN git clone https://github.com/pavelgonchar/colornet.git /opt/colornet
 WORKDIR /opt/colornet/
-COPY colorize-20160110.tgz /opt/colornet/
-RUN tar xvfz colorize-20160110.tgz
-RUN  rm colorize-20160110.tgz && \
-mv colorize-20160110/* .
-RUN apt-get install -y python-tk python-skimage
+COPY colorize-20160110.tgz.torrent /opt/colornet/
+RUN apt install bittorrent  python-tk python-skimage -y
+#RUN btdownloadheadless colorize-20160110.tgz.torrent
+#RUN tar xvfz colorize-20160110.tgz
+#RUN  rm colorize-20160110.tgz && \
+#mv colorize-20160110/* . && rm -r colorize-20160110/

@@ -1,1 +1,1 @@
-cd /media/scp-wiki/ && wget -r -k -E http://www.scp-wiki.net/most-recently-created/p/
+cd /media/ && wget -nc -r -F --input-file=http://www.scp-wiki.net/scp-series-3 &&  wget -nc -N -r -F --input-file=http://www.scp-wiki.net/scp-series-2 &&  wget -nc -N -r -F --input-file=http://www.scp-wiki.net/scp-series
