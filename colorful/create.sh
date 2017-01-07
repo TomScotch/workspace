@@ -1,4 +1,2 @@
-#create container
-#create.sh
-docker create --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/} bash
+docker create -v /home/tomscotch/workspace/data/myvideo/:/opt/myvideo/ --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/} bash
 
