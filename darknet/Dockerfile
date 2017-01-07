@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM wjx0912/cuda_cudnn
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y git make curl gcc gpp g++ build-essential

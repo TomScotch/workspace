@@ -5,7 +5,7 @@ FROM ubuntu
 #WORKDIR /home/tomscotch/
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get upgrade -y && \
 apt-get dist-upgrade -y && \
 apt-get autoremove -y && \
@@ -18,5 +18,4 @@ RUN apt-get update -y &&    \
         ca-certificates     \
         software-properties-common
 
-RUN 
-EXPOSE
+RUN apt-get install -y pyrit

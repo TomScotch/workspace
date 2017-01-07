@@ -1,4 +1,1 @@
-#start container
-#start.sh
-
-docker start ${PWD##*/}
+nvidia-docker start ${PWD##*/}
