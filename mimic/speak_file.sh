@@ -1,1 +1,1 @@
-docker exec mimic mimic/bin/mimic -voice slt -f /opt/$1
+docker exec mimic mimic/bin/mimic -voice http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_us_clb.flitevox -f /opt/$1

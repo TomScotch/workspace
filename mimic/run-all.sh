@@ -5,6 +5,6 @@ for f in /opt/scps/*.txt; do
   if [ -f $f".wav" ]; then
     echo $f".wav existiert bereits"
   else
-    touch $f.wav && mimic/bin/mimic -voice slt -o $f.wav -f $f
+    touch $f.wav && mimic/bin/mimic -voice http://www.festvox.org/flite/packed/latest/voices/cmu_us_clb.flitevox  -o $f.wav -f $f
   fi
 done
