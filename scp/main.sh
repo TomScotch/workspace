@@ -22,7 +22,7 @@ B# remove unfit characters
 bash /home/tomscotch/workspace/scp/show-all.sh && \
 
 #text to speech
-cd ../hts && \
+cd ../mimic && \
 ./start.sh && \
 ./exec-run-all.sh && \
 ./stop.sh
