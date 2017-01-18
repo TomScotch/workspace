@@ -5,6 +5,9 @@ for f in /opt/scps/*.txt; do
   if [ -f $f".wav" ]; then
     echo $f".wav existiert bereits"
   else
-    touch $f.wav && mimic/bin/mimic -voice slt -o $f.wav -f $f
+   echo -n $(cat $f) > $f.stream
+   bash /opt/hts/runvoice.sh $f.stream
+   mv $f.stream.wav $f.wav
+   rm $f.stream
   fi
 done
