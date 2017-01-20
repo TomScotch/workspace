@@ -1,8 +1,8 @@
 
 FROM linuxbrew/linuxbrew
-RUN sudo su &&  apt-get update && apt-get install -y tmux git nano wget && cd /opt/ && wget https://github.com/yudai/gotty/releases/download/pre-release/gotty_linux_amd64.tar.gz && tar xfv$
-
-#EXPOSE 80
-#WORKDIR ~
-#CMD gotty
+RUN sudo apt-get install -y tmux git nano wget
+RUN brew tap yudai/gotty
+RUN brew install gotty
+EXPOSE 80
+CMD gotty -p 80 -a 10.0.2.15 -w bash
 

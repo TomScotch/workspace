@@ -18,5 +18,17 @@ RUN wget -O model.t7 "https://github.com/zeruniverse/neural-colorization/release
 
 RUN mkdir -p /opt/frames/output/
 
+WORKDIR /home
+
+RUN wget http://ffmpeg.org/releases/ffmpeg-3.0.1.tar.bz2
+
+RUN tar -xvf ffmpeg-3.0.1.tar.bz2
+
+WORKDIR /home/ffmpeg-3.0.1
+
+RUN ./configure && make && make install
+
+WORKDIR neural-colorization
+
 #th colorize.lua -model model.t7 -input_image input.jpg -output_image output.png -gpu 0
 #th colorize.lua -model model.t7 -input_dir input -output_dir output -gpu 0
