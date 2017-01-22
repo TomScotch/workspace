@@ -1,0 +1,13 @@
+using CUDA on GPU 0...	
+Make sure that your saved checkpoint was also trained with GPU. If it was trained with CPU use -gpuid -1 for sampling as well	
+creating an lstm...	
+missing seed text, using uniform probability over first character	
+--------------------------	
+g r a n d   a n d 
+a   s e r i e s   o f   s t a t e s   o f   s t r e n g t h   a n d   a   s t r o n g   s t r u c t u r e   a n d   a   s t a t e   o f   s t r e n g t h 
+a n d   a n   a n o m a l o u s   p r o p e r t i e s   o f   t h e   s u b j e c t   a n d   a   s t a n d a r d   s e c u r i t y   c a m e r a   a n d 
+a p p e a r s   t o   b e   a   s t a t e   o f   s e v e r a l   o t h e r   s t r u c t u r e s   a n d   a n   a n o m a l o u s   p r o p e r t i e s 
+o f   S C P 1 5 4 5   a n d   a   s u b j e c t   w i l l   b e   r e m o v e d   f r o m   t h e   s u b j e c t s   a n d   a r e   a l s o 
+c o n s i s t e n t   w i t h   t h a t   o f   t h e   s u b j e c t   a n d   t h e   s u b j e c t   w i l l   b e   r e p l a c e d   b y   a 
+s t r o n g   s t r u c t u r e   o f   t h e   s u b j e c t   a n d   t h e   s u b j e c t   w i l l   b e g i n   t o   s e e k   o u t   t h e 
+s u b j e c t   a n d   a r e   c o n s i d e r e d   t o   b e   a   

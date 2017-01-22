@@ -1,2 +1,2 @@
-nvidia-docker create --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/} bash
+nvidia-docker create -v /home/tomscotch/workspace/data:/opt/data/ --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/} bash
 

@@ -1,8 +1,5 @@
-
-FROM linuxbrew/linuxbrew
-RUN sudo apt-get install -y tmux git nano wget
-RUN brew tap yudai/gotty
-RUN brew install gotty
-EXPOSE 80
-CMD gotty -p 80 -a 10.0.2.15 -w bash
+FROM ubuntu:16.04
+RUN  apt update && apt install -y tmux git nano
+RUN  apt install -y docker.io
+CMD  tmux attach -t base || tmux new -s base
 

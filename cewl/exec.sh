@@ -1,1 +1,1 @@
-nvidia-docker exec ${PWD##*/} $1
+nvidia-docker exec ${PWD##*/}  cewl www.drchaos.com -w drchaospasswords.txt
