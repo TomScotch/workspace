@@ -12,9 +12,10 @@ for f in /opt/scps/*.wav
     else
       if [ "$test" == "" ];then
        ffmpeg -i $f \
-       -stream_loop -1 \
-       -i /opt/sheep/scp.avi \
-       -c:v libx264 \
+       #-stream_loop -1 \
+       -loop_input \
+       -f image2 \
+       -i /opt/scps/$name.png
        -preset ultrafast \
        -shortest \
        -fflags \

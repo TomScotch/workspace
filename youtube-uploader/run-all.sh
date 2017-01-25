@@ -6,7 +6,7 @@ test=$(grep $name /opt/scps/.uploaded)
 descfile=${f%.wav.mp4}
 desc=$(< $descfile)
 if [ "$test" == "" ];then
-  desc=$(python remove.py $desc)
+  #desc=$(python remove.py $desc)
   x=$(youtube-upload \
     --client-secrets="/opt/youtube-uploader/client_secrets.json" \
     --title="$name" \

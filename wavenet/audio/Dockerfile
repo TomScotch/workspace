@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow
+FROM sibuzu/cuda-tensorflow
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -11,7 +11,7 @@ RUN apt-get update -y &&    \
 	nano wget curl git  \
 	 build-essential    \
 locales ca-certificates     \
-software-properties-common
+software-properties-common python-tk
 
 RUN pip install librosa
 RUN git clone https://github.com/ibab/tensorflow-wavenet.git /opt/wavenet/
@@ -19,4 +19,4 @@ WORKDIR /opt/wavenet/
 RUN pip install -r requirements.txt
 RUN wget http://homepages.inf.ed.ac.uk/jyamagis/release/VCTK-Corpus.tar.gz
 RUN tar xvfz VCTK-Corpus.tar.gz && rm VCTK-Corpus.tar.gz
-RUN apt install -y python-tk
+COPY train.py /opt/wavenet/
