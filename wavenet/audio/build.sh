@@ -1,4 +1,4 @@
 #build image
 #build.sh
 
-docker build -t scotch/${PWD##*/} .
+nvidia-docker build -t scotch/${PWD##*/} .
