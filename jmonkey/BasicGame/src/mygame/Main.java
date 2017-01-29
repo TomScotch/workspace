@@ -1,14 +1,22 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.plugins.HttpZipLocator;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
+import com.jme3.bullet.control.BetterCharacterControl;
+import com.jme3.bullet.control.CharacterControl;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.MaterialList;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.LightScatteringFilter;
 import com.jme3.renderer.RenderManager;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.plugins.ogre.OgreMeshKey;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.water.WaterFilter;
 
@@ -18,7 +26,7 @@ public class Main extends SimpleApplication {
     private Vector3f lightDir = new Vector3f(-4.9f, -1.3f, 5.9f); // same as light source
     private float initialWaterHeight = -10.0f; // choose a value for your scene
     private float time = 0.0f;
-    private float waterHeight = 0.0f;
+    private BulletAppState bulletAppState;
 
     public static void main(String[] args) {
         Main app = new Main();
@@ -27,28 +35,24 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        Spatial city = assetManager.loadModel("Models/serpertine city/serpentine city.j3o");
-        rootNode.attachChild(city);
+        bulletAppState = new BulletAppState();
+        stateManager.attach(bulletAppState);
+
+        Spatial gameLevel = assetManager.loadModel("Scenes/newScene.j3o");
+        gameLevel.addControl(new RigidBodyControl(0));
+        bulletAppState.getPhysicsSpace().addAll(gameLevel);
+        rootNode.attachChild(gameLevel);
+
+        Node myCharacter = (Node) assetManager.loadModel("Models/simple_girl26/simple_girl2.6.j3o");
+        bulletAppState.getPhysicsSpace().addAll(myCharacter);
+        rootNode.attachChild(myCharacter);
 
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
         sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun);
-
-        FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, 1024, 2);
-        dlsf.setLight(sun);
-        fpp.addFilter(dlsf);
-
-        fpp = new FilterPostProcessor(assetManager);
-        water = new WaterFilter(rootNode, lightDir);
-        water.setWaterHeight(initialWaterHeight);
-        fpp.addFilter(water);
-
-        LightScatteringFilter sunlight = new LightScatteringFilter(new Vector3f(.5f, .5f, .5f).multLocal(-3000));
-        fpp.addFilter(sunlight);
-        viewPort.addProcessor(fpp);
-
+        
+        cam.setLocation(new Vector3f(0, 4, 0));
     }
 
     @Override
