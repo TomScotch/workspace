@@ -45,4 +45,5 @@ RUN mkdir util/glove
 RUN fastjar xvf glove.6B.zip
 RUN mv glove.6B.200d.txt util/glove/vectors.6B.200d.txt
 RUN rm glove*
-COPY data.txt /root/word-rnn/
+RUN mkdir  /opt/txt/
+COPY input.txt /opt/txt/
