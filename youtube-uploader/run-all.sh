@@ -1,7 +1,7 @@
 for f in /opt/scps/*.mp4
 do
 name=${f#/opt/scps/}
-name=${name%.html.dump.txt.wav.mp4}
+name=${name%.html.dump.txt.mp3.mp4}
 test=$(grep $name /opt/scps/.uploaded)
 descfile=${f%.wav.mp4}
 desc=$(< $descfile)

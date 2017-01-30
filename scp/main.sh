@@ -22,9 +22,9 @@ B# remove unfit characters
 bash /home/tomscotch/workspace/scp/show-all.sh && \
 
 #text to speech
-cd ../mimic && \
+cd ../gtts && \
 ./start.sh && \
-./exec-run-all.sh && \
+./run-all.sh && \
 ./stop.sh
 
 #show progress
@@ -46,4 +46,4 @@ cd ../youtube-uploader/ && \
 ./stop.sh && \
 
 # show progress
-bash /home/tomscotch/workspace/scp/show-all.sh
+clear && bash /home/tomscotch/workspace/scp/show-all.sh
