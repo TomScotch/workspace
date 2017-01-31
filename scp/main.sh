@@ -11,7 +11,7 @@ cd /home/tomscotch/workspace/scp/ && \
 # cut file down
 ./dump_to_text.sh  && \
 
-B# remove unfit characters
+# remove unfit characters
 # that prevent upload
 ./clean-txt.sh && \
 
@@ -25,10 +25,22 @@ bash /home/tomscotch/workspace/scp/show-all.sh && \
 cd ../gtts && \
 ./start.sh && \
 ./run-all.sh && \
-./stop.sh
+./stop.sh && \
 
 #show progress
 bash /home/tomscotch/workspace/scp/show-all.sh && \
+
+#get page image
+cd ../url2img && \
+./start.sh && \
+./run-all.sh && \
+./stop.sh && \
+
+# upscale denoise and crunch png
+cd ../waifu2x && \
+./start.sh && \
+./run-all.sh && \
+./stop.sh && \
 
 #create videos
 cd ../clip-creator/ && \

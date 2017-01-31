@@ -23,3 +23,7 @@ ENV TERM xterm
 
 RUN cd /root/ && git clone https://github.com/nagadomi/waifu2x.git
 WORKDIR /root/waifu2x
+RUN add-apt-repository ppa:heyarje/libav-11 && sudo apt-get update
+RUN apt-get install libav-tools -y
+RUN apt-get upgrade -y --force-yes 
+RUN apt-get dist-upgrade
