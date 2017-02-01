@@ -39,7 +39,7 @@ cd ../url2img && \
 # upscale denoise and crunch png
 cd ../waifu2x && \
 ./start.sh && \
-./run-all.sh && \
+./exec-run-all.sh && \
 ./stop.sh && \
 
 #create videos

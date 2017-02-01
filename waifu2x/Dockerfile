@@ -1,4 +1,5 @@
-FROM kaixhin/cuda-torch
+#FROM kaixhin/cuda-torch
+FROM floydhub/torch-gpu
 
 RUN apt-get update && apt-get install -y --no-install-recommends --force-yes \
   libsnappy-dev \
@@ -27,3 +28,6 @@ RUN add-apt-repository ppa:heyarje/libav-11 && sudo apt-get update
 RUN apt-get install libav-tools -y
 RUN apt-get upgrade -y --force-yes 
 RUN apt-get dist-upgrade
+COPY run-all.sh /root/waifu2x/
+COPY upscale-denoise-image.sh /root/waifu2x/
+RUN apt-get install -y cuda

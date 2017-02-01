@@ -1,4 +1,3 @@
-nvidia-docker exec ${PWD##*/} \
 mkdir frames && \
 avconv -i $1 -ss 00:09:00 -t 00:03:00 -r 24 -f image2 frames/%06d.png && \
 avconv -i $1 -ss 00:09:00 -t 00:03:00 audio.mp3 && \
