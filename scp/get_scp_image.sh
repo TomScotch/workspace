@@ -20,6 +20,7 @@ for f in /media/scps/*.html
     img=${img%width\:*}
     img=${img%alt\=*}
     img=${img%width*}
+    img=$(echo $img | sed s/" "/""/g)
     if [ -d "/media/scps/"$name ] ; then
       wget -c -P /media/scps/$name/ $img
     else

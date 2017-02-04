@@ -4,3 +4,8 @@
 /jmonkey/JmeTests/nbproject/private/
 /jmonkey/JmeTests/build/
 /jmonkey/JmeTests/dist/
+/electricsheep*
+/wxWidgets*
+/data/sheep
+*.gz
+*.zip
