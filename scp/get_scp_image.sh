@@ -21,9 +21,9 @@ for f in /media/scps/*.html
     img=${img%alt\=*}
     img=${img%width*}
     if [ -d "/media/scps/"$name ] ; then
-    echo $name " skipped"
+      wget -c -P /media/scps/$name/ $img
     else
-    mkdir /media/scps/$name
-    wget -c -P /media/scps/$name/ $img
+      mkdir /media/scps/$name
+      wget -c -P /media/scps/$name/ $img
     fi
 done

@@ -24,3 +24,4 @@ for f in /opt/scps/*.mp3
       fi
     fi
 done
+echo "continue with youtube uploader"

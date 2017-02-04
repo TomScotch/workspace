@@ -21,4 +21,4 @@ cd /home/tomscotch/workspace/scp/ && \
 #stop container
 ./stop.sh
 
-echo "continue with : url2img - pngcrush - gtts - clip-creator - youtube-uploader"
+echo "continue with : url2img"

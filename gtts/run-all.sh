@@ -8,3 +8,4 @@ for f in /media/scps/*.txt; do
     gtts-cli -l 'en' -f '/media/scps/'$name'.html.dump.txt' -o '/media/scps/'$name'.html.dump.txt.mp3'
   fi
 done
+echo "continue with clip-creator"
