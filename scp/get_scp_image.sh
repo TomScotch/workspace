@@ -1,0 +1,29 @@
+for f in /media/scps/*.html
+  do
+    name=${f#/media/scps/} ;
+    name=${name%.*} ;
+    name2=$(echo $name | sed s/^scp-0/scp-/g) ;
+    img=$(cat $f | grep http://scp-wiki.wdfiles.com/local--files/$name2)
+    img=${img#*src\=\"}
+    img=${img%\" style*}
+    img=${img%\" style\=*}
+    img=${img%\" width*}
+    img=$(echo $img | sed s/style\=\"//g)
+    img=${img%width\:*}
+    img=${img%width\:*}
+    img=${img%class*}
+    img=${img%width\:*}
+    img=${img%width\=\"*}
+    img=${img%width\:*}
+    img=${img%width\:*}
+    img=$(echo $img | sed s/\"//g)
+    img=${img%width\:*}
+    img=${img%alt\=*}
+    img=${img%width*}
+    if [ -d "/media/scps/"$name ] ; then
+    echo $name " skipped"
+    else
+    mkdir /media/scps/$name
+    wget -c -P /media/scps/$name/ $img
+    fi
+done

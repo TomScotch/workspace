@@ -1,1 +1,1 @@
-cd /media/ && wget -nc -r -F --input-file=http://www.scp-wiki.net/scp-series-3 &&  wget -nc -N -r -F --input-file=http://www.scp-wiki.net/scp-series-2 &&  wget -nc -N -r -F --input-file=http://www.scp-wiki.net/scp-series
+docker exec ${PWD##*/} python get_scps.py

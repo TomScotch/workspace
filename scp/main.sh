@@ -3,7 +3,10 @@ cd /home/tomscotch/workspace/scp/ && \
 ./start.sh && \
 
 # download html files from 0 - 3000
-./old_get_scps.sh && \
+./get_scps.sh && \
+
+# grab article images
+./get_scp_image.sh && \
 
 # clean up html with w3m dump
 ./html_to_dump.sh && \
@@ -37,8 +40,8 @@ cd ../url2img && \
 ./stop.sh && \
 
 # crunch png
-cd ../pngcrush && \
-./run-all.sh && \
+#cd ../pngcrush && \
+#./run-all.sh && \
 
 #create videos
 cd ../clip-creator/ && \
