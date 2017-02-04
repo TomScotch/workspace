@@ -13,7 +13,7 @@ for f in /opt/scps/*.mp3
 	-i $f \
 	-f image2 \
 	-loop 1 \
-	-i $x \
+	-i $x.crush \
 	-r 15 \
 	-c:v libx264 \
 	-crf 18 \
