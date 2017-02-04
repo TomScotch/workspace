@@ -8,17 +8,7 @@ for f in /opt/scps/*.mp3
         echo "skipped : " $f " : already existing"
     else
       if [ "$test" == "" ];then
-       ffmpeg
-	-i $f
-	-f image2
-	-loop 1
-	-i /opt/scps/$name.png
-	-r 15
-	-c:v libx264
-	-crf 18
-	-tune stillimage
-	-preset ultrafast
-	-shortest $f.mp4
+       ffmpeg -i $f -i /opt/scps/$name.png $f.mp4
       else
 	echo $name 'already uploaded'
       fi

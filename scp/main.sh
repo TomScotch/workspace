@@ -36,11 +36,9 @@ cd ../url2img && \
 ./run-all.sh && \
 ./stop.sh && \
 
-# upscale denoise and crunch png
-cd ../waifu2x && \
-./start.sh && \
-./exec-run-all.sh && \
-./stop.sh && \
+# crunch png
+cd ../pngcrush && \
+./run-all.sh && \
 
 #create videos
 cd ../clip-creator/ && \
