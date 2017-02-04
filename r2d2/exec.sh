@@ -1,3 +1,1 @@
-#execute commands
-#exec.sh
-docker exec ${PWD##*/} python r2d2.py
+docker exec r2d2 python r2d2.py
