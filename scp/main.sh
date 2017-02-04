@@ -26,6 +26,12 @@ cd ../url2img && \
 ./run-all.sh && \
 ./stop.sh && \
 
+# crunch png and enhance jpg
+cd ../pngcrush && \
+./start.sh && \
+./run-all.sh && \
+./stop.sh && \
+
 #create videos
 cd ../clip-creator/ && \
 ./start.sh && \
@@ -43,3 +49,4 @@ cd ../youtube-uploader/ && \
 
 # show progress
 clear && bash /home/tomscotch/workspace/scp/show-all.sh
+r2d2

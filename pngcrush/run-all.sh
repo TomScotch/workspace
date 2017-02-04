@@ -1,8 +1,20 @@
-for f in /media/scps/*.html; do
-name=${f#/media/scps/
-name=${name%.*}
-  if [ -f "/media/scps/"$name"/"$name.png ]; then
-   crunchpng.sh /media/scps/$name/$name.png /media/scps/$name/$name.png.crush && mv /media/scps/$name/$name.png.crush  /media/scps/$name/$name.png && \
-   echo "crushed - " $f
+for f in $(find /media/scps/ -name *.png); do
+  if [ -f $f.crush ]; then
+    echo "skipped : "$f" crushed already"
+  else
+   bash crunchpng.sh $f $f.crush
+   echo "crushed - " $f.crush
   fi
 done
+r2d2
+
+for f in $(find /media/scps/ -name *.jpg); do
+  if [ -f $f.crush ]; then
+    echo "skipped : "$f" enhanced already"
+  else
+   bash enhancejpg.sh $f $f.crush
+   echo "enhanced - " $f.crush
+  fi
+done
+r2d2
+
