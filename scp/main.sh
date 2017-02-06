@@ -28,9 +28,7 @@ cd ../url2img && \
 
 # crunch png and enhance jpg
 cd ../pngcrush && \
-./start.sh && \
 ./run-all.sh && \
-./stop.sh && \
 
 #create videos
 cd ../clip-creator/ && \

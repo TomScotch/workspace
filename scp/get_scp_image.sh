@@ -27,5 +27,5 @@ for f in /media/scps/*.html
     if [ ! -d "/media/scps/"$name ] ; then
       mkdir /media/scps/$name
     fi
-      wget -c -P /media/scps/$name/ $img && rescuejpeg /media/scps/$name/$img
+      wget -c -P /media/scps/$name/ $img
 done

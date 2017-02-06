@@ -1,1 +1,4 @@
-recoverjpeg $(find /media/scps/* -name *.jpg) && recoverjpeg $(find /media/scps/* -name *.jpeg)
+for f in $(find /media/scps/* -name *.jpg)
+do
+recoverjpeg -f $f $f
+done
