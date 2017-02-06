@@ -11,6 +11,9 @@ cd /home/tomscotch/workspace/scp/ && \
 # detox filenames
 ./detox.sh && \
 
+#repair jpeg
+./recoverjpeg.sh
+
 # clean up html with w3m dump
 ./html_to_dump.sh && \
 

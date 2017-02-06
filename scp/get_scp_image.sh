@@ -24,10 +24,8 @@ for f in /media/scps/*.html
     img=$(echo $img | sed s/" "/""/g)
 #    img=$(echo $img | sed s/"\("/""/g)
 #    img=$(echo $img | sed s/"\)"/""/g)
-    if [ -d "/media/scps/"$name ] ; then
-      wget -c -P /media/scps/$name/ $img
-    else
+    if [ ! -d "/media/scps/"$name ] ; then
       mkdir /media/scps/$name
-      wget -c -P /media/scps/$name/ $img
     fi
+      wget -c -P /media/scps/$name/ $img && rescuejpeg /media/scps/$name/$img
 done
