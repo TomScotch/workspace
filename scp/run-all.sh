@@ -8,6 +8,9 @@ cd /home/tomscotch/workspace/scp/ && \
 # grab article images
 ./get_scp_image.sh && \
 
+# detox filenames
+./detox.sh && \
+
 # clean up html with w3m dump
 ./html_to_dump.sh && \
 

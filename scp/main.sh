@@ -26,6 +26,9 @@ cd ../url2img && \
 ./run-all.sh && \
 ./stop.sh && \
 
+# detox filenames
+./detox.sh
+
 # crunch png and enhance jpg
 cd ../pngcrush && \
 ./start.sh && \
