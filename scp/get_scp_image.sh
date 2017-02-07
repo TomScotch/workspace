@@ -4,22 +4,15 @@ for f in /media/scps/*.html
     name=${name%.*} ;
     name2=$(echo $name | sed s/^scp-0/scp-/g) ;
     img=$(cat $f | grep http://scp-wiki.wdfiles.com/local--files/$name2)
-    img=${img#*src\=\"}
-    img=${img%\" style*}
-    img=${img%\" style\=*}
-    img=${img%\" width*}
-    img=$(echo $img | sed s/style\=\"//g)
-    img=${img%width\:*}
-    img=${img%width\:*}
-    img=${img%class*}
-    img=${img%width\:*}
-    img=${img%width\=\"*}
-    img=${img%width\:*}
-    img=${img%width\:*}
+    img=${img#*src=\"}
     img=$(echo $img | sed s/\"//g)
-    img=${img%width\:*}
-    img=${img%alt\=*}
-    img=${img%width*}
+    img=${img%%width*width*width=*}
+    img=${img##htref=*}
+    img=${img%%title=*}
+    img=${img%%class=*}
+    img=${img%%style=*}
+    img=${img%%height=*}
+    img=${img%%alt=*}
     if [ ! -d "/media/scps/"$name ] ; then
       mkdir /media/scps/$name
     fi
