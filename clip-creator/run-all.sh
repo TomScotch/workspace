@@ -21,7 +21,7 @@ for f in /opt/scps/*.mp3
 	  -tune stillimage \
 	  -preset ultrafast \
 	  -shortest \
-	   $f.mp4
+	   $f.mp4.tmp
       else
         ffmpeg \
           -i $f \
@@ -34,11 +34,12 @@ for f in /opt/scps/*.mp3
           -tune stillimage \
           -preset ultrafast \
           -shortest \
-	  $f.mp4
+	  $f.mp4.temp
      fi
    else
       echo $name 'already uploaded'
    fi
   fi
+mv $f.mp4.temp $f.mp4
 done
 echo "continue with youtube uploader"

@@ -27,6 +27,6 @@ for f in /media/scps/*.html
 	x=$(echo $img  | sed s/" "/""/g | sed s/"("/""/g | sed s/")"/""/g | sed s/"%"/""/g | sed s/"-"/""/g)
 	x=${x#*.*.*/*/}
 	x=$(echo $x  | sed s/"\/"/""/g)
-	curl $img > /media/scps/$name/$x
+	if [ -f "/media/scps/$name/$x" ] ; then echo 'skipped ' $x ; else curl $img > /media/scps/$name/$x ; fi
       fi
 done
