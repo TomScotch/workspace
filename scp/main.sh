@@ -8,18 +8,6 @@ cd /home/tomscotch/workspace/scp/ && \
 #stop container
 ./stop.sh && \
 
-#show progress
-bash /home/tomscotch/workspace/scp/show-all.sh && \
-
-#text to speech
-cd ../gtts && \
-./start.sh && \
-./run-all.sh && \
-./stop.sh && \
-
-#show progress
-bash /home/tomscotch/workspace/scp/show-all.sh && \
-
 #get page image
 cd ../url2img && \
 ./start.sh && \
@@ -29,6 +17,12 @@ cd ../url2img && \
 # crunch png and enhance jpg
 cd ../pngcrush && \
 ./run-all.sh && \
+
+#text to speech
+cd ../gtts && \
+./start.sh && \
+./run-all.sh && \
+./stop.sh && \
 
 #create videos
 cd ../clip-creator/ && \

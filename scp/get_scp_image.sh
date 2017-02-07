@@ -20,12 +20,13 @@ for f in /media/scps/*.html
     img=${img%width\:*}
     img=${img%alt\=*}
     img=${img%width*}
-    img=$(echo $img | sed s/" "/""/g)
-    img=$(echo $img | sed s/" "/""/g)
-#    img=$(echo $img | sed s/"\("/""/g)
-#    img=$(echo $img | sed s/"\)"/""/g)
     if [ ! -d "/media/scps/"$name ] ; then
       mkdir /media/scps/$name
     fi
-      wget -c -P /media/scps/$name/ $img
+      if [ -n "$img" ] ; then
+	x=$(echo $img  | sed s/" "/""/g | sed s/"("/""/g | sed s/")"/""/g | sed s/"%"/""/g | sed s/"-"/""/g)
+	x=${x#*.*.*/*/}
+	x=$(echo $x  | sed s/"\/"/""/g)
+	curl $img > /media/scps/$name/$x
+      fi
 done
