@@ -18,10 +18,16 @@ cd /home/tomscotch/workspace/scp/ && \
 # grab article images
 ./get_scp_image.sh && \
 
+# convert unfit images
+./convert.sh && \
+
 #repair files
-./repairjpeg.sh
+#./repairjpeg.sh && \
+
+#detox filenames
+#./detox.sh
 
 #stop container
-./stop.sh
+./stop.sh && \
 
 echo "continue with : url2img"
