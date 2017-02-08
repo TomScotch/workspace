@@ -20,11 +20,10 @@ for f in /opt/scps/*.mp3
           -tune stillimage \
           -preset ultrafast \
           -shortest \
-	  $f.mp4.temp
+	  $f.mp4
       else
         echo $name 'already uploaded'
       fi
    fi
-mv $f.mp4.temp $f.mp4
 done
 echo "continue with youtube uploader"

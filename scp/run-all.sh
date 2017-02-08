@@ -5,15 +5,6 @@ cd /home/tomscotch/workspace/scp/ && \
 # download html files from 0 - 3000
 ./get_scps.sh && \
 
-# grab article images
-./get_scp_image.sh && \
-
-# detox filenames
-./detox.sh && \
-
-#repair jpeg
-./recoverjpeg.sh
-
 # clean up html with w3m dump
 ./html_to_dump.sh && \
 
@@ -23,6 +14,9 @@ cd /home/tomscotch/workspace/scp/ && \
 # remove unfit characters
 # that prevent upload
 ./clean-txt.sh && \
+
+# grab article images
+./get_scp_image.sh && \
 
 #stop container
 ./stop.sh

@@ -5,6 +5,9 @@ cd /home/tomscotch/workspace/scp/ && \
 # download scp data
 ./run-all.sh && \
 
+#remove zero size files
+rm $(./find-zero.sh) && \
+
 #stop container
 ./stop.sh && \
 
@@ -15,8 +18,8 @@ cd ../url2img && \
 ./stop.sh && \
 
 # crunch png and enhance jpg
-cd ../pngcrush && \
-./run-all.sh && \
+#cd ../pngcrush && \
+#./run-all.sh && \
 
 #text to speech
 cd ../gtts && \
@@ -29,6 +32,10 @@ cd ../clip-creator/ && \
 ./start.sh && \
 ./exec-run-all.sh && \
 ./stop.sh && \
+
+# remove zero size files
+cd ../scp/ && \
+rm $(./find-zero.sh) && \
 
 #show progress
 bash /home/tomscotch/workspace/scp/show-all.sh && \
