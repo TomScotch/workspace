@@ -18,6 +18,9 @@ cd /home/tomscotch/workspace/scp/ && \
 # grab article images
 ./get_scp_image.sh && \
 
+#repair files
+./repairjpeg.sh
+
 #stop container
 ./stop.sh
 
