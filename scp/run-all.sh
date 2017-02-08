@@ -19,7 +19,7 @@ cd /home/tomscotch/workspace/scp/ && \
 ./get_scp_image.sh && \
 
 # convert unfit images
-./convert.sh && \
+#./convert.sh && \
 
 #repair files
 #./repairjpeg.sh && \
