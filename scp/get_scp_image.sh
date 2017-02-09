@@ -6,7 +6,9 @@ for f in /media/scps/*.html
     img=$(cat $f | grep http://scp-wiki.wdfiles.com/local--files/$name2)
     img=${img#*src=\"}
     img=$(echo $img | sed s/\"//g)
-    img=${img%%width=*width=*width=*}
+    img=${img%%width=*width=*width=*width=*}
+    img=${img%%width=*}
+    img=${img%%width=*}
     img=${img##htref=*}
     img=${img%%title=*}
     img=${img%%class=*}

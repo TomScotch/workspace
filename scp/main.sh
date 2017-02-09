@@ -26,12 +26,21 @@ cd ../clip-creator/ && \
 ./exec-run-all.sh && \
 ./stop.sh && \
 
-# remove zero size files
+# workaround failed videos
 cd ../scp/ && \
-rm $(./find-zero.sh) && \
+./workaround.sh && \
 
-#show progress
-bash /home/tomscotch/workspace/scp/show-all.sh && \
+#get page image
+cd ../url2img && \
+./start.sh && \
+./run-all.sh && \
+./stop.sh && \
+
+#create videos
+cd ../clip-creator/ && \
+./start.sh && \
+./exec-run-all.sh && \
+./stop.sh && \
 
 #upload videos
 cd ../youtube-uploader/ && \

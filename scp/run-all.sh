@@ -18,11 +18,14 @@ cd /home/tomscotch/workspace/scp/ && \
 # grab article images
 ./get_scp_image.sh && \
 
+#remove zero size files
+rm $(./find-zero.sh) && \
+
 # convert unfit images
-#./convert.sh && \
+./convert.sh && \
 
 #repair files
-#./repairjpeg.sh && \
+./recoverjpeg.sh && \
 
 #detox filenames
 #./detox.sh

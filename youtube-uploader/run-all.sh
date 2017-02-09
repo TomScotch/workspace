@@ -3,10 +3,10 @@ do
 name=${f#/opt/scps/}
 name=${name%.html.dump.txt.mp3.mp4}
 test=$(grep $name /opt/scps/.uploaded)
-descfile=${f%.wav.mp4}
+descfile=${f%.mp3.mp4}
 desc=$(< $descfile)
 if [ "$test" == "" ];then
-  #desc=$(python remove.py $desc)
+  desc=$(python remove.py $desc)
   x=$(youtube-upload \
     --client-secrets="/opt/youtube-uploader/client_secrets.json" \
     --title="$name" \
