@@ -31,10 +31,10 @@ cd ../scp/ && \
 ./workaround.sh && \
 
 #get page image
-cd ../url2img && \
-./start.sh && \
-./run-all.sh && \
-./stop.sh && \
+#cd ../url2img && \
+#./start.sh && \
+#./run-all.sh && \
+#./stop.sh && \
 
 #create videos
 cd ../clip-creator/ && \

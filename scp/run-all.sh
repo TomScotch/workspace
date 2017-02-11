@@ -21,14 +21,14 @@ cd /home/tomscotch/workspace/scp/ && \
 #remove zero size files
 rm $(./find-zero.sh) && \
 
+#detox filenames
+./detox.sh
+
 # convert unfit images
 ./convert.sh && \
 
 #repair files
 ./recoverjpeg.sh && \
-
-#detox filenames
-#./detox.sh
 
 #stop container
 ./stop.sh && \
