@@ -12,7 +12,6 @@ cd /home/tomscotch/workspace/scp/ && \
 ./dump_to_text.sh  && \
 
 # remove unfit characters
-# that prevent upload
 ./clean-txt.sh && \
 
 # grab article images
@@ -22,13 +21,13 @@ cd /home/tomscotch/workspace/scp/ && \
 rm $(./find-zero.sh) && \
 
 #detox filenames
-./detox.sh
+#./detox.sh
 
 # convert unfit images
-./convert.sh && \
+#./convert.sh && \
 
 #repair files
-./recoverjpeg.sh && \
+#./recoverjpeg.sh && \
 
 #stop container
 ./stop.sh && \
