@@ -18,8 +18,8 @@ for f in /media/scps/*.html
     if [ ! -d "/media/scps/"$name ] ; then
       mkdir /media/scps/$name
     fi
-      z=$(ls /media/scps/$name);
-      if  [ $z == "" ] ; then
+      z=$(ls -1 /media/scps/$name | wc -l );
+      if test $z -le 0 ; then
 	if [ -n "$img" ] ; then
           x=$(echo $img  | sed s/" "/""/g | sed s/"("/""/g | sed s/")"/""/g | sed s/"%"/""/g | sed s/"-"/""/g)
 	  x=${x#*.*.*/*/}
