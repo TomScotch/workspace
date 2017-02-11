@@ -20,7 +20,7 @@ for f in /opt/scps/*.mp3
           -tune stillimage \
           -preset ultrafast \
           -shortest \
-	  $f.mp4
+	  $f.mp4 && ffmpeg -i $f.mp4 -c copy $f.mp4
       else
         echo $name 'already uploaded'
       fi

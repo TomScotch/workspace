@@ -18,7 +18,7 @@ if [ "$test" == "" ];then
   else
     echo "$x" >> /opt/scps/.adresses
     echo "$name" >> /opt/scps/.uploaded
-    sleep 9
+    sleep 23
   fi
 fi
 done

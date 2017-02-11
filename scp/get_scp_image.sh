@@ -18,10 +18,15 @@ for f in /media/scps/*.html
     if [ ! -d "/media/scps/"$name ] ; then
       mkdir /media/scps/$name
     fi
-      if [ -n "$img" ] ; then
-	x=$(echo $img  | sed s/" "/""/g | sed s/"("/""/g | sed s/")"/""/g | sed s/"%"/""/g | sed s/"-"/""/g)
-	x=${x#*.*.*/*/}
-	x=$(echo $x  | sed s/"\/"/""/g)
-	if [ -f "/media/scps/$name/$x" ] ; then echo 'skipped ' $x ; else curl $img > /media/scps/$name/$x ; mogrify -resize '1024x1024' /media/scps/$name/$x ; fi
+      z=$(ls /media/scps/$name);
+      if  [ $z == "" ] ; then
+	if [ -n "$img" ] ; then
+          x=$(echo $img  | sed s/" "/""/g | sed s/"("/""/g | sed s/")"/""/g | sed s/"%"/""/g | sed s/"-"/""/g)
+	  x=${x#*.*.*/*/}
+	  x=$(echo $x  | sed s/"\/"/""/g)
+	    if [ -f "/media/scps/$name/$x" ] ; then echo 'skipped ' $x ; else curl $img > /media/scps/$name/$x ; mogrify -resize '1024x1024' /media/scps/$name/$x ; fi
+        fi
+      else
+	echo "nothing to do for /media/scps/"$name
       fi
 done

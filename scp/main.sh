@@ -1,12 +1,5 @@
-# start container
-cd /home/tomscotch/workspace/scp/ && \
-./start.sh && \
-
 # download scp data
 ./run-all.sh && \
-
-#stop container
-./stop.sh && \
 
 #get page image
 cd ../url2img && \
@@ -31,10 +24,10 @@ cd ../scp/ && \
 ./workaround.sh && \
 
 #get page image
-#cd ../url2img && \
-#./start.sh && \
-#./run-all.sh && \
-#./stop.sh && \
+cd ../url2img && \
+./start.sh && \
+./run-all.sh && \
+./stop.sh && \
 
 #create videos
 cd ../clip-creator/ && \
