@@ -17,5 +17,5 @@ RUN apt-get update -y &&    \
 
 RUN cd /opt/ && git clone https://github.com/clips/pattern.git
 WORKDIR /opt/pattern/
-COPY run.py
+COPY run.py /opt/pattern/
 CMD python run.py
