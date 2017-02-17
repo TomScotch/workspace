@@ -1,11 +1,1 @@
-/jmonkey/BasicGame/nbproject/private/
-/jmonkey/BasicGame/build/
-/jmonkey/BasicGame/dist/
-/jmonkey/JmeTests/nbproject/private/
-/jmonkey/JmeTests/build/
-/jmonkey/JmeTests/dist/
-/electricsheep*
-/wxWidgets*
-/data/sheep
-*.gz
-*.zip
+.png, .gz , .zip, .iso, .img
