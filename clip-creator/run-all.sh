@@ -7,7 +7,7 @@ for f in /opt/scps/*.mp3
       then
         echo "skipped : " $f " : already existing"
     else
-      if [ "$test" == "" ];then
+#      if [ "$test" == "" ];then
          x=$(ls -1 /opt/scps/$name/ | head -1 | tail -1)
         ffmpeg \
           -i $f \
@@ -21,9 +21,9 @@ for f in /opt/scps/*.mp3
           -preset ultrafast \
           -shortest \
 	  $f.mp4
-      else
-        echo $name 'already uploaded'
-      fi
+ #     else
+ #       echo $name 'already uploaded'
+ #     fi
    fi
 done
 echo "continue with youtube uploader"
