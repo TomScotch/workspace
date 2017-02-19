@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM nvidia/cuda
 
 ENV DEBIAN_FRONTEND noninteractive
 

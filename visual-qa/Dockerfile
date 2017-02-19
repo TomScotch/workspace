@@ -15,9 +15,8 @@ RUN apt-get update -y &&    \
         ca-certificates     \
         software-properties-common
 
-RUN cd /opt/ && git clone https://github.com/VT-vision-lab/VQA_LSTM_CNN.git
-WORKDIR /opt/VQA_LSTM_CNN
-RUN sudo apt-get update && apt-get install -y libtiff5-dev python-pil python-dev python-numpy 
-RUN apt-get install -y libhdf5-serial-dev libhdf5-dev
-RUN pip install -r requirements.txt
+RUN cd /opt/ && git clone https://github.com/ayushoriginal/NeuralNetwork-ImageQA.git nn-image-qa
+WORKDIR /opt/nn-image-qa
+RUN sudo apt-get update && apt-get install -y libtiff5-dev python-pil python-dev python-numpy libhdf5-serial-dev libhdf5-dev python-numpy python-scipy python-yaml
+RUN pip install nltk keras theano
 RUN python -c "import nltk; nltk.download('all')"

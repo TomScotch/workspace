@@ -16,6 +16,8 @@ cd ../gtts && \
 #create videos
 cd ../clip-creator/ && \
 ./start.sh && \
+./run-all2.sh && \
+rm $(./find-zero.sh) && \
 ./exec-run-all.sh && \
 ./stop.sh && \
 
