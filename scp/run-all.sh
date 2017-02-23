@@ -18,7 +18,7 @@ cd /home/tomscotch/workspace/scp/ && \
 ./get_scp_image.sh && \
 
 #remove zero size files
-rm $(./find-zero.sh) && \
+rm $(./find-zero.sh) & \
 
 #detox filenames
 #./detox.sh
