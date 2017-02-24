@@ -18,18 +18,9 @@ cd /home/tomscotch/workspace/scp/ && \
 ./get_scp_image.sh && \
 
 #remove zero size files
-rm $(./find-zero.sh) & \
-
-#detox filenames
-#./detox.sh
-
-# convert unfit images
-#./convert.sh && \
-
-#repair files
-#./recoverjpeg.sh && \
+rm $(./find-zero.sh);
 
 #stop container
-./stop.sh && \
+./stop.sh;
 
-echo "continue with : url2img"
+echo "run rm $(./find-zero.sh) and continue with : url2img";
