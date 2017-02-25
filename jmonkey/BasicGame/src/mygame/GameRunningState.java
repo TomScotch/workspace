@@ -16,12 +16,9 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.terrain.geomipmap.TerrainLodControl;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
@@ -51,11 +48,11 @@ public class GameRunningState extends AbstractAppState {
     private float dirtScale = 16;
     private float rockScale = 128;
     private InputManager inputManager;
-    private float phi;
     private DirectionalLight sun;
 
+
     public GameRunningState(SimpleApplication app) {
-        
+
         this.rootNode = app.getRootNode();
         this.viewPort = app.getViewPort();
         this.guiNode = app.getGuiNode();
@@ -138,24 +135,14 @@ public class GameRunningState extends AbstractAppState {
         terrain.setLocalTranslation(0, -100, 0);
         terrain.setLocalScale(1f, 1f, 1f);
         localRootNode.attachChild(terrain);
-
+        
         sun = new DirectionalLight();
         sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
         sun.setColor(ColorRGBA.White);
         localRootNode.addLight(sun);
-
-        FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, 1024, 2);
-        dlsf.setLight(sun);
-        fpp.addFilter(dlsf);
-        viewPort.addProcessor(fpp);
-
-        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 1024, 2);
-        dlsr.setLight(sun);
-        viewPort.addProcessor(dlsr);
-
+        
         viewPort.getCamera().setLocation(new Vector3f(0, 10, -10));
-        viewPort.getCamera().lookAtDirection(new Vector3f(0, -1.5f, -1).normalizeLocal(), Vector3f.UNIT_Y);   
+        viewPort.getCamera().lookAtDirection(new Vector3f(0, -1.5f, -1).normalizeLocal(), Vector3f.UNIT_Y);
     }
 
     public void loadHintText(String txt) {
@@ -226,24 +213,19 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void update(float tpf) {
-        Vector3f v = viewPort.getCamera().getLocation();
-        viewPort.setBackgroundColor(new ColorRGBA(v.getX() / 10, v.getY() / 10, v.getZ() / 10, 1));
-        /*        phi = 90 / 180 * FastMath.PI*tpf*100;
-         * float x = FastMath.cos(phi) * 500;
-         * float z = FastMath.sin(phi) * 500;
-         * sun.setDirection(new Vector3f(x, 0, z));*/
     }
 
     @Override
     public void stateAttached(AppStateManager stateManager) {
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
-        viewPort.setBackgroundColor(backgroundColor);
+        //viewPort.setBackgroundColor(backgroundColor);
     }
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
+        localRootNode.removeLight(sun);
     }
 }
