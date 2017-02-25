@@ -1,70 +1,85 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.asset.plugins.HttpZipLocator;
-import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
-import com.jme3.bullet.control.BetterCharacterControl;
-import com.jme3.bullet.control.CharacterControl;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.light.DirectionalLight;
-import com.jme3.material.MaterialList;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.LightScatteringFilter;
-import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.plugins.ogre.OgreMeshKey;
-import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.water.WaterFilter;
+import com.jme3.app.state.AppState;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.Trigger;
+import com.jme3.system.AppSettings;
 
 public class Main extends SimpleApplication {
 
-    private WaterFilter water;
-    private Vector3f lightDir = new Vector3f(-4.9f, -1.3f, 5.9f); // same as light source
-    private float initialWaterHeight = -10.0f; // choose a value for your scene
-    private float time = 0.0f;
-    private BulletAppState bulletAppState;
+    private Trigger pause_trigger = new KeyTrigger(KeyInput.KEY_BACK);
+    private Trigger save_trigger = new KeyTrigger(KeyInput.KEY_RETURN);
+    private boolean isRunning = false;
+    private GameRunningState gameRunningState;
+    private StartScreenState startScreenState;
+    private SettingsScreenState settingsScreenState;
 
     public static void main(String[] args) {
         Main app = new Main();
+        AppSettings cfg = new AppSettings(true);
+        cfg.setFrameRate(60); // set to less than or equal screen refresh rate
+        cfg.setVSync(true);   // prevents page tearing
+        cfg.setFrequency(60); // set to screen refresh rate
+        cfg.setResolution(1024, 768);
+        cfg.setFullscreen(false);
+        cfg.setSamples(2);    // anti-aliasing
+        cfg.setTitle("My jMonkeyEngine 3 Game"); // branding: window name
+        app.setShowSettings(false);
+        app.setSettings(cfg);
         app.start();
     }
 
     @Override
     public void simpleInitApp() {
-        bulletAppState = new BulletAppState();
-        stateManager.attach(bulletAppState);
 
-        Spatial gameLevel = assetManager.loadModel("Scenes/newScene.j3o");
-        gameLevel.addControl(new RigidBodyControl(0));
-        bulletAppState.getPhysicsSpace().addAll(gameLevel);
-        rootNode.attachChild(gameLevel);
+        setDisplayFps(false);
+        setDisplayStatView(false);
 
-        Node myCharacter = (Node) assetManager.loadModel("Models/simple_girl26/simple_girl2.6.j3o");
-        bulletAppState.getPhysicsSpace().addAll(myCharacter);
-        rootNode.attachChild(myCharacter);
+        gameRunningState = new GameRunningState(this);
+        startScreenState = new StartScreenState(this);
+        settingsScreenState = new SettingsScreenState(this);
 
-        DirectionalLight sun = new DirectionalLight();
-        sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
-        sun.setColor(ColorRGBA.White);
-        rootNode.addLight(sun);
-        
-        cam.setLocation(new Vector3f(0, 4, 0));
+        stateManager.attach(startScreenState);
+
+        inputManager.addMapping("Game Pause Unpause", pause_trigger);
+        inputManager.addListener(actionListener, new String[]{"Game Pause Unpause"});
+        inputManager.addMapping("Toggle Settings", save_trigger);
+        inputManager.addListener(actionListener, new String[]{"Toggle Settings"});
     }
+    private ActionListener actionListener = new ActionListener() {
+        @Override
+        public void onAction(String name, boolean isPressed, float tpf) {
+            System.out.println("key" + name);
+            if (name.equals("Game Pause Unpause") && !isPressed) {
+                if (isRunning) {
+                    stateManager.detach(gameRunningState);
+                    stateManager.attach(startScreenState);
+                    System.out.println("switching to startscreen...");
+
+                } else {
+                    stateManager.detach(startScreenState);
+                    stateManager.attach(gameRunningState);
+                    System.out.println("switching to game...");
+                }
+                isRunning = !isRunning;
+            } else if (name.equals("Toggle Settings") && !isPressed && !isRunning) {
+                if (!isRunning && stateManager.hasState(startScreenState)) {
+                    stateManager.detach(startScreenState);
+                    stateManager.attach((AppState) settingsScreenState);
+                    System.out.println("switching to settings...");
+                } else if (!isRunning && stateManager.hasState((AppState) settingsScreenState)) {
+                    stateManager.detach((AppState) settingsScreenState);
+                    stateManager.attach(startScreenState);
+                    System.out.println("switching to startscreen...");
+                }
+            }
+        }
+    };
 
     @Override
     public void simpleUpdate(float tpf) {
-        super.simpleUpdate(tpf);
-        /*        time += tpf;
-         * waterHeight = (float) Math.cos(((time * 0.6f) % FastMath.TWO_PI)) * 1.5f;
-         * water.setWaterHeight(initialWaterHeight + waterHeight);*/
-    }
-
-    @Override
-    public void simpleRender(RenderManager rm) {
-        //TODO: add render code
     }
 }
