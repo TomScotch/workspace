@@ -52,7 +52,6 @@ public class Main extends SimpleApplication {
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onAction(String name, boolean isPressed, float tpf) {
-            System.out.println("key" + name);
             if (name.equals("Game Pause Unpause") && !isPressed) {
                 if (isRunning) {
                     stateManager.detach(gameRunningState);
