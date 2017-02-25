@@ -50,7 +50,6 @@ public class GameRunningState extends AbstractAppState {
     private InputManager inputManager;
     private DirectionalLight sun;
 
-
     public GameRunningState(SimpleApplication app) {
 
         this.rootNode = app.getRootNode();
@@ -58,14 +57,9 @@ public class GameRunningState extends AbstractAppState {
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
-    }
 
-    @Override
-    public void initialize(AppStateManager stateManager, Application app) {
-        
-        super.initialize(stateManager, app);
-
-        setupKeys();
+        viewPort.getCamera().setLocation(new Vector3f(0, 10, -10));
+        viewPort.getCamera().lookAtDirection(new Vector3f(0, -1.5f, -1).normalizeLocal(), Vector3f.UNIT_Y);
 
         matTerrain = new Material(assetManager, "Common/MatDefs/Terrain/TerrainLighting.j3md");
         matTerrain.setBoolean("useTriPlanarMapping", false);
@@ -135,25 +129,28 @@ public class GameRunningState extends AbstractAppState {
         terrain.setLocalTranslation(0, -100, 0);
         terrain.setLocalScale(1f, 1f, 1f);
         localRootNode.attachChild(terrain);
-        
+
         sun = new DirectionalLight();
         sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
         sun.setColor(ColorRGBA.White);
         localRootNode.addLight(sun);
-        
-        viewPort.getCamera().setLocation(new Vector3f(0, 10, -10));
-        viewPort.getCamera().lookAtDirection(new Vector3f(0, -1.5f, -1).normalizeLocal(), Vector3f.UNIT_Y);
+    }
+
+    @Override
+    public void initialize(AppStateManager stateManager, Application app) {
+        super.initialize(stateManager, app);
+        setupKeys();
+        loadHintText("\"Game running. Press BACKSPACE to pause and return to the start screen.\"");
     }
 
     public void loadHintText(String txt) {
-
         viewPort.setBackgroundColor(backgroundColor);
         BitmapFont guiFont = assetManager.loadFont(
                 "Interface/Fonts/Default.fnt");
         BitmapText displaytext = new BitmapText(guiFont);
         displaytext.setSize(guiFont.getCharSet().getRenderedSize());
         displaytext.move(10, displaytext.getLineHeight() + 20, 0);
-        displaytext.setText("Game running. Press BACKSPACE to pause and return to the start screen.");
+        displaytext.setText(txt);
         localGuiNode.attachChild(displaytext);
     }
 
@@ -219,13 +216,12 @@ public class GameRunningState extends AbstractAppState {
     public void stateAttached(AppStateManager stateManager) {
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
-        //viewPort.setBackgroundColor(backgroundColor);
+        viewPort.setBackgroundColor(backgroundColor);
     }
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
-        localRootNode.removeLight(sun);
     }
 }
