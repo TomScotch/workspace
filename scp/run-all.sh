@@ -18,7 +18,7 @@ cd /home/tomscotch/workspace/scp/ && \
 ./get_scp_image.sh && \
 
 #remove zero size files
-rm $(./find-zero.sh);
+find /media/scps/ -type f -size 0 -exec rm {} \; && \
 
 #stop container
 ./stop.sh;

@@ -17,7 +17,7 @@ cd ../gtts && \
 cd ../clip-creator/ && \
 ./start.sh && \
 ./run-all2.sh && \
-rm $(./find-zero.sh) && \
+find /media/scps/ -type f -size 0 -exec rm {} \;
 ./exec-run-all.sh && \
 ./stop.sh && \
 
