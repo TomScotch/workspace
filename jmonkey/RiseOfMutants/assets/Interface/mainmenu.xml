@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+  
+  <useControls filename="nifty-default-controls.xml" />
+  <useStyles filename="nifty-default-styles.xml" />
+  
+  <style id="myStyle">
+    <attributes color="#0000" border="4px" />
+  </style>
+
+ 
+  <!-- note: no useStyles or useControls in here backgroundColor="#f60f" -->
+  <!-- note: you can't use that file on its own -->
+  <!-- note: this file is only demonstrating loading additional screens -->
+  <screen id="start" controller="com.bigboots.gui.BBMainMenuController">
+    <layer id="#background" childLayout="center">
+      <image filename="Interface/executioner2.jpg" width="100%" height="80%"></image>
+    </layer>
+    <layer id="start_main_layer" childLayout="center">
+        
+        <panel id="#panel" style="myStyle" height="30%" width="35%" align="center" valign="center" childLayout="vertical">   
+<!--          <effect>
+            <onStartScreen  name="fade" startColor="#0000" endColor="#000f" length="1500"/>
+            <onEndScreen name="move" mode="out" direction="bottom" length="30" startDelay="0" inherit="true"/>           
+          </effect>-->
+          <panel id="#panel" height="25%" width="35%" align="center" valign="center" childLayout="center" visibleToMouse="true">
+            <!-- we can use a button here but we've not included the controls at all! magic? no :) this whole screen is loaded additionally to other xml data loaded before -->
+            <control id="#start" name="button" label="Start" color="#000" align="center" valign="center">
+                <interact onRelease="startGame()" />
+       <!--         <effect>
+                    <onHover name="border" color="#822f" post="true" />
+                    <onEnabled name="renderQuad" startColor="#2228" endColor="#2220" post="true" length="5" />
+                    <onDisabled name="renderQuad" startColor="#2220" endColor="#2228" post="true" length="5" />
+                </effect>-->
+            </control>
+          </panel>
+          <panel id="#panelstr" height="25%" width="35%" align="center" valign="center" childLayout="center" visibleToMouse="true">
+            <control id="opts" name="button" label="Options" color="#000" align="center" valign="center">
+                <interact onRelease="optionGame()" />
+            </control>
+          </panel>  
+          <panel id="#panelquit" height="25%" width="35%" align="center" valign="center" childLayout="center" visibleToMouse="true">
+            <control id="quit" name="button" label="Quit" color="#000" align="center" valign="center">
+                <interact onRelease="quit()" />
+            </control>
+          </panel>
+         <panel id="#panel_mid" height="100%" width="100%" childLayout="horizontal">       
+            <text text="CopyRight - BigBoots Team - 2011" height="1%" valign="bottom" font="Interface/Fonts/Verdana.fnt" />
+        </panel>
+        </panel>
+    </layer>
+    
+  </screen>
+  
+
+
+  <screen id="credit" controller="com.bigboots.states.BBCreditState">
+    <layer id="#layer" childLayout="center">
+        <panel id="#panel" style="myStyle" height="30%" width="35%" align="center" valign="center" childLayout="vertical">   
+           
+          <panel id="#panquit" height="25%" width="35%" align="center" valign="center" childLayout="center" visibleToMouse="true">
+            <control id="#back" name="button" label="Back" color="#000" align="center" valign="center">
+                <interact onRelease="quitGame()" />
+            </control>
+          </panel>
+         </panel>
+    </layer>
+  </screen>
+  
+
+  <screen id="null">
+  </screen>
+</nifty>

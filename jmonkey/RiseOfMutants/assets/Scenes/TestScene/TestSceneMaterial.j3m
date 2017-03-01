@@ -1,0 +1,10 @@
+Material My Material : MatDefs/LightBlow/LightBlow.j3md {
+     MaterialParameters {
+
+
+        DiffuseMap : Flip Repeat Textures/base_textures/base_14_wood/base_14_wood_01.png
+        NormalMap : Flip Repeat Textures/base_textures/base_14_wood/base_14_wood_01_nor.png
+     }
+    AdditionalRenderState {
+    }
+}

@@ -22,20 +22,20 @@ find /media/scps/ -type f -size 0 -exec rm {} \;
 ./stop.sh && \
 
 # workaround failed videos
-cd ../scp/ && \
-./workaround.sh && \
+# cd ../scp/ && \
+# ./workaround.sh && \
 
 #get page image
-cd ../url2img && \
-./start.sh && \
-./run-all.sh && \
-./stop.sh && \
+#cd ../url2img && \
+#./start.sh && \
+#./run-all.sh && \
+#./stop.sh && \
 
 #create videos
-cd ../clip-creator/ && \
-./start.sh && \
-./exec-run-all.sh && \
-./stop.sh && \
+#cd ../clip-creator/ && \
+#./start.sh && \
+#./exec-run-all.sh && \
+#./stop.sh && \
 
 #upload videos
 cd ../youtube-uploader/ && \

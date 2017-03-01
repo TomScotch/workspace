@@ -1,0 +1,53 @@
+{
+
+"Geometries" : {
+
+"Cube" : {
+"Shader" : {
+"ShaderName" : "LightBlow",
+"DiffuseMap" : "Textures/assets_level_01/Etest/Etest_01.png",
+"NormalMap" : null
+}
+},
+
+"Cube2" : {
+
+"Shader" : {
+"ShaderName" : "LightBlow",
+"DiffuseMap" : "Textures/assets_level_01/Etest/Etest_01.png",
+"NormalMap" : null
+}
+},
+
+"Cube3" : {
+"Shader" : {
+"ShaderName" : "LightBlow",
+"DiffuseMap" : "Textures/assets_level_01/Etest/Etest_01.png",
+"NormalMap" : null
+}
+},
+
+"sword1" : {
+
+"Shader" : {
+"ShaderName" : "LightBlow",
+"DiffuseMap" : "Textures/assets_level_01/Etest/Etest_01.png",
+"NormalMap" : null
+}
+},
+
+"sword2" : {
+"Shader" : {
+"ShaderName" : "LightBlow",
+"DiffuseMap" : "Textures/assets_level_01/Etest/Etest_01.png",
+"NormalMap" : null
+}
+},
+
+},
+
+
+"Physics" : "Static"
+
+
+} 

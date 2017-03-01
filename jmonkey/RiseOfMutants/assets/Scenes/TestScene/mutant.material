@@ -1,0 +1,32 @@
+
+// blender material: mutant
+material mutant 
+{
+    receive_shadows on
+    technique b2ogre_1320486124.990677
+    {
+        pass b2ogre_1320486124.990741
+        {
+            ambient 0.43638068437576294 0.43998634815216064 0.24568256735801697 1.0
+            diffuse 0.3491045527026735 0.3519890837667745 0.196546056815178 1.0
+            specular 0.16684123873710632 0.16684123873710632 0.16684123873710632 1.0 5.0
+            emissive 0.0 0.0 0.0 1.0
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+        }
+    }
+}

@@ -1,0 +1,9 @@
+Material My Material : Common/MatDefs/Light/Lighting.j3md {
+     MaterialParameters {
+        DiffuseMap : Textures/Terrain/splat/road.jpg
+        NormalMap : Textures/Terrain/splat/road_normal.png
+        Shininess : 14.0
+     }
+    AdditionalRenderState {
+    }
+}

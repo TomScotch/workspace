@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+  <useStyles filename="nifty-default-styles.xml" />
+  <useControls filename="nifty-default-controls.xml" />
+  
+  <controlDefinition name="progressbar" controller="com.bigboots.gui.BBProgressbarController">
+    <image filename="Interface/progressbar-outer.png" imageMode="resize:15,2,15,15,15,2,15,2,15,2,15,15" childLayout="absolute">
+      <image id="#progress" x="0" y="0" filename="Interface/progressbar-inner.png" width="3px" height="100%" imageMode="resize:1,1,1,15,1,1,1,2,1,1,1,15" />
+      <text id="#progress-text" font="Interface/Fonts/Default.fnt" text="" textHAlign="center" textVAlign="center" width="100%" height="100%" x="0" y="0" color="#f00f" />
+    </image>
+  </controlDefinition>
+ 
+  <controlDefinition name="progressload" controller="com.bigboots.gui.BBTextProgressController">
+    <panel id="panel_text_load" height="100%" width="75%" align="left" valign="bottom" childLayout="vertical"> 
+       <text id="load-text" font="Interface/Fonts/Default.fnt" text="" textHAlign="left" textVAlign="bottom" width="100%" height="100%" x="0" y="0" color="#f00f" />
+    </panel> 
+  </controlDefinition>
+
+    
+  <screen id="game" controller="com.bigboots.gui.BBInGameController">
+    <layer id="game_layer" childLayout="center">
+        <panel id="game_panel" style="myStyle" height="30%" width="35%" align="center" valign="center" childLayout="vertical">   
+           
+          <panel id="game_panquit" height="25%" width="35%" align="center" valign="center" childLayout="center" visibleToMouse="true">
+            <control id="backm" name="button" label="Quit to Desktop" color="#000" align="center" valign="center">
+                <interact onRelease="quitToDesk()" />
+            </control>
+          </panel>
+         </panel>
+    </layer>
+  </screen>
+  
+  <screen id="hud" controller="com.bigboots.gui.BBInGameController">
+    <layer id="background_hud" childLayout="center">
+        <image filename="Interface/BBInGameHud.png" width="100%" height="100%" />
+    </layer>
+    <layer id="foreground_hud" childLayout="horizontal">
+        <panel id="hud_panel_top" width="100%" height="20%" childLayout="horizontal" >
+            <panel id="hud_panel_top_left" width="30%" height="100%" childLayout="horizontal" >  
+                <panel id="hud_panel_top_left_pic" height="100%" width="50%" childLayout="horizontal" valign="center">
+                    <image filename="Interface/MainCharac.png" valign="top" align="center" />
+                </panel>
+                <panel id="hud_panel_top_left_stat" height="100%" width="50%" childLayout="vertical" >
+                    <control id="player_progress" name="progressbar" imageMode="normal" width="96px" height="32px" />
+                </panel>
+            </panel>
+            <panel id="hud_panel_top_center" width="40%" height="100%" childLayout="center" >  
+            </panel>
+            <panel id="hud_panel_bot_right" childLayout="horizontal" width="30%" height="100%" >
+                <panel id="hud_panel_bot_right_stat" height="100%" width="50%" childLayout="vertical" >
+                    <control id="enemy_progress" name="progressbar" imageMode="normal" width="96px" height="32px" />
+                </panel>
+                <panel id="hud_panel_bot_right_pic" height="100%" width="50%" childLayout="horizontal" valign="center">
+                    <image filename="Interface/Executioner.png" valign="top" align="center" />
+                </panel>
+            </panel>
+        </panel>
+        <panel id="hud_panel_bottom" width="100%" height="80%" childLayout="horizontal" >
+        </panel>
+    </layer>
+  </screen>
+
+  <screen id="loadgame" controller="com.bigboots.gui.BBInGameController">
+    <layer id="background_load" childLayout="center">
+        <image filename="Interface/splash.jpg" width="100%" height="100%" />
+    </layer>
+    <layer id="foreground_load" childLayout="vertical">
+         <control id="text_progress" name="progressload" />  
+    </layer>
+  </screen>
+  
+</nifty>

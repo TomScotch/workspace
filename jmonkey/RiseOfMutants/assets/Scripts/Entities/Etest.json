@@ -1,0 +1,47 @@
+
+{
+        
+    "Physics" : {
+        "Type" : "Static"
+    },
+    
+    "Materials" : {
+        
+        "bb01" : {
+            "Shadows" : "Cast",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/assets_level_01/Etest/Etest_01.png",
+            "WrapMode" : "Repeat"
+        },
+        
+        "bb02" : {
+            "Shadows" : "Cast",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/assets_level_01/Etest/Etest_02.png",
+            "WrapMode" : "Repeat"            
+        },
+        
+        "bb03" : {
+            "Shadows" : "Cast",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/assets_level_01/Etest/Etest_03.png",
+            "WrapMode" : "Repeat"            
+        },
+        
+        "bb04" : {
+            "Shadows" : "Cast",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/assets_level_01/Etest/Etest_04.png",
+            "WrapMode" : "Repeat"            
+        }
+    },
+    
+    "Objects" : {
+        "Cube" : {},
+        "Cube2" : {},
+        "Cube3" : {},
+        "sword1" : {},
+        "sword2" : {}
+    }    
+        
+}

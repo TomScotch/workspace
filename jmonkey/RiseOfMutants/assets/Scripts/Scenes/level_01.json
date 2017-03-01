@@ -1,0 +1,76 @@
+
+{
+    
+    "Materials" : {
+        
+        "mat1" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_08_rock/base_08_rock_03.dds",
+            "NormalMap" : "Textures/base_textures/base_08_rock/base_08_rock_03_nor.dds",
+            "LightMap" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+            
+        },
+        "mat2" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_13_walls/base_13_walls_05.dds",
+            "NormalMap" : "Textures/base_textures/base_13_walls/base_13_walls_05_nor.dds",
+            "LightMap" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+        },
+        "mat3" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_09_roofs/base_09_roofs_07.dds",
+            "NormalMap" : "Textures/base_textures/base_09_roofs/base_09_roofs_07_nor.dds",
+            "LightMap" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+        },
+        "mat4" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_07_road/base_07_road_03.dds",
+            "LightMap" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+        },
+        "mat5" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_02_grass/base_02_grass_01.dds",
+            "NormalMap" : "Textures/base_textures/base_02_grass/base_02_grass_01_nor.dds",
+            "LightMap" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+        },
+        "mat6" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_03_ground/base_03_ground_08.dds",
+            "NormalMap" : "Textures/base_textures/base_03_ground/base_03_ground_08_nor.dds",
+            "DiffuseMap_1" : "Textures/base_textures/base_10_sand/base_10_sand_01.dds",
+            "NormalMap_1" : "Textures/base_textures/base_10_sand/base_10_sand_01_nor.dds",
+            "TextureMask" : "Textures/level_textures/masks/mask_01.png",
+            "UV_Scale_0" : "10.0",
+            "UV_Scale_1" : "10.0",
+            "LightMap_R" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+        },
+        "mat7" : {
+            "Shadows" : "Receive",
+            "Shader" : "LightBlow",
+            "DiffuseMap" : "Textures/base_textures/base_05_metal/base_05_metal_05.dds",
+            "NormalMap" : "Textures/base_textures/base_05_metal/base_05_metal_05_nor.dds",
+            "LightMap" :  "Textures/level_textures/lightmaps/lightmap_01.png",
+            "WrapMode" : "Repeat"
+        }        
+    },
+    
+    "Objects" : {
+        "lv_01_base2" : {},
+        "lv_01_base3" : {},
+        "lv_01_base4" : {},
+        "lv_01_base6" : {}
+    }
+
+}
