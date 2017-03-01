@@ -26,6 +26,8 @@ public class Main extends SimpleApplication {
         cfg.setResolution(1024, 768);
         cfg.setFullscreen(false);
         cfg.setSamples(2);    // anti-aliasing
+        app.setPauseOnLostFocus(true);
+        cfg.setRenderer(AppSettings.LWJGL_OPENGL2);
         cfg.setTitle("My jMonkeyEngine 3 Game"); // branding: window name
         app.setShowSettings(false);
         app.setSettings(cfg);
