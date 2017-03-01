@@ -5,7 +5,6 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
-import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.BetterCharacterControl;
@@ -17,28 +16,28 @@ import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.light.DirectionalLight;
+import com.jme3.light.SpotLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.ViewPort;
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.CameraNode;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.CameraControl;
-import com.jme3.shadow.DirectionalLightShadowFilter;
-import com.jme3.shadow.DirectionalLightShadowRenderer;
+import com.jme3.scene.shape.Box;
 import com.jme3.shadow.EdgeFilteringMode;
-import com.jme3.terrain.geomipmap.TerrainLodControl;
-import com.jme3.terrain.geomipmap.TerrainQuad;
-import com.jme3.terrain.geomipmap.lodcalc.DistanceLodCalculator;
-import com.jme3.terrain.heightmap.AbstractHeightMap;
-import com.jme3.terrain.heightmap.ImageBasedHeightMap;
+import com.jme3.shadow.SpotLightShadowRenderer;
 import com.jme3.texture.Texture;
+import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.SkyFactory;
+import com.jme3.util.TangentBinormalGenerator;
 
 public class GameRunningState extends AbstractAppState {
 
@@ -49,19 +48,12 @@ public class GameRunningState extends AbstractAppState {
     private Node localRootNode = new Node("Game Screen RootNode");
     private Node localGuiNode = new Node("Game Screen GuiNode");
     private final ColorRGBA backgroundColor = ColorRGBA.Blue;
-    private TerrainQuad terrain;
-    private Material matTerrain;
-    private Material matWire;
     boolean wireframe = false;
     boolean triPlanar = false;
     boolean wardiso = false;
     boolean minnaert = false;
     protected BitmapText hintText;
-    private float grassScale = 64;
-    private float dirtScale = 16;
-    private float rockScale = 128;
     private InputManager inputManager;
-    private DirectionalLight sun;
     private FilterPostProcessor fpp;
     private BulletAppState bulletAppState;
     private BetterCharacterControl physicsCharacter;
@@ -74,6 +66,10 @@ public class GameRunningState extends AbstractAppState {
             leftRotate = false, rightRotate = false;
     private boolean lockView = true;
     private FlyByCamera fbc;
+    float angle;
+    boolean stop = true;
+    private final SpotLight sun;
+    private final SpotLightShadowRenderer slsr;
 
     public GameRunningState(SimpleApplication app) {
 
@@ -84,98 +80,20 @@ public class GameRunningState extends AbstractAppState {
         this.inputManager = app.getInputManager();
         fbc = app.getFlyByCamera();
 
-        matTerrain = new Material(assetManager, "Common/MatDefs/Terrain/TerrainLighting.j3md");
-        matTerrain.setBoolean("useTriPlanarMapping", false);
-        matTerrain.setFloat("Shininess", 0.0f);
-        matTerrain.setTexture("AlphaMap", assetManager.loadTexture("Textures/Terrain/splat/alpha1.png"));
-        matTerrain.setTexture("AlphaMap_1", assetManager.loadTexture("Textures/Terrain/splat/alpha2.png"));
+        sun = new SpotLight();
+        sun.setSpotRange(100000);
+        sun.setSpotOuterAngle(200000 * FastMath.DEG_TO_RAD);
+        sun.setSpotInnerAngle(100000 * FastMath.DEG_TO_RAD);
 
-        Texture heightMapImage = assetManager.loadTexture("Textures/Terrain/splat/mountains512.png");
-        Texture dirt = assetManager.loadTexture("Textures/Terrain/splat/dirt.jpg");
-        dirt.setWrap(Texture.WrapMode.Repeat);
-        matTerrain.setTexture("DiffuseMap", dirt);
-        matTerrain.setFloat("DiffuseMap_0_scale", dirtScale);
+        sun.setPosition(new Vector3f(0, 100, 0));
 
-        Texture grass = assetManager.loadTexture("Textures/Terrain/splat/grass.jpg");
-        grass.setWrap(Texture.WrapMode.Repeat);
-        matTerrain.setTexture("DiffuseMap_1", grass);
-        matTerrain.setFloat("DiffuseMap_1_scale", grassScale);
+        slsr = new SpotLightShadowRenderer(assetManager, 1024);
+        slsr.setLight(sun);
+        slsr.setEdgeFilteringMode(EdgeFilteringMode.PCFPOISSON);
+        viewPort.addProcessor(slsr);
 
-        Texture rock = assetManager.loadTexture("Textures/Terrain/splat/road.jpg");
-        rock.setWrap(Texture.WrapMode.Repeat);
-        matTerrain.setTexture("DiffuseMap_2", rock);
-        matTerrain.setFloat("DiffuseMap_2_scale", rockScale);
-
-        Texture brick = assetManager.loadTexture("Textures/Terrain/BrickWall/BrickWall.jpg");
-        brick.setWrap(Texture.WrapMode.Repeat);
-        matTerrain.setTexture("DiffuseMap_3", brick);
-        matTerrain.setFloat("DiffuseMap_3_scale", rockScale);
-
-        Texture riverRock = assetManager.loadTexture("Textures/Terrain/Pond/Pond.jpg");
-        riverRock.setWrap(Texture.WrapMode.Repeat);
-        matTerrain.setTexture("DiffuseMap_4", riverRock);
-        matTerrain.setFloat("DiffuseMap_4_scale", rockScale);
-
-        Texture normalMap0 = assetManager.loadTexture("Textures/Terrain/splat/grass_normal.jpg");
-        normalMap0.setWrap(Texture.WrapMode.Repeat);
-        Texture normalMap1 = assetManager.loadTexture("Textures/Terrain/splat/dirt_normal.png");
-        normalMap1.setWrap(Texture.WrapMode.Repeat);
-        Texture normalMap2 = assetManager.loadTexture("Textures/Terrain/splat/road_normal.png");
-        normalMap2.setWrap(Texture.WrapMode.Repeat);
-
-        matTerrain.setTexture("NormalMap_1", normalMap2);
-        matTerrain.setTexture("NormalMap_2", normalMap2);
-        matTerrain.setTexture("NormalMap_4", normalMap2);
-
-        matWire = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        matWire.getAdditionalRenderState().setWireframe(true);
-        matWire.setColor("Color", ColorRGBA.Green);
-
-        createSky();
-
-        AbstractHeightMap heightmap = null;
-        try {
-            heightmap = new ImageBasedHeightMap(heightMapImage.getImage(), 0.5f);
-            heightmap.load();
-            heightmap.smooth(0.9f, 1);
-
-        } catch (Exception e) {
-        }
-
-        terrain = new TerrainQuad("terrain", 65, 513, heightmap.getHeightMap());
-        TerrainLodControl control = new TerrainLodControl(terrain, viewPort.getCamera());
-        control.setLodCalculator(new DistanceLodCalculator(65, 2.7f));
-        terrain.addControl(control);
-        terrain.setMaterial(matTerrain);
-        terrain.setModelBound(new BoundingBox());
-        terrain.updateModelBound();
-        terrain.setLocalTranslation(0, -100, 0);
-        terrain.setLocalScale(1f, 1f, 1f);
-        localRootNode.attachChild(terrain);
-
-        sun = new DirectionalLight();
-        sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
-        sun.setColor(ColorRGBA.White);
         localRootNode.addLight(sun);
-
-        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 1024, 3);
-        dlsr.setLight(sun);
-        dlsr.setLambda(0.55f);
-        dlsr.setShadowIntensity(0.6f);
-        dlsr.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
-        viewPort.addProcessor(dlsr);
-
-        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, 1024, 3);
-        dlsf.setLight(sun);
-        dlsf.setLambda(0.55f);
-        dlsf.setShadowIntensity(0.6f);
-        dlsf.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
-
-        fpp = new FilterPostProcessor(assetManager);
-        fpp.addFilter(dlsf);
-
-
-        viewPort.addProcessor(fpp);
+        createSky();
 
         bulletAppState = new BulletAppState();
         app.getStateManager().attach(bulletAppState);
@@ -189,6 +107,8 @@ public class GameRunningState extends AbstractAppState {
 
         Node model = (Node) assetManager.loadModel("Models/Jaime/Jaime.j3o");
         model.setLocalScale(1.50f);
+        model.getChildren().get(0).setShadowMode(ShadowMode.CastAndReceive);
+        localRootNode.setShadowMode(ShadowMode.CastAndReceive);
         characterNode.attachChild(model);
 
         localRootNode.attachChild(characterNode);
@@ -203,10 +123,44 @@ public class GameRunningState extends AbstractAppState {
         characterNode.attachChild(camNode);
 
         camNode.setEnabled(true);
+        localRootNode.setShadowMode(ShadowMode.CastAndReceive);
 
-   terrain.addControl(new RigidBodyControl(0));
-       
-       bulletAppState.getPhysicsSpace().add(terrain);     
+        Material mat = assetManager.loadMaterial("Textures/Terrain/Pond/Pond.j3m");
+        mat.getTextureParam("DiffuseMap").getTextureValue().setWrap(WrapMode.Repeat);
+        mat.getTextureParam("NormalMap").getTextureValue().setWrap(WrapMode.Repeat);
+        mat.setBoolean("UseMaterialColors", true);
+        mat.setReceivesShadows(true);
+        mat.setColor("Diffuse", ColorRGBA.White.clone());
+        mat.setColor("Ambient", ColorRGBA.White.clone());
+        mat.setFloat("Shininess", 0);
+
+        Box floor = new Box(50, 1f, 50);
+        TangentBinormalGenerator.generate(floor);
+        floor.scaleTextureCoordinates(new Vector2f(5, 5));
+        Geometry floorGeom = new Geometry("Floor", floor);
+        floorGeom.setMaterial(mat);
+        floorGeom.setShadowMode(ShadowMode.CastAndReceive);
+        localRootNode.attachChild(floorGeom);
+
+        Spatial signpost = assetManager.loadModel("Models/Sign Post/Sign Post.mesh.xml");
+        mat = assetManager.loadMaterial("Models/Sign Post/Sign Post.j3m");
+        mat.setReceivesShadows(true);
+        signpost.setMaterial(mat);
+        signpost.rotate(0, FastMath.HALF_PI, 0);
+        signpost.setLocalTranslation(12, 3.5f, 30);
+        signpost.setLocalScale(4);
+        signpost.setShadowMode(ShadowMode.CastAndReceive);
+        TangentBinormalGenerator.generate(signpost);
+        localRootNode.attachChild(signpost);
+
+
+        signpost.addControl(new RigidBodyControl(0));
+
+        bulletAppState.getPhysicsSpace().add(signpost);
+
+        floorGeom.addControl(new RigidBodyControl(0));
+
+        bulletAppState.getPhysicsSpace().add(floorGeom);
     }
 
     @Override
@@ -219,15 +173,19 @@ public class GameRunningState extends AbstractAppState {
     }
 
     private PhysicsSpace getPhysicsSpace() {
+
         return bulletAppState.getPhysicsSpace();
     }
 
     public void loadHintText(String txt) {
 
         viewPort.setBackgroundColor(backgroundColor);
+
         BitmapFont guiFont = assetManager.loadFont(
                 "Interface/Fonts/Default.fnt");
+
         BitmapText displaytext = new BitmapText(guiFont);
+
         displaytext.setSize(guiFont.getCharSet().getRenderedSize());
         displaytext.move(10, displaytext.getLineHeight() + 20, 0);
         displaytext.setText(txt);
@@ -235,14 +193,7 @@ public class GameRunningState extends AbstractAppState {
     }
 
     private void setupKeys() {
-        inputManager.addMapping("wireframe", new KeyTrigger(KeyInput.KEY_T));
-        inputManager.addListener(actionListener, "wireframe");
-        inputManager.addMapping("triPlanar", new KeyTrigger(KeyInput.KEY_P));
-        inputManager.addListener(actionListener, "triPlanar");
-        inputManager.addMapping("WardIso", new KeyTrigger(KeyInput.KEY_9));
-        inputManager.addListener(actionListener, "WardIso");
-        inputManager.addMapping("Minnaert", new KeyTrigger(KeyInput.KEY_0));
-        inputManager.addListener(actionListener, "Minnaert");
+
         inputManager.addMapping("Strafe Left",
                 new KeyTrigger(KeyInput.KEY_U),
                 new KeyTrigger(KeyInput.KEY_Z));
@@ -281,45 +232,64 @@ public class GameRunningState extends AbstractAppState {
         public void onAction(String name, boolean value, float tpf) {
 
             switch (name) {
+
                 case "Strafe Left":
+
                     if (value) {
+
                         leftStrafe = true;
                     } else {
+
                         leftStrafe = false;
                     }
                     break;
                 case "Strafe Right":
+
                     if (value) {
+
                         rightStrafe = true;
                     } else {
+
                         rightStrafe = false;
                     }
                     break;
                 case "Rotate Left":
+
                     if (value) {
+
                         leftRotate = true;
                     } else {
+
                         leftRotate = false;
                     }
                     break;
                 case "Rotate Right":
+
                     if (value) {
+
                         rightRotate = true;
                     } else {
+
                         rightRotate = false;
                     }
                     break;
                 case "Walk Forward":
+
                     if (value) {
+
                         forward = true;
                     } else {
+
                         forward = false;
                     }
                     break;
                 case "Walk Backward":
+
                     if (value) {
+
                         backward = true;
                     } else {
+
                         backward = false;
                     }
                     break;
@@ -327,48 +297,27 @@ public class GameRunningState extends AbstractAppState {
                     physicsCharacter.jump();
                     break;
                 case "Duck":
+
                     if (value) {
+
                         physicsCharacter.setDucked(true);
                     } else {
                         physicsCharacter.setDucked(false);
                     }
                     break;
                 case "Lock View":
+
                     if (value && lockView) {
                         lockView = false;
                     } else if (value && !lockView) {
+
                         lockView = true;
                     }
+
                     fbc.setEnabled(!lockView);
                     camNode.setEnabled(lockView);
+
                     break;
-            }
-
-            if (name.equals("wireframe") && !value) {
-                wireframe = !wireframe;
-                if (!wireframe) {
-                    terrain.setMaterial(matWire);
-                } else {
-                    terrain.setMaterial(matTerrain);
-                }
-            } else if (name.equals("triPlanar") && !value) {
-                triPlanar = !triPlanar;
-                if (triPlanar) {
-                    matTerrain.setBoolean("useTriPlanarMapping", true);
-
-                    matTerrain.setFloat("DiffuseMap_0_scale", 1f / (float) (512f / grassScale));
-                    matTerrain.setFloat("DiffuseMap_1_scale", 1f / (float) (512f / dirtScale));
-                    matTerrain.setFloat("DiffuseMap_2_scale", 1f / (float) (512f / rockScale));
-                    matTerrain.setFloat("DiffuseMap_3_scale", 1f / (float) (512f / rockScale));
-                    matTerrain.setFloat("DiffuseMap_4_scale", 1f / (float) (512f / rockScale));
-                } else {
-                    matTerrain.setBoolean("useTriPlanarMapping", false);
-                    matTerrain.setFloat("DiffuseMap_0_scale", grassScale);
-                    matTerrain.setFloat("DiffuseMap_1_scale", dirtScale);
-                    matTerrain.setFloat("DiffuseMap_2_scale", rockScale);
-                    matTerrain.setFloat("DiffuseMap_3_scale", rockScale);
-                    matTerrain.setFloat("DiffuseMap_4_scale", rockScale);
-                }
             }
         }
     };
@@ -385,37 +334,57 @@ public class GameRunningState extends AbstractAppState {
         Spatial sky = SkyFactory.createSky(assetManager, west, east, north, south, up, down);
         localRootNode.attachChild(sky);
     }
+    float s = 1f;
+    Node pivot = new Node();
 
     @Override
     public void update(float tpf) {
 
 
+        super.update(tpf);
+
+        pivot.rotate(FastMath.PI * tpf / 2, 0, 0);
+        sun.setDirection(pivot.getLocalRotation().getRotationColumn(2));
+        slsr.setLight(sun);
+
         Vector3f modelForwardDir = characterNode.getWorldRotation().mult(Vector3f.UNIT_Z);
         Vector3f modelLeftDir = characterNode.getWorldRotation().mult(Vector3f.UNIT_X);
 
         walkDirection.set(0, 0, 0);
+
         if (leftStrafe) {
+
             walkDirection.addLocal(modelLeftDir.mult(3));
         } else if (rightStrafe) {
+
             walkDirection.addLocal(modelLeftDir.negate().multLocal(3));
         }
+
         if (forward) {
+
             walkDirection.addLocal(modelForwardDir.mult(3));
         } else if (backward) {
+
+            walkDirection.addLocal(modelForwardDir.mult(3));
             walkDirection.addLocal(modelForwardDir.negate().multLocal(3));
         }
+
         physicsCharacter.setWalkDirection(walkDirection);
 
         if (leftRotate) {
+
             Quaternion rotateL = new Quaternion().fromAngleAxis(FastMath.PI * tpf, Vector3f.UNIT_Y);
             rotateL.multLocal(viewDirection);
         } else if (rightRotate) {
+
             Quaternion rotateR = new Quaternion().fromAngleAxis(-FastMath.PI * tpf, Vector3f.UNIT_Y);
             rotateR.multLocal(viewDirection);
         }
+
         physicsCharacter.setViewDirection(viewDirection);
 
         if (!lockView) {
+
             viewPort.getCamera().lookAt(characterNode.getWorldTranslation().add(new Vector3f(0, 2, 0)), Vector3f.UNIT_Y);
         }
 
@@ -425,6 +394,7 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void stateAttached(AppStateManager stateManager) {
+
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
         viewPort.setBackgroundColor(backgroundColor);
@@ -432,6 +402,7 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
+
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
     }
