@@ -24,6 +24,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.LightScatteringFilter;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.CameraNode;
@@ -38,6 +39,7 @@ import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.SkyFactory;
 import com.jme3.util.TangentBinormalGenerator;
+import com.jme3.water.WaterFilter;
 
 public class GameRunningState extends AbstractAppState {
 
@@ -54,7 +56,6 @@ public class GameRunningState extends AbstractAppState {
     boolean minnaert = false;
     protected BitmapText hintText;
     private InputManager inputManager;
-    private FilterPostProcessor fpp;
     private BulletAppState bulletAppState;
     private BetterCharacterControl physicsCharacter;
     private Node characterNode;
@@ -70,6 +71,11 @@ public class GameRunningState extends AbstractAppState {
     boolean stop = true;
     private final SpotLight sun;
     private final SpotLightShadowRenderer slsr;
+    private final LightScatteringFilter sunlight;
+    private FilterPostProcessor fpp;
+    private WaterFilter water;
+    private float initialWaterHeight = -0.75f; // choose a value for your scene
+    private final FilterPostProcessor fpp2;
 
     public GameRunningState(SimpleApplication app) {
 
@@ -78,18 +84,19 @@ public class GameRunningState extends AbstractAppState {
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
+
         fbc = app.getFlyByCamera();
 
         sun = new SpotLight();
-        sun.setSpotRange(100000);
-        sun.setSpotOuterAngle(200000 * FastMath.DEG_TO_RAD);
-        sun.setSpotInnerAngle(100000 * FastMath.DEG_TO_RAD);
+        sun.setSpotRange(5000);
+        sun.setSpotOuterAngle(50000 * FastMath.DEG_TO_RAD);
+        sun.setSpotInnerAngle(50000 * FastMath.DEG_TO_RAD);
 
-        sun.setPosition(new Vector3f(0, 100, 0));
+        sun.setPosition(new Vector3f(0, 500, 0));
 
-        slsr = new SpotLightShadowRenderer(assetManager, 1024);
+        slsr = new SpotLightShadowRenderer(assetManager, 2048);
         slsr.setLight(sun);
-        slsr.setEdgeFilteringMode(EdgeFilteringMode.PCFPOISSON);
+        slsr.setEdgeFilteringMode(EdgeFilteringMode.Bilinear);
         viewPort.addProcessor(slsr);
 
         localRootNode.addLight(sun);
@@ -115,7 +122,7 @@ public class GameRunningState extends AbstractAppState {
 
         camNode = new CameraNode("CamNode", app.getCamera());
         camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
-        camNode.setLocalTranslation(new Vector3f(0, 2, -6));
+        camNode.setLocalTranslation(new Vector3f(0, 2, -15));
         Quaternion quat = new Quaternion();
 
         quat.lookAt(Vector3f.UNIT_Z, Vector3f.UNIT_Y);
@@ -123,6 +130,7 @@ public class GameRunningState extends AbstractAppState {
         characterNode.attachChild(camNode);
 
         camNode.setEnabled(true);
+
         localRootNode.setShadowMode(ShadowMode.CastAndReceive);
 
         Material mat = assetManager.loadMaterial("Textures/Terrain/Pond/Pond.j3m");
@@ -153,6 +161,14 @@ public class GameRunningState extends AbstractAppState {
         TangentBinormalGenerator.generate(signpost);
         localRootNode.attachChild(signpost);
 
+        fpp = new FilterPostProcessor(assetManager);
+        sunlight = new LightScatteringFilter(sun.getPosition());
+        fpp.addFilter(sunlight);
+
+        fpp2 = new FilterPostProcessor(assetManager);
+        water = new WaterFilter(localRootNode, sun.getPosition());
+        water.setWaterHeight(initialWaterHeight);
+        fpp2.addFilter(water);
 
         signpost.addControl(new RigidBodyControl(0));
 
@@ -167,7 +183,8 @@ public class GameRunningState extends AbstractAppState {
     public void initialize(AppStateManager stateManager, Application app) {
 
         super.initialize(stateManager, app);
-
+        viewPort.addProcessor(fpp);
+        viewPort.addProcessor(fpp2);
         setupKeys();
         loadHintText("Game running. Press BACKSPACE to pause and return to the start screen.");
     }
@@ -222,7 +239,7 @@ public class GameRunningState extends AbstractAppState {
         inputManager.addMapping("Lock View",
                 new KeyTrigger(KeyInput.KEY_RETURN));
 
-        inputManager.addListener(actionListener, "Strafe Left", "Strafe Right");
+        inputManager.addListener(actionListener, "Rotate Left", "Strafe Right");
         inputManager.addListener(actionListener, "Rotate Left", "Rotate Right");
         inputManager.addListener(actionListener, "Walk Forward", "Walk Backward");
         inputManager.addListener(actionListener, "Jump", "Duck", "Lock View");
@@ -332,6 +349,7 @@ public class GameRunningState extends AbstractAppState {
         Texture down = assetManager.loadTexture("Textures/Sky/Lagoon/lagoon_down.jpg");
 
         Spatial sky = SkyFactory.createSky(assetManager, west, east, north, south, up, down);
+        sky.setLocalTranslation(0, -1000, 0);
         localRootNode.attachChild(sky);
     }
     float s = 1f;
@@ -343,9 +361,13 @@ public class GameRunningState extends AbstractAppState {
 
         super.update(tpf);
 
-        pivot.rotate(FastMath.PI * tpf / 2, 0, 0);
+        pivot.rotate((FastMath.QUARTER_PI * tpf) / 16, 0, 0);
         sun.setDirection(pivot.getLocalRotation().getRotationColumn(2));
         slsr.setLight(sun);
+
+        sunlight.setLightPosition(sun.getPosition());
+
+        water.setLightDirection(sun.getDirection());
 
         Vector3f modelForwardDir = characterNode.getWorldRotation().mult(Vector3f.UNIT_Z);
         Vector3f modelLeftDir = characterNode.getWorldRotation().mult(Vector3f.UNIT_X);
@@ -354,19 +376,19 @@ public class GameRunningState extends AbstractAppState {
 
         if (leftStrafe) {
 
-            walkDirection.addLocal(modelLeftDir.mult(3));
+            walkDirection.addLocal(modelLeftDir.mult(15));
         } else if (rightStrafe) {
 
-            walkDirection.addLocal(modelLeftDir.negate().multLocal(3));
+            walkDirection.addLocal(modelLeftDir.negate().multLocal(15));
         }
 
         if (forward) {
 
-            walkDirection.addLocal(modelForwardDir.mult(3));
+            walkDirection.addLocal(modelForwardDir.mult(15));
         } else if (backward) {
 
-            walkDirection.addLocal(modelForwardDir.mult(3));
-            walkDirection.addLocal(modelForwardDir.negate().multLocal(3));
+            walkDirection.addLocal(modelForwardDir.mult(15).negateLocal());
+            walkDirection.addLocal(modelForwardDir.negate().multLocal(15));
         }
 
         physicsCharacter.setWalkDirection(walkDirection);
@@ -402,6 +424,9 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
+
+        viewPort.removeProcessor(fpp);
+        viewPort.removeProcessor(fpp2);
 
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
