@@ -1,7 +1,6 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.app.state.AppState;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -54,25 +53,32 @@ public class Main extends SimpleApplication {
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onAction(String name, boolean isPressed, float tpf) {
+
+            isRunning = gameRunningState.getIsRunning();
+
             if (name.equals("Game Pause Unpause") && !isPressed) {
+
                 if (isRunning) {
                     stateManager.detach(gameRunningState);
                     stateManager.attach(startScreenState);
                     System.out.println("switching to startscreen...");
 
                 } else {
-                    stateManager.detach(startScreenState);
-                    stateManager.attach(gameRunningState);
-                    System.out.println("switching to game...");
+                    if (stateManager.hasState(startScreenState)) {
+                        stateManager.detach(startScreenState);
+                        stateManager.attach(gameRunningState);
+                        System.out.println("switching to game...");
+                    }
                 }
-                isRunning = !isRunning;
-            } else if (name.equals("Toggle Settings") && !isPressed && !isRunning) {
-                if (!isRunning && stateManager.hasState(startScreenState)) {
+            }
+
+            if (name.equals("Toggle Settings") && !isPressed && !isRunning) {
+                if (stateManager.hasState(startScreenState)) {
                     stateManager.detach(startScreenState);
-                    stateManager.attach((AppState) settingsScreenState);
+                    stateManager.attach(settingsScreenState);
                     System.out.println("switching to settings...");
-                } else if (!isRunning && stateManager.hasState((AppState) settingsScreenState)) {
-                    stateManager.detach((AppState) settingsScreenState);
+                } else if (stateManager.hasState(settingsScreenState)) {
+                    stateManager.detach(settingsScreenState);
                     stateManager.attach(startScreenState);
                     System.out.println("switching to startscreen...");
                 }

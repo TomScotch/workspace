@@ -19,20 +19,13 @@ public class StartScreenState extends AbstractAppState {
     private AssetManager assetManager;
     private Node localRootNode = new Node("Start Screen RootNode");
     private Node localGuiNode = new Node("Start Screen GuiNode");
-    private final ColorRGBA backgroundColor = ColorRGBA.Gray;
+    private final ColorRGBA backgroundColor = ColorRGBA.Black;
 
     public StartScreenState(SimpleApplication app) {
         this.rootNode = app.getRootNode();
         this.viewPort = app.getViewPort();
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
-    }
-
-    @Override
-    public void initialize(AppStateManager stateManager, Application app) {
-        super.initialize(stateManager, app);
-
-        viewPort.setBackgroundColor(backgroundColor);
 
         BitmapFont guiFont = assetManager.loadFont(
                 "Interface/Fonts/Default.fnt");
@@ -42,6 +35,12 @@ public class StartScreenState extends AbstractAppState {
         displaytext.setText("Start screen. Press BACKSPACE to resume the game, "
                 + "press RETURN to edit Settings.");
         localGuiNode.attachChild(displaytext);
+    }
+
+    @Override
+    public void initialize(AppStateManager stateManager, Application app) {
+        super.initialize(stateManager, app);
+        viewPort.setBackgroundColor(backgroundColor);
     }
 
     @Override
@@ -55,11 +54,11 @@ public class StartScreenState extends AbstractAppState {
     public void stateAttached(AppStateManager stateManager) {
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
-        viewPort.setBackgroundColor(backgroundColor);
     }
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
+
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
     }
