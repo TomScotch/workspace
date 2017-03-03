@@ -14,7 +14,6 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
-import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
@@ -44,26 +43,18 @@ public class GameRunningState extends AbstractAppState {
 
         //======================================================================
 
-        Spatial terrain = assetManager.loadModel("Scenes/terrain.j3o");
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-        terrain.setMaterial(mat);
-        localRootNode.attachChild(terrain);
+        Spatial teapot = assetManager.loadModel("Scenes/newtpl_anim.j3o");
+        localRootNode.attachChild(teapot);
+
         //======================================================================
 
         DirectionalLight sun = new DirectionalLight();
-        sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
-        sun.setColor(ColorRGBA.White);
+        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         localRootNode.addLight(sun);
 
         //======================================================================
 
-        //======================================================================
-
-        //======================================================================
-
-
         loadHintText("Game running");
-        //setupKeys();
     }
 
     @Override
@@ -71,7 +62,7 @@ public class GameRunningState extends AbstractAppState {
         super.initialize(stateManager, app);
         System.out.println("initialized Game");
         viewPort.setBackgroundColor(backgroundColor);
-
+        setupKeys();
     }
 
     private PhysicsSpace getPhysicsSpace() {
@@ -125,22 +116,17 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
-
+        inputManager.deleteMapping("return");
+        inputManager.removeListener(actionListener);
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
         setIsRunning(false);
     }
 
-    /**
-     * @return the stop
-     */
     public boolean getIsRunning() {
         return isRunning;
     }
 
-    /**
-     * @param stop the stop to set
-     */
     public void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
     }
