@@ -19,15 +19,15 @@ public class Main extends SimpleApplication {
     public static void main(String[] args) {
         Main app = new Main();
         AppSettings cfg = new AppSettings(true);
-        cfg.setFrameRate(60); // set to less than or equal screen refresh rate
-        cfg.setVSync(true);   // prevents page tearing
-        cfg.setFrequency(60); // set to screen refresh rate
-        //cfg.setResolution(1024, 768);
-        //cfg.setFullscreen(true);
-        cfg.setSamples(2);    // anti-aliasing
+        cfg.setFrameRate(60);
+        cfg.setVSync(true);
+        cfg.setFrequency(60);
+        cfg.setResolution(1360, 768);
+        cfg.setFullscreen(false);
+        cfg.setSamples(2);
         app.setPauseOnLostFocus(true);
         cfg.setRenderer(AppSettings.LWJGL_OPENGL2);
-        cfg.setTitle("My jMonkeyEngine 3 Game"); // branding: window name
+        cfg.setTitle("My jMonkeyEngine 3 Game");
         app.setShowSettings(false);
         app.setSettings(cfg);
         app.start();

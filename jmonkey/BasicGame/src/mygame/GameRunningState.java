@@ -35,26 +35,35 @@ public class GameRunningState extends AbstractAppState {
 
     public GameRunningState(SimpleApplication app) {
 
+//==============================================================================
+//      CONSTRUKTOR                
         this.rootNode = app.getRootNode();
         this.viewPort = app.getViewPort();
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
-
-        //======================================================================
-
-        Spatial teapot = assetManager.loadModel("Scenes/newtpl_anim.j3o");
-        localRootNode.attachChild(teapot);
-
-        //======================================================================
-
+//==============================================================================
+//      TEST SUN
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         localRootNode.addLight(sun);
-
-        //======================================================================
-
+//==============================================================================
+//      TEST MODEL
+        Spatial model = assetManager.loadModel("Scenes/model.j3o");
+        model.setLocalTranslation(0, 0.25f, -4.5f);
+        localRootNode.attachChild(model);
+//==============================================================================        
+//      TEST TERRAIN
+        Spatial terrain = assetManager.loadModel("Scenes/terrain.j3o");
+        localRootNode.attachChild(terrain);
+//==============================================================================
+//      TEST CAMERA
+        viewPort.getCamera().setLocation(new Vector3f(0, 1f, 0));
+//==============================================================================
+//      TEST GUI TEXT        
         loadHintText("Game running");
+//==============================================================================
+
     }
 
     @Override
