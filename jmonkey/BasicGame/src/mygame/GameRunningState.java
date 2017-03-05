@@ -1,10 +1,17 @@
 package mygame;
 
+import com.jme3.animation.AnimChannel;
+import com.jme3.animation.AnimControl;
+import com.jme3.animation.AnimEventListener;
+import com.jme3.animation.LoopMode;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.asset.AssetEventListener;
+import com.jme3.asset.AssetKey;
 import com.jme3.asset.AssetManager;
+import com.jme3.asset.TextureKey;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.font.BitmapFont;
@@ -27,7 +34,7 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
 
-public class GameRunningState extends AbstractAppState {
+public class GameRunningState extends AbstractAppState implements AnimEventListener {
 
     private ViewPort viewPort;
     private Node rootNode;
@@ -43,6 +50,8 @@ public class GameRunningState extends AbstractAppState {
     private FilterPostProcessor processor;
     private DirectionalLight sun;
     private Spatial terrain;
+    private AnimChannel channel;
+    private AnimControl control;
 
     public GameRunningState(SimpleApplication app) {
 
@@ -71,10 +80,10 @@ public class GameRunningState extends AbstractAppState {
         localRootNode.attachChild(sky);
 //==============================================================================
 //      TEST MODEL
-        model = assetManager.loadModel("Scenes/model.j3o");
+        model = assetManager.loadModel("Models/simple_girl26/simple_girl2.6.j3o");
         model.setShadowMode(RenderQueue.ShadowMode.Cast);
-        model.setLocalTranslation(0, 4, 0);
-        model.addControl(new RigidBodyControl(70));
+        model.setLocalTranslation(0, 10, 0);
+        model.addControl(new RigidBodyControl(700));
         bulletAppState.getPhysicsSpace().addAll(model);
         localRootNode.attachChild(model);
 //==============================================================================
@@ -110,7 +119,38 @@ public class GameRunningState extends AbstractAppState {
         dlsf.setLight(sun);
         fpp.addFilter(dlsf);
         viewPort.addProcessor(fpp);
+
 //==============================================================================
+//      ANISOTROPY        
+        AssetEventListener asl = new AssetEventListener() {
+            @Override
+            public void assetRequested(AssetKey key) {
+                if (key.getExtension().equals("png") || key.getExtension().equals("jpg") || key.getExtension().equals("dds")) {
+                    TextureKey tkey = (TextureKey) key;
+                    tkey.setAnisotropy(8);
+                }
+            }
+
+            @Override
+            public void assetLoaded(AssetKey key) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void assetDependencyNotFound(AssetKey parentKey, AssetKey dependentAssetKey) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+        assetManager.addAssetEventListener(asl);
+//==============================================================================
+//        ANIMATION CHANNEL AND CONTROL
+        Node n = (Node) model;
+        Node n1 = (Node) n.getChild("player");
+
+        control = n1.getControl(AnimControl.class);
+        control.addListener(this);
+        channel = control.createChannel();
+        System.out.println(channel.getAnimationName());
     }
 
     @Override
@@ -120,6 +160,8 @@ public class GameRunningState extends AbstractAppState {
         viewPort.setBackgroundColor(backgroundColor);
         processor = (FilterPostProcessor) assetManager.loadAsset("Filters/myFilter.j3f");
         viewPort.addProcessor(processor);
+        inputManager.setCursorVisible(false);
+
     }
 
     private void loadHintText(String txt) {
@@ -142,10 +184,12 @@ public class GameRunningState extends AbstractAppState {
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onAction(String name, boolean value, float tpf) {
+
             switch (name) {
                 case "return":
                     if (value) {
-                        System.out.println("return");
+                        channel.setAnim("cammina", 0.50f);
+                        channel.setLoopMode(LoopMode.DontLoop);
                     } else {
                     }
                     break;
@@ -198,5 +242,15 @@ public class GameRunningState extends AbstractAppState {
 
     public void setIsRunning(boolean isRunning) {
         this.isRunning = isRunning;
+    }
+
+    @Override
+    public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
