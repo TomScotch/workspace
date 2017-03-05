@@ -1,0 +1,182 @@
+//////////////////////////////////////////ANIMATION AND ANISOTROPY//////////////////////////////////////////////////////////////
+
+//class declaration
+
+  implements AnimEventListener
+
+//global
+  private AnimChannel channel;
+  private AnimControl control;
+
+//constructor
+
+inputManager.setCursorVisible(false);
+
+    control = player.getControl(AnimControl.class);
+    control.addListener(this);
+    channel = control.createChannel();
+    channel.setAnim("stand");
+
+  public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
+    if (animName.equals("Walk")) {
+      channel.setAnim("stand", 0.50f);
+      channel.setLoopMode(LoopMode.DontLoop);
+      channel.setSpeed(1f);
+    }
+  }
+
+AssetEventListener asl = new AssetEventListener() {
+
+	public void assetRequested(AssetKey key) {
+                if (key.getExtension().equals("png") || key.getExtension().equals("jpg") || key.getExtension().equals("dds")) {
+                    System.out.println(key.getExtension());
+                    TextureKey tkey = (TextureKey) key;
+                    tkey.setAnisotropy(8);
+                }
+       }
+};
+
+assetManager.addAssetEventListener(asl);
+
+//actionlistener
+if (!channel.getAnimationName().equals("Walk")) {
+  channel.setAnim("Walk", 0.50f);
+  channel.setLoopMode(LoopMode.Loop);
+}
+
+/////////////////////////////////////////////////// CHARACTER CONTROL //////////////////////////////////////////////////////////////////////////////////////
+
+  private CharacterControl physicsCharacter;
+  private Node characterNode;
+  private CameraNode camNode;
+  boolean rotate = false;
+
+  private Vector3f walkDirection = new Vector3f(0,0,0);
+  private Vector3f viewDirection = new Vector3f(0,0,0);
+  boolean leftStrafe = false, rightStrafe = false, forward = false, backward = false, 
+          leftRotate = false, rightRotate = false;
+
+    private void setupKeys() {
+        inputManager.addMapping("Strafe Left", 
+                new KeyTrigger(KeyInput.KEY_Q), 
+                new KeyTrigger(KeyInput.KEY_Z));
+        inputManager.addMapping("Strafe Right", 
+                new KeyTrigger(KeyInput.KEY_E),
+                new KeyTrigger(KeyInput.KEY_X));
+        inputManager.addMapping("Rotate Left", 
+                new KeyTrigger(KeyInput.KEY_A), 
+                new KeyTrigger(KeyInput.KEY_LEFT));
+        inputManager.addMapping("Rotate Right", 
+                new KeyTrigger(KeyInput.KEY_D), 
+                new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping("Walk Forward", 
+                new KeyTrigger(KeyInput.KEY_W), 
+                new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping("Walk Backward", 
+                new KeyTrigger(KeyInput.KEY_S),
+                new KeyTrigger(KeyInput.KEY_DOWN));
+        inputManager.addMapping("Jump", 
+                new KeyTrigger(KeyInput.KEY_SPACE), 
+                new KeyTrigger(KeyInput.KEY_RETURN));
+        inputManager.addMapping("Shoot", 
+                new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        inputManager.addListener(this, "Strafe Left", "Strafe Right");
+        inputManager.addListener(this, "Rotate Left", "Rotate Right");
+        inputManager.addListener(this, "Walk Forward", "Walk Backward");
+        inputManager.addListener(this, "Jump", "Shoot");
+    }
+
+  @Override
+  public void simpleInitApp() {
+
+    physicsCharacter = new CharacterControl(new CapsuleCollisionShape(0.5f, 1.8f), .1f);
+    physicsCharacter.setPhysicsLocation(new Vector3f(0, 1, 0));
+    characterNode = new Node("character node");
+    characterNode.addControl(physicsCharacter);
+    getPhysicsSpace().add(physicsCharacter);
+    rootNode.attachChild(characterNode);
+    characterNode.attachChild(model);
+
+    camNode = new CameraNode("CamNode", cam);
+    camNode.setControlDir(ControlDirection.SpatialToCamera);
+    camNode.setLocalTranslation(new Vector3f(0, 1, -5));
+    camNode.lookAt(model.getLocalTranslation(), Vector3f.UNIT_Y);
+    characterNode.attachChild(camNode);
+
+    flyCam.setEnabled(false);
+
+  }
+
+   @Override
+    public void simpleUpdate(float tpf) {
+
+        Vector3f camDir = cam.getDirection().mult(0.2f);
+        Vector3f camLeft = cam.getLeft().mult(0.2f);
+        camDir.y = 0;
+        camLeft.y = 0;
+        viewDirection.set(camDir);
+        walkDirection.set(0, 0, 0);
+        if (leftStrafe) {
+            walkDirection.addLocal(camLeft);
+        } else
+        if (rightStrafe) {
+            walkDirection.addLocal(camLeft.negate());
+        }
+        if (leftRotate) {
+            viewDirection.addLocal(camLeft.mult(0.02f));
+        } else
+        if (rightRotate) {
+            viewDirection.addLocal(camLeft.mult(0.02f).negate());
+        }
+        if (forward) {
+            walkDirection.addLocal(camDir);
+        } else
+        if (backward) {
+            walkDirection.addLocal(camDir.negate());
+        }
+        physicsCharacter.setWalkDirection(walkDirection);
+        physicsCharacter.setViewDirection(viewDirection);
+    }
+
+    public void onAction(String binding, boolean value, float tpf) {
+        if (binding.equals("Strafe Left")) {
+            if (value) {
+                leftStrafe = true;
+            } else {
+                leftStrafe = false;
+            }
+        } else if (binding.equals("Strafe Right")) {
+            if (value) {
+                rightStrafe = true;
+            } else {
+                rightStrafe = false;
+            }
+        } else if (binding.equals("Rotate Left")) {
+            if (value) {
+                leftRotate = true;
+            } else {
+                leftRotate = false;
+            }
+        } else if (binding.equals("Rotate Right")) {
+            if (value) {
+                rightRotate = true;
+            } else {
+                rightRotate = false;
+            }
+        } else if (binding.equals("Walk Forward")) {
+            if (value) {
+                forward = true;
+            } else {
+                forward = false;
+            }
+        } else if (binding.equals("Walk Backward")) {
+            if (value) {
+                backward = true;
+            } else {
+                backward = false;
+            }
+        } else if (binding.equals("Jump")) {
+            physicsCharacter.jump();
+        }
+    }
+}
