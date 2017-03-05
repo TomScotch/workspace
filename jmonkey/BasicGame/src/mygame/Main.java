@@ -19,15 +19,15 @@ public class Main extends SimpleApplication {
     public static void main(String[] args) {
         Main app = new Main();
         AppSettings cfg = new AppSettings(true);
-        cfg.setFrameRate(60);
-        cfg.setVSync(true);
-        cfg.setFrequency(60);
+        //cfg.setFrameRate(60);
+        cfg.setVSync(false);
+        //cfg.setFrequency(60);
         cfg.setResolution(1360, 768);
         cfg.setFullscreen(false);
-        cfg.setSamples(2);
+        cfg.setSamples(0);
         app.setPauseOnLostFocus(true);
         cfg.setRenderer(AppSettings.LWJGL_OPENGL2);
-        cfg.setTitle("My jMonkeyEngine 3 Game");
+        cfg.setTitle("Serenity 1.0");
         app.setShowSettings(false);
         app.setSettings(cfg);
         app.start();

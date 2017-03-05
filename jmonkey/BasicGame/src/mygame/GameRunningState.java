@@ -22,6 +22,8 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
 
@@ -96,9 +98,18 @@ public class GameRunningState extends AbstractAppState {
 //==============================================================================
 //      TEST GUI TEXT        
         loadHintText("Game running");
-
 //==============================================================================        
+//      LIGHT AND SHADOWS
+        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 1024, 2);
+        dlsr.setLight(sun);
+        viewPort.addProcessor(dlsr);
 
+        FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
+        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, 1024, 4);
+        dlsf.setLight(sun);
+        fpp.addFilter(dlsf);
+        viewPort.addProcessor(fpp);
+//==============================================================================
     }
 
     @Override
@@ -115,6 +126,7 @@ public class GameRunningState extends AbstractAppState {
         BitmapFont guiFont = assetManager.loadFont(
                 "Interface/Fonts/Default.fnt");
         BitmapText displaytext = new BitmapText(guiFont);
+        displaytext.setName("gametext");
         displaytext.setSize(guiFont.getCharSet().getRenderedSize());
         displaytext.move(10, displaytext.getLineHeight() + 20, 0);
         displaytext.setText(txt);
@@ -139,13 +151,21 @@ public class GameRunningState extends AbstractAppState {
             }
         }
     };
-    
     Node pivot = new Node();
+    int c = 0;
 
     @Override
     public void update(float tpf) {
+
         if (getIsRunning()) {
+
             super.update(tpf);
+
+            if (c++ >= 300) {
+                c = 0;
+                localGuiNode.detachChildNamed("gametext");
+            }
+
             pivot.rotate((FastMath.QUARTER_PI * tpf) / 15, 0, 0);
             sun.setDirection(pivot.getLocalRotation().getRotationColumn(2));
         }
