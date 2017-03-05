@@ -36,7 +36,7 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
 
-        setDisplayFps(false);
+        setDisplayFps(true);
         setDisplayStatView(false);
 
         gameRunningState = new GameRunningState(this);
