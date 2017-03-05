@@ -69,8 +69,6 @@ public class GameRunningState extends AbstractAppState {
         Spatial sky = SkyFactory.createSky(assetManager, west, east, north, south, up, down);
         sky.setLocalTranslation(0, -1000, 0);
         localRootNode.attachChild(sky);
-
-
 //==============================================================================
 //      TEST MODEL
         model = assetManager.loadModel("Scenes/model.j3o");
@@ -95,6 +93,9 @@ public class GameRunningState extends AbstractAppState {
 //==============================================================================
 //      TEST CAMERA
         viewPort.getCamera().setLocation(new Vector3f(0, 6f, 7.0f));
+        app.getFlyByCamera().setMoveSpeed(20);
+        app.getFlyByCamera().setRotationSpeed(0.75f);
+        app.getFlyByCamera().setDragToRotate(false);
 //==============================================================================
 //      TEST GUI TEXT        
         loadHintText("Game running");
