@@ -102,6 +102,7 @@ public class GameRunningState extends AbstractAppState {
         bulletAppState = new BulletAppState();
         app.getStateManager().attach(bulletAppState);
         bulletAppState.setDebugEnabled(false);
+
         characterNode = new Node("character node");
         characterNode.setLocalTranslation(new Vector3f(4, 5, 2));
 

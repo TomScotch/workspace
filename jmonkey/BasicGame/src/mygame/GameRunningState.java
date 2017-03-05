@@ -6,7 +6,7 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.input.InputManager;
@@ -32,6 +32,8 @@ public class GameRunningState extends AbstractAppState {
     private InputManager inputManager;
     private BulletAppState bulletAppState;
     private boolean isRunning = false;
+    private RigidBodyControl rigidBodyControl;
+    private Spatial model;
 
     public GameRunningState(SimpleApplication app) {
 
@@ -43,26 +45,35 @@ public class GameRunningState extends AbstractAppState {
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
 //==============================================================================
+//      PHYSICS STATE
+        bulletAppState = new BulletAppState();
+        app.getStateManager().attach(bulletAppState);
+//==============================================================================
 //      TEST SUN
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         localRootNode.addLight(sun);
 //==============================================================================
 //      TEST MODEL
-        Spatial model = assetManager.loadModel("Scenes/model.j3o");
-        model.setLocalTranslation(0, 0.25f, -4.5f);
+        model = assetManager.loadModel("Scenes/model.j3o");
+        model.setLocalTranslation(0, 1, 0);
+        model.addControl(new RigidBodyControl(70));
+        bulletAppState.getPhysicsSpace().addAll(model);
         localRootNode.attachChild(model);
 //==============================================================================        
 //      TEST TERRAIN
         Spatial terrain = assetManager.loadModel("Scenes/terrain.j3o");
+        terrain.addControl(new RigidBodyControl(0));
+        bulletAppState.getPhysicsSpace().addAll(terrain);
         localRootNode.attachChild(terrain);
 //==============================================================================
 //      TEST CAMERA
-        viewPort.getCamera().setLocation(new Vector3f(0, 1f, 0));
+        viewPort.getCamera().setLocation(new Vector3f(0, 2f, 5.0f));
 //==============================================================================
 //      TEST GUI TEXT        
         loadHintText("Game running");
-//==============================================================================
+
+//==============================================================================        
 
     }
 
@@ -71,11 +82,6 @@ public class GameRunningState extends AbstractAppState {
         super.initialize(stateManager, app);
         System.out.println("initialized Game");
         viewPort.setBackgroundColor(backgroundColor);
-        setupKeys();
-    }
-
-    private PhysicsSpace getPhysicsSpace() {
-        return bulletAppState.getPhysicsSpace();
     }
 
     private void loadHintText(String txt) {
@@ -117,7 +123,8 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void stateAttached(AppStateManager stateManager) {
-
+        setupKeys();
+        bulletAppState.startPhysics();
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
         setIsRunning(true);
@@ -125,6 +132,7 @@ public class GameRunningState extends AbstractAppState {
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
+        bulletAppState.stopPhysics();
         inputManager.deleteMapping("return");
         inputManager.removeListener(actionListener);
         rootNode.detachChild(localRootNode);
