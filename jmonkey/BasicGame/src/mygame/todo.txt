@@ -1,3 +1,18 @@
+SceneGraphVisitor visitor = new SceneGraphVisitor() {
+
+  @Override
+  public void visit(Spatial spat) {
+
+    MyControl control = spatial.getControl(MyControl.class);
+    if (control != null) {
+      System.out.println("Instance of " + control.getClass().getName()
+                       + " found for " + spatial.getName());
+    }
+  }
+
+};
+
+rootNode.depthFirstTraversal(visitor);
 /////////////////////////////////////////////////// CHARACTER CONTROL //////////////////////////////////////////////////////////////////////////////////////
 
   private CharacterControl physicsCharacter;

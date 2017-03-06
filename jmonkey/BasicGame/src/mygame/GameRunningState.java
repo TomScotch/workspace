@@ -8,6 +8,7 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.asset.AssetEventListener;
 import com.jme3.asset.AssetKey;
 import com.jme3.asset.AssetManager;
@@ -62,7 +63,6 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
-	this.app.setTimer(new IsoTimer(60));
 //==============================================================================
 //      PHYSICS STATE
         bulletAppState = new BulletAppState();
@@ -162,7 +162,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         processor = (FilterPostProcessor) assetManager.loadAsset("Filters/myFilter.j3f");
         viewPort.addProcessor(processor);
         inputManager.setCursorVisible(false);
-
+        stateManager.attach(new VideoRecorderAppState());
     }
 
     private void loadHintText(String txt) {
@@ -191,7 +191,6 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
                     if (value) {
                         channel.setAnim("cammina", 0.50f);
                         channel.setLoopMode(LoopMode.DontLoop);
-			Capture.captureVideo(app, File.createTempFile("GlobalLightingTest",".avi"));
                     } else {
                     }
                     break;
