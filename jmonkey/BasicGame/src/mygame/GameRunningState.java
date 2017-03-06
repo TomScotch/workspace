@@ -56,12 +56,13 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     public GameRunningState(SimpleApplication app) {
 
 //==============================================================================
-//      CONSTRUKTOR                
+//      CONSTRUKTOR
         this.rootNode = app.getRootNode();
         this.viewPort = app.getViewPort();
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
+	this.app.setTimer(new IsoTimer(60));
 //==============================================================================
 //      PHYSICS STATE
         bulletAppState = new BulletAppState();
@@ -106,7 +107,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         app.getFlyByCamera().setRotationSpeed(0.75f);
         app.getFlyByCamera().setDragToRotate(false);
 //==============================================================================
-//      TEST GUI TEXT        
+//      TEST GUI TEXT
         loadHintText("Game running");
 //==============================================================================        
 //      LIGHT AND SHADOWS
@@ -190,6 +191,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
                     if (value) {
                         channel.setAnim("cammina", 0.50f);
                         channel.setLoopMode(LoopMode.DontLoop);
+			Capture.captureVideo(app, File.createTempFile("GlobalLightingTest",".avi"));
                     } else {
                     }
                     break;
