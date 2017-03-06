@@ -1,20 +1,3 @@
-SceneGraphVisitor visitor = new SceneGraphVisitor() {
-
-  @Override
-  public void visit(Spatial spat) {
-
-    MyControl control = spatial.getControl(MyControl.class);
-    if (control != null) {
-      System.out.println("Instance of " + control.getClass().getName()
-                       + " found for " + spatial.getName());
-    }
-  }
-
-};
-
-rootNode.depthFirstTraversal(visitor);
-/////////////////////////////////////////////////// CHARACTER CONTROL //////////////////////////////////////////////////////////////////////////////////////
-
   private CharacterControl physicsCharacter;
   private Node characterNode;
   private CameraNode camNode;
@@ -72,7 +55,7 @@ rootNode.depthFirstTraversal(visitor);
     camNode.lookAt(model.getLocalTranslation(), Vector3f.UNIT_Y);
     characterNode.attachChild(camNode);
 
-    flyCam.setEnabled(false);
+    
 
   }
 

@@ -14,13 +14,17 @@ import com.jme3.asset.AssetKey;
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.TextureKey;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
+import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
@@ -28,7 +32,9 @@ import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
+import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowFilter;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
@@ -53,6 +59,16 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     private Spatial terrain;
     private AnimChannel channel;
     private AnimControl control;
+    private VideoRecorderAppState videoRecorderAppState;
+    private CharacterControl physicsCharacter;
+    private Node characterNode;
+    private CameraNode camNode;
+    boolean rotate = false;
+
+    private Vector3f walkDirection = new Vector3f(0, 0, 0);
+    private Vector3f viewDirection = new Vector3f(0, 0, 0);
+    boolean leftStrafe = false, rightStrafe = false, forward = false, backward = false,
+            leftRotate = false, rightRotate = false;
 
     public GameRunningState(SimpleApplication app) {
 
@@ -67,6 +83,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 //      PHYSICS STATE
         bulletAppState = new BulletAppState();
         app.getStateManager().attach(bulletAppState);
+        bulletAppState.setDebugEnabled(false);
 //==============================================================================
 //      TEST SKY
         Texture west = assetManager.loadTexture("Textures/Sky/Lagoon/lagoon_west.jpg");
@@ -81,12 +98,19 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         localRootNode.attachChild(sky);
 //==============================================================================
 //      TEST MODEL
+
         model = assetManager.loadModel("Models/simple_girl26/simple_girl2.6.j3o");
         model.setShadowMode(RenderQueue.ShadowMode.Cast);
-        model.setLocalTranslation(0, 10, 0);
-        model.addControl(new RigidBodyControl(700));
-        bulletAppState.getPhysicsSpace().addAll(model);
-        localRootNode.attachChild(model);
+        physicsCharacter = new CharacterControl(new CapsuleCollisionShape(0.5f, 1.8f), .1f);
+        physicsCharacter.setPhysicsLocation(new Vector3f(0, 10, 0));
+        characterNode = new Node("character node");
+        characterNode.setLocalTranslation(0, 10, 0);
+        characterNode.addControl(physicsCharacter);
+        bulletAppState.getPhysicsSpace().add(physicsCharacter);
+        localRootNode.attachChild(characterNode);
+        characterNode.attachChild(model);
+        model.getLocalTranslation().addLocal(0, 0, 10);
+
 //==============================================================================
 //      TEST SUN
         sun = new DirectionalLight();
@@ -102,13 +126,21 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         localRootNode.attachChild(terrain);
 //==============================================================================
 //      TEST CAMERA
-        viewPort.getCamera().setLocation(new Vector3f(0, 6f, 7.0f));
+
+        viewPort.getCamera().setLocation(new Vector3f(0, 6f, 0f));
         app.getFlyByCamera().setMoveSpeed(20);
         app.getFlyByCamera().setRotationSpeed(0.75f);
         app.getFlyByCamera().setDragToRotate(false);
+        app.getFlyByCamera().setEnabled(true);
+
+        //camNode = new CameraNode("CamNode", app.getCamera());
+        //camNode.setControlDir(ControlDirection.SpatialToCamera);
+        //camNode.setLocalTranslation(new Vector3f(0, 5, -10));
+        //characterNode.attachChild(camNode);
+        //camNode.lookAt(model.getLocalTranslation(), Vector3f.UNIT_Y);
 //==============================================================================
 //      TEST GUI TEXT
-        loadHintText("Game running");
+        loadHintText("Game running", "gametext");
 //==============================================================================        
 //      LIGHT AND SHADOWS
         DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 1024, 2);
@@ -144,14 +176,18 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         };
         assetManager.addAssetEventListener(asl);
 //==============================================================================
-//        ANIMATION CHANNEL AND CONTROL
+//      ANIMATION CHANNEL AND CONTROL
         Node n = (Node) model;
         Node n1 = (Node) n.getChild("player");
 
         control = n1.getControl(AnimControl.class);
         control.addListener(this);
         channel = control.createChannel();
-        System.out.println(channel.getAnimationName());
+
+//==============================================================================
+//      VIDEO RECORDER
+        videoRecorderAppState = new VideoRecorderAppState();
+        System.out.println(videoRecorderAppState.getQuality());
     }
 
     @Override
@@ -162,15 +198,15 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         processor = (FilterPostProcessor) assetManager.loadAsset("Filters/myFilter.j3f");
         viewPort.addProcessor(processor);
         inputManager.setCursorVisible(false);
-        stateManager.attach(new VideoRecorderAppState());
+        // stateManager().attach(videoRecorderAppState);
     }
 
-    private void loadHintText(String txt) {
+    private void loadHintText(String txt, String name) {
 
         BitmapFont guiFont = assetManager.loadFont(
                 "Interface/Fonts/Default.fnt");
         BitmapText displaytext = new BitmapText(guiFont);
-        displaytext.setName("gametext");
+        displaytext.setName(name);
         displaytext.setSize(guiFont.getCharSet().getRenderedSize());
         displaytext.move(10, displaytext.getLineHeight() + 20, 0);
         displaytext.setText(txt);
@@ -178,23 +214,76 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     }
 
     private void setupKeys() {
-        inputManager.addMapping("return",
+        inputManager.addMapping("Strafe Left",
+                new KeyTrigger(KeyInput.KEY_Q),
+                new KeyTrigger(KeyInput.KEY_Z));
+        inputManager.addMapping("Strafe Right",
+                new KeyTrigger(KeyInput.KEY_E),
+                new KeyTrigger(KeyInput.KEY_X));
+        inputManager.addMapping("Rotate Left",
+                new KeyTrigger(KeyInput.KEY_A),
+                new KeyTrigger(KeyInput.KEY_LEFT));
+        inputManager.addMapping("Rotate Right",
+                new KeyTrigger(KeyInput.KEY_D),
+                new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping("Walk Forward",
+                new KeyTrigger(KeyInput.KEY_W),
+                new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping("Walk Backward",
+                new KeyTrigger(KeyInput.KEY_S),
+                new KeyTrigger(KeyInput.KEY_DOWN));
+        inputManager.addMapping("Jump",
+                new KeyTrigger(KeyInput.KEY_SPACE),
                 new KeyTrigger(KeyInput.KEY_RETURN));
-        inputManager.addListener(actionListener, "return");
+        inputManager.addMapping("Shoot",
+                new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        inputManager.addListener(actionListener, "Strafe Left", "Strafe Right");
+        inputManager.addListener(actionListener, "Rotate Left", "Rotate Right");
+        inputManager.addListener(actionListener, "Walk Forward", "Walk Backward");
+        inputManager.addListener(actionListener, "Jump", "Shoot");
     }
     private ActionListener actionListener = new ActionListener() {
-        @Override
-        public void onAction(String name, boolean value, float tpf) {
 
-            switch (name) {
-                case "return":
-                    if (value) {
-                        channel.setAnim("cammina", 0.50f);
-                        channel.setLoopMode(LoopMode.DontLoop);
-                    } else {
-                    }
+        @Override
+        public void onAction(String binding, boolean value, float tpf) {
+
+            if (value) {
+                channel.setAnim("cammina");
+                channel.setLoopMode(LoopMode.Loop);
+            } else {
+                channel.setAnim("cammina", 0.05f);
+                channel.setLoopMode(LoopMode.DontLoop);
+            }
+
+            switch (binding) {
+                case "Shoot":
+                    localRootNode.depthFirstTraversal(visitor);
+                    break;
+                case "Strafe Left":
+                    leftRotate = value;
+                    break;
+                case "Strafe Right":
+                    rightRotate = value;
+                    break;
+                case "Rotate Left":
+                    leftStrafe = value;
+                    break;
+                case "Rotate Right":
+                    rightStrafe = value;
+                    break;
+                case "Walk Forward":
+                    forward = value;
+                    break;
+                case "Walk Backward":
+                    backward = value;
+                    break;
+                case "Jump":
+                    physicsCharacter.jump();
+                    break;
+                default:
                     break;
             }
+
         }
     };
     Node pivot = new Node();
@@ -210,10 +299,43 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
             if (c++ >= 300) {
                 c = 0;
                 localGuiNode.detachChildNamed("gametext");
+                localGuiNode.detachChildNamed("visitor");
             }
 
             pivot.rotate((FastMath.QUARTER_PI * tpf) / 15, 0, 0);
             sun.setDirection(pivot.getLocalRotation().getRotationColumn(2));
+
+            Vector3f camDir = viewPort.getCamera().getDirection().mult(0.2f);
+            Vector3f camLeft = viewPort.getCamera().getLeft().mult(0.2f);
+
+            camDir.y = 0;
+            camLeft.y = 0;
+            viewDirection.set(camDir);
+            walkDirection.set(0, 0, 0);
+
+            if (leftStrafe) {
+                walkDirection.addLocal(camLeft);
+            } else if (rightStrafe) {
+                walkDirection.addLocal(camLeft.negate());
+            }
+
+            if (leftRotate) {
+                viewDirection.addLocal(camLeft.mult(0.02f));
+            } else if (rightRotate) {
+                viewDirection.addLocal(camLeft.mult(0.02f).negate());
+            }
+
+            if (forward) {
+                walkDirection.addLocal(camDir);
+            } else if (backward) {
+                walkDirection.addLocal(camDir.negate());
+            }
+
+            physicsCharacter.setWalkDirection(walkDirection);
+            physicsCharacter.setViewDirection(viewDirection);
+
+            viewPort.getCamera().setLocation(characterNode.getWorldTranslation().add(0, 4, 0));
+
         }
     }
 
@@ -254,4 +376,14 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    SceneGraphVisitor visitor = (Spatial spat) -> {
+        if (spat.getControl(AnimControl.class) != null) {
+            try {
+                loadHintText(spat.getName(), "visitor");
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+    };
 }
