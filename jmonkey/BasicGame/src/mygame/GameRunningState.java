@@ -68,6 +68,8 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
     public GameRunningState(SimpleApplication app) {
 
+        System.out.println("Game State is being constructed");
+
 //==============================================================================
 //      CONSTRUKTOR
         this.rootNode = app.getRootNode();
@@ -97,7 +99,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
 //==============================================================================
 //      TEST MODEL
-        model = assetManager.loadModel("Models/simple_girl26/simple_girl2.6.j3o");
+        model = assetManager.loadModel("Models/girl/girl.j3o");
         model.setShadowMode(RenderQueue.ShadowMode.Cast);
         physicsCharacter = new CharacterControl(new CapsuleCollisionShape(0.5f, 1.8f), .1f);
         physicsCharacter.setMaxSlope(0);
@@ -185,11 +187,13 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        System.out.println("initialized Game");
+        System.out.println("Game State is being initialized");
         viewPort.setBackgroundColor(backgroundColor);
         processor = (FilterPostProcessor) assetManager.loadAsset("Filters/myFilter.j3f");
         viewPort.addProcessor(processor);
         inputManager.setCursorVisible(true);
+        bulletAppState.startPhysics();
+        setupKeys();
     }
 
     private void loadHintText(String txt, String name) {
@@ -304,7 +308,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
             sun.setDirection(pivot.getLocalRotation().getRotationColumn(2));
 
             Vector3f camDir = viewPort.getCamera().getDirection().divide(8);
-            Vector3f camLeft = viewPort.getCamera().getLeft();
+            Vector3f camLeft = viewPort.getCamera().getLeft().divide(16);
 
             camDir.y = 0;
             camLeft.y = 0;
@@ -336,8 +340,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
     @Override
     public void stateAttached(AppStateManager stateManager) {
-        setupKeys();
-        bulletAppState.startPhysics();
+        System.out.println("Game State is being attached");
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
         setIsRunning(true);
@@ -345,9 +348,9 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
     @Override
     public void stateDetached(AppStateManager stateManager) {
+        System.out.println("Game State is being detached");
         viewPort.removeProcessor(processor);
         bulletAppState.stopPhysics();
-        inputManager.deleteMapping("return");
         inputManager.removeListener(actionListener);
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
@@ -364,11 +367,13 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
     @Override
     public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
+        channel.reset(true);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
+        channel.reset(false);
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
