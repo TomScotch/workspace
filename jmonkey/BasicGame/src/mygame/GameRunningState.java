@@ -64,7 +64,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     private Vector3f walkDirection = new Vector3f(0, 0, 0);
     private Vector3f viewDirection = new Vector3f(0, 0, 0);
     boolean leftStrafe = false, rightStrafe = false, forward = false, backward = false,
-            leftRotate = false, rightRotate = false;
+            q = false, e = false;
 
     public GameRunningState(SimpleApplication app) {
 
@@ -126,15 +126,16 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 //==============================================================================
 //      TEST CAMERA
 
-        viewPort.getCamera().setLocation(new Vector3f(0, 6f, 0f));
+        viewPort.getCamera().setLocation(new Vector3f(0, 8f, 0f));
+        app.getFlyByCamera().setEnabled(false);
 
         ChaseCamera chaseCam = new ChaseCamera(app.getCamera(), characterNode, inputManager);
         chaseCam.setChasingSensitivity(1);
-        chaseCam.setTrailingEnabled(true);
+        chaseCam.setTrailingEnabled(false);
         chaseCam.setSmoothMotion(false);
         chaseCam.setDefaultDistance(5.0f);
         chaseCam.setInvertVerticalAxis(true);
-        chaseCam.setDragToRotate(true);
+        chaseCam.setDragToRotate(false);
         chaseCam.setRotationSpeed(0.5f);
 
 //==============================================================================
@@ -191,9 +192,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         viewPort.setBackgroundColor(backgroundColor);
         processor = (FilterPostProcessor) assetManager.loadAsset("Filters/myFilter.j3f");
         viewPort.addProcessor(processor);
-        inputManager.setCursorVisible(true);
-        bulletAppState.startPhysics();
-        setupKeys();
+        inputManager.setCursorVisible(false);
     }
 
     private void loadHintText(String txt, String name) {
@@ -209,29 +208,24 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     }
 
     private void setupKeys() {
+
         inputManager.addMapping("Strafe Left",
-                new KeyTrigger(KeyInput.KEY_Q),
-                new KeyTrigger(KeyInput.KEY_Z));
+                new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("Strafe Right",
-                new KeyTrigger(KeyInput.KEY_E),
-                new KeyTrigger(KeyInput.KEY_X));
-        inputManager.addMapping("Rotate Left",
-                new KeyTrigger(KeyInput.KEY_A),
-                new KeyTrigger(KeyInput.KEY_LEFT));
-        inputManager.addMapping("Rotate Right",
-                new KeyTrigger(KeyInput.KEY_D),
-                new KeyTrigger(KeyInput.KEY_RIGHT));
+                new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping("q",
+                new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("e",
+                new KeyTrigger(KeyInput.KEY_E));
         inputManager.addMapping("Walk Forward",
-                new KeyTrigger(KeyInput.KEY_W),
-                new KeyTrigger(KeyInput.KEY_UP));
+                new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("Walk Backward",
-                new KeyTrigger(KeyInput.KEY_S),
-                new KeyTrigger(KeyInput.KEY_DOWN));
+                new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("Jump",
-                new KeyTrigger(KeyInput.KEY_SPACE),
-                new KeyTrigger(KeyInput.KEY_RETURN));
+                new KeyTrigger(KeyInput.KEY_SPACE));
         inputManager.addMapping("Shoot",
                 new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+
         inputManager.addListener(actionListener, "Strafe Left", "Strafe Right");
         inputManager.addListener(actionListener, "Rotate Left", "Rotate Right");
         inputManager.addListener(actionListener, "Walk Forward", "Walk Backward");
@@ -248,24 +242,25 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
                     localRootNode.depthFirstTraversal(visitor);
                     break;
                 case "Strafe Left":
-                    leftRotate = value;
-                    break;
-                case "Strafe Right":
-                    rightRotate = value;
-                    break;
-                case "Rotate Left":
                     leftStrafe = value;
                     break;
-                case "Rotate Right":
+                case "Strafe Right":
                     rightStrafe = value;
+                    break;
+                case "q":
+                    q = value;
+                    break;
+                case "e":
+                    e = value;
                     break;
                 case "Walk Forward":
                     if (value) {
                         channel.setAnim("cammina");
                         channel.setLoopMode(LoopMode.Loop);
                     } else {
-                        channel.setAnim("cammina", 0.05f);
+                        channel.setAnim("cammina");
                         channel.setLoopMode(LoopMode.DontLoop);
+                        channel.setTime(0);
                     }
                     forward = value;
                     break;
@@ -274,8 +269,9 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
                         channel.setAnim("cammina");
                         channel.setLoopMode(LoopMode.Loop);
                     } else {
-                        channel.setAnim("cammina", 0.05f);
+                        channel.setAnim("cammina");
                         channel.setLoopMode(LoopMode.DontLoop);
+                        channel.setTime(0);
                     }
                     backward = value;
                     break;
@@ -312,6 +308,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
             camDir.y = 0;
             camLeft.y = 0;
+
             viewDirection.set(camDir);
             walkDirection.set(0, 0, 0);
 
@@ -321,9 +318,10 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
                 walkDirection.addLocal(camLeft.negate());
             }
 
-            if (leftRotate) {
+            if (q) {
                 viewDirection.addLocal(camLeft);
-            } else if (rightRotate) {
+            }
+            if (e) {
                 viewDirection.addLocal(camLeft.negate());
             }
 
@@ -343,6 +341,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         System.out.println("Game State is being attached");
         rootNode.attachChild(localRootNode);
         guiNode.attachChild(localGuiNode);
+        setupKeys();
         setIsRunning(true);
     }
 
@@ -350,7 +349,6 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     public void stateDetached(AppStateManager stateManager) {
         System.out.println("Game State is being detached");
         viewPort.removeProcessor(processor);
-        bulletAppState.stopPhysics();
         inputManager.removeListener(actionListener);
         rootNode.detachChild(localRootNode);
         guiNode.detachChild(localGuiNode);
@@ -367,13 +365,13 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
     @Override
     public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
-        channel.reset(true);
+        //control.getSkeleton().resetAndUpdate();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
-        channel.reset(false);
+        //channel.reset(false);
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -381,8 +379,8 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         if (spat.getControl(AnimControl.class) != null) {
             try {
                 loadHintText(spat.getName(), "visitor");
-            } catch (Exception e) {
-                System.err.println(e);
+            } catch (Exception err) {
+                System.err.println(err);
             }
         }
     };

@@ -39,8 +39,8 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
 
-        inputManager.setCursorVisible(true);
-        
+        inputManager.setCursorVisible(false);
+
         videoRecorderAppState = new VideoRecorderAppState();
 
         setDisplayFps(true);
