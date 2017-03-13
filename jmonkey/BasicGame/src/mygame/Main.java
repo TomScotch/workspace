@@ -1,6 +1,7 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -9,8 +10,10 @@ import com.jme3.system.AppSettings;
 
 public class Main extends SimpleApplication {
 
+    private VideoRecorderAppState videoRecorderAppState;
     private Trigger pause_trigger = new KeyTrigger(KeyInput.KEY_BACK);
     private Trigger save_trigger = new KeyTrigger(KeyInput.KEY_RETURN);
+    private Trigger record_trigger = new KeyTrigger(KeyInput.KEY_F6);
     private boolean isRunning = false;
     private GameRunningState gameRunningState;
     private StartScreenState startScreenState;
@@ -36,6 +39,10 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp() {
 
+        inputManager.setCursorVisible(true);
+        
+        videoRecorderAppState = new VideoRecorderAppState();
+
         setDisplayFps(true);
         setDisplayStatView(false);
 
@@ -49,6 +56,8 @@ public class Main extends SimpleApplication {
         inputManager.addListener(actionListener, new String[]{"Game Pause Unpause"});
         inputManager.addMapping("Toggle Settings", save_trigger);
         inputManager.addListener(actionListener, new String[]{"Toggle Settings"});
+        inputManager.addMapping("record", record_trigger);
+        inputManager.addListener(actionListener, new String[]{"record"});
     }
     private ActionListener actionListener = new ActionListener() {
         @Override
@@ -70,6 +79,17 @@ public class Main extends SimpleApplication {
                         System.out.println("switching to game...");
                     }
                 }
+            }
+
+            if (name.equals("record") && !isPressed && !isRunning) {
+                if (stateManager.hasState(videoRecorderAppState)) {
+                    stateManager.detach(videoRecorderAppState);
+                    System.out.println("finished recording");
+                } else if (stateManager.hasState(videoRecorderAppState)) {
+                    stateManager.attach(videoRecorderAppState);
+                    System.out.println("start record");
+                }
+                stateManager.attach(videoRecorderAppState);
             }
 
             if (name.equals("Toggle Settings") && !isPressed && !isRunning) {

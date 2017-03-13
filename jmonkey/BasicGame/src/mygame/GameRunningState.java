@@ -8,7 +8,6 @@ import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.asset.AssetEventListener;
 import com.jme3.asset.AssetKey;
 import com.jme3.asset.AssetManager;
@@ -19,6 +18,7 @@ import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
+import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
@@ -32,7 +32,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.SceneGraphVisitor;
 import com.jme3.scene.Spatial;
@@ -59,12 +58,9 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
     private Spatial terrain;
     private AnimChannel channel;
     private AnimControl control;
-    private VideoRecorderAppState videoRecorderAppState;
     private CharacterControl physicsCharacter;
     private Node characterNode;
-    private CameraNode camNode;
     boolean rotate = false;
-
     private Vector3f walkDirection = new Vector3f(0, 0, 0);
     private Vector3f viewDirection = new Vector3f(0, 0, 0);
     boolean leftStrafe = false, rightStrafe = false, forward = false, backward = false,
@@ -79,11 +75,13 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         this.guiNode = app.getGuiNode();
         this.assetManager = app.getAssetManager();
         this.inputManager = app.getInputManager();
+
 //==============================================================================
 //      PHYSICS STATE
         bulletAppState = new BulletAppState();
         app.getStateManager().attach(bulletAppState);
         bulletAppState.setDebugEnabled(false);
+
 //==============================================================================
 //      TEST SKY
         Texture west = assetManager.loadTexture("Textures/Sky/Lagoon/lagoon_west.jpg");
@@ -96,12 +94,13 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         Spatial sky = SkyFactory.createSky(assetManager, west, east, north, south, up, down);
         sky.setLocalTranslation(0, -1000, 0);
         localRootNode.attachChild(sky);
+
 //==============================================================================
 //      TEST MODEL
-
         model = assetManager.loadModel("Models/simple_girl26/simple_girl2.6.j3o");
         model.setShadowMode(RenderQueue.ShadowMode.Cast);
         physicsCharacter = new CharacterControl(new CapsuleCollisionShape(0.5f, 1.8f), .1f);
+        physicsCharacter.setMaxSlope(0);
         physicsCharacter.setPhysicsLocation(new Vector3f(0, 10, 0));
         characterNode = new Node("character node");
         characterNode.setLocalTranslation(0, 10, 0);
@@ -109,8 +108,6 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         bulletAppState.getPhysicsSpace().add(physicsCharacter);
         localRootNode.attachChild(characterNode);
         characterNode.attachChild(model);
-        model.getLocalTranslation().addLocal(0, 0, 10);
-
 //==============================================================================
 //      TEST SUN
         sun = new DirectionalLight();
@@ -128,27 +125,27 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 //      TEST CAMERA
 
         viewPort.getCamera().setLocation(new Vector3f(0, 6f, 0f));
-        app.getFlyByCamera().setMoveSpeed(20);
-        app.getFlyByCamera().setRotationSpeed(0.75f);
-        app.getFlyByCamera().setDragToRotate(false);
-        app.getFlyByCamera().setEnabled(true);
 
-        //camNode = new CameraNode("CamNode", app.getCamera());
-        //camNode.setControlDir(ControlDirection.SpatialToCamera);
-        //camNode.setLocalTranslation(new Vector3f(0, 5, -10));
-        //characterNode.attachChild(camNode);
-        //camNode.lookAt(model.getLocalTranslation(), Vector3f.UNIT_Y);
+        ChaseCamera chaseCam = new ChaseCamera(app.getCamera(), characterNode, inputManager);
+        chaseCam.setChasingSensitivity(1);
+        chaseCam.setTrailingEnabled(true);
+        chaseCam.setSmoothMotion(false);
+        chaseCam.setDefaultDistance(5.0f);
+        chaseCam.setInvertVerticalAxis(true);
+        chaseCam.setDragToRotate(true);
+        chaseCam.setRotationSpeed(0.5f);
+
 //==============================================================================
 //      TEST GUI TEXT
         loadHintText("Game running", "gametext");
 //==============================================================================        
 //      LIGHT AND SHADOWS
-        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 1024, 2);
+        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(assetManager, 128, 4);
         dlsr.setLight(sun);
         viewPort.addProcessor(dlsr);
 
         FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, 1024, 4);
+        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(assetManager, 128, 4);
         dlsf.setLight(sun);
         fpp.addFilter(dlsf);
         viewPort.addProcessor(fpp);
@@ -160,7 +157,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
             public void assetRequested(AssetKey key) {
                 if (key.getExtension().equals("png") || key.getExtension().equals("jpg") || key.getExtension().equals("dds")) {
                     TextureKey tkey = (TextureKey) key;
-                    tkey.setAnisotropy(8);
+                    tkey.setAnisotropy(2);
                 }
             }
 
@@ -183,11 +180,6 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         control = n1.getControl(AnimControl.class);
         control.addListener(this);
         channel = control.createChannel();
-
-//==============================================================================
-//      VIDEO RECORDER
-        videoRecorderAppState = new VideoRecorderAppState();
-        System.out.println(videoRecorderAppState.getQuality());
     }
 
     @Override
@@ -197,8 +189,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         viewPort.setBackgroundColor(backgroundColor);
         processor = (FilterPostProcessor) assetManager.loadAsset("Filters/myFilter.j3f");
         viewPort.addProcessor(processor);
-        inputManager.setCursorVisible(false);
-        // stateManager().attach(videoRecorderAppState);
+        inputManager.setCursorVisible(true);
     }
 
     private void loadHintText(String txt, String name) {
@@ -242,18 +233,11 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
         inputManager.addListener(actionListener, "Walk Forward", "Walk Backward");
         inputManager.addListener(actionListener, "Jump", "Shoot");
     }
+
     private ActionListener actionListener = new ActionListener() {
 
         @Override
         public void onAction(String binding, boolean value, float tpf) {
-
-            if (value) {
-                channel.setAnim("cammina");
-                channel.setLoopMode(LoopMode.Loop);
-            } else {
-                channel.setAnim("cammina", 0.05f);
-                channel.setLoopMode(LoopMode.DontLoop);
-            }
 
             switch (binding) {
                 case "Shoot":
@@ -272,9 +256,23 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
                     rightStrafe = value;
                     break;
                 case "Walk Forward":
+                    if (value) {
+                        channel.setAnim("cammina");
+                        channel.setLoopMode(LoopMode.Loop);
+                    } else {
+                        channel.setAnim("cammina", 0.05f);
+                        channel.setLoopMode(LoopMode.DontLoop);
+                    }
                     forward = value;
                     break;
                 case "Walk Backward":
+                    if (value) {
+                        channel.setAnim("cammina");
+                        channel.setLoopMode(LoopMode.Loop);
+                    } else {
+                        channel.setAnim("cammina", 0.05f);
+                        channel.setLoopMode(LoopMode.DontLoop);
+                    }
                     backward = value;
                     break;
                 case "Jump":
@@ -296,7 +294,7 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
             super.update(tpf);
 
-            if (c++ >= 300) {
+            if (c++ >= 90) {
                 c = 0;
                 localGuiNode.detachChildNamed("gametext");
                 localGuiNode.detachChildNamed("visitor");
@@ -305,8 +303,8 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
             pivot.rotate((FastMath.QUARTER_PI * tpf) / 15, 0, 0);
             sun.setDirection(pivot.getLocalRotation().getRotationColumn(2));
 
-            Vector3f camDir = viewPort.getCamera().getDirection().mult(0.2f);
-            Vector3f camLeft = viewPort.getCamera().getLeft().mult(0.2f);
+            Vector3f camDir = viewPort.getCamera().getDirection().divide(8);
+            Vector3f camLeft = viewPort.getCamera().getLeft();
 
             camDir.y = 0;
             camLeft.y = 0;
@@ -320,9 +318,9 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
             }
 
             if (leftRotate) {
-                viewDirection.addLocal(camLeft.mult(0.02f));
+                viewDirection.addLocal(camLeft);
             } else if (rightRotate) {
-                viewDirection.addLocal(camLeft.mult(0.02f).negate());
+                viewDirection.addLocal(camLeft.negate());
             }
 
             if (forward) {
@@ -333,9 +331,6 @@ public class GameRunningState extends AbstractAppState implements AnimEventListe
 
             physicsCharacter.setWalkDirection(walkDirection);
             physicsCharacter.setViewDirection(viewDirection);
-
-            viewPort.getCamera().setLocation(characterNode.getWorldTranslation().add(0, 4, 0));
-
         }
     }
 
