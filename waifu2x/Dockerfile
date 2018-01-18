@@ -1,4 +1,4 @@
-FROM kaixhin/cuda-torch
+FROM richoux/cuda-torch
 
 RUN apt-get update && apt-get install -y --no-install-recommends --force-yes \
   libsnappy-dev \

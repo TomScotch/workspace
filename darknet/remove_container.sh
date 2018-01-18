@@ -4,4 +4,3 @@ then
 docker rm -f ${PWD##*/}
 fi
 rm .tmp
-

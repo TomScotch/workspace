@@ -1,4 +1,4 @@
 #execute commands
 #exec.sh
 
-docker exec ${PWD##*/} ruby $1
+docker exec ${PWD##*/} ruby scripts/$1.rb

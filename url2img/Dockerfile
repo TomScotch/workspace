@@ -15,6 +15,5 @@ RUN apt-get update -y &&    \
         ca-certificates     \
         software-properties-common
 
-RUN npm install url2img --global
-
-RUN url2img http://google.com google.png
+RUN npm install url2img
+RUN cd /node_modules/url2img ; npm install . --global

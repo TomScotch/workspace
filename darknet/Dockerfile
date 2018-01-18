@@ -4,8 +4,8 @@ RUN apt-get upgrade -y
 RUN apt-get install -y git make curl gcc gpp g++ build-essential
 RUN cd /opt/ && git clone https://github.com/pjreddie/darknet.git
 WORKDIR /opt/darknet
-COPY Makefile /opt/darknet/
-COPY rnn.c /opt/darknet/src/
+#COPY Makefile /opt/darknet/
+#COPY rnn.c /opt/darknet/src/
 RUN curl -O http://pjreddie.com/media/files/vgg-conv.weights
 RUN curl -O http://pjreddie.com/media/files/extraction.weights
 RUN curl -O http://pjreddie.com/media/files/strided.weights
