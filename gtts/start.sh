@@ -1,1 +1,1 @@
-nvidia-docker start ${PWD##*/}
+docker start ${PWD##*/}
