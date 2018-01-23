@@ -7,7 +7,7 @@ for f in /media/scps/*.mp3
         echo "skipped : " $f " : already existing"
     else
        x=$(ls -1 /media/scps/$name/ | head -1 | tail -1) ;
-          ffmpeg \
+         ./exec.sh 'ffmpeg \
 	  -hwaccel cuvid \
           -i $f \
           -f image2 \
@@ -17,7 +17,7 @@ for f in /media/scps/*.mp3
           -shortest \
 	  -preset fast \
 	  -vcodec h264_nvenc \
-	  $f.mp4
+	  $f.mp4'
    fi
 done
 echo "continue with youtube uploaded"

@@ -1,19 +1,19 @@
-for f in /opt/scps/*.mp3
+for f in /media/scps/*.mp3
   do
-  name=${f#/opt/scps/}
+  name=${f#/media/scps/}
   name=${name%.html.*}
-  test=$(grep $name /opt/scps/.uploaded)
+#  test=$(grep $name /media/scps/.uploaded)
     if [ -f "$f.mp4" ]
       then
         echo "skipped : " $f " : already existing"
     else
 #      if [ "$test" == "" ];then
-         x=$(ls -1 /opt/scps/$name/ | head -1 | tail -1)
+         x=$(ls -1 /media/scps/$name/ | head -1 | tail -1)
         ffmpeg \
           -i $f \
           -f image2 \
           -loop 1 \
-          -i /opt/scps/$name/$x \
+          -i /media/scps/$name/$x \
           -r 15 \
           -c:v libx264 \
           -crf 18 \
