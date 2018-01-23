@@ -15,7 +15,7 @@ cd /home/tomscotch/workspace/scp/ && \
 ./clean-txt.sh && \
 
 # grab article images
-./get_scp_image.sh && \
+#./get_scp_image.sh && \
 
 #remove zero size files
 #find /media/scps/ -type f -size 0 -exec rm {} \; && \
