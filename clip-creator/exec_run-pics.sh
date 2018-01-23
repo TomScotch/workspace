@@ -1,1 +1,1 @@
-docker exec clip-creator bash /opt/run-pics.sh
+nvidia-docker exec clip-creator bash /opt/run-pics.sh

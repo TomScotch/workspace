@@ -1,1 +1,1 @@
-docker rm -f ${PWD##*/}
+nvidia-docker rm -f ${PWD##*/}
