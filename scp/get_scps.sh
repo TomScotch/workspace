@@ -1,1 +1,1 @@
-docker exec ${PWD##*/} python get_scps.py
+nvidia-docker exec ${PWD##*/} python get_scps.py

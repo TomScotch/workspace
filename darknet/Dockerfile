@@ -10,4 +10,6 @@ RUN curl -O http://pjreddie.com/media/files/vgg-conv.weights
 RUN curl -O http://pjreddie.com/media/files/extraction.weights
 RUN curl -O http://pjreddie.com/media/files/strided.weights
 RUN apt-get install -y build-essential cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
-RUN make
+RUN apt install -y python-opencv libcv-dev
+RUN apt install libopencv-gpu-dev libopencv-dev python-sip-dev binutils-dev -y
+RUN make -j 8
