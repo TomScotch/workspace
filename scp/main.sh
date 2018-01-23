@@ -38,11 +38,11 @@ find /media/scps/ -type f -size 0 -exec rm {} \;
 #./stop.sh && \
 
 #upload videos
-cd ../youtube-uploader/ && \
-./start.sh && \
-./exec-run-all.sh && \
-./stop.sh && \
+#cd ../youtube-uploader/ && \
+#./start.sh && \
+#./exec-run-all.sh && \
+#./stop.sh && \
 
 # show progress
 clear && bash /home/tomscotch/workspace/scp/show-all.sh
-r2d2
+#r2d2

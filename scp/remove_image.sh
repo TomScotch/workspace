@@ -1,1 +1,1 @@
-docker rmi -f scotch/${PWD##*/}
+nvidia-docker rmi -f scotch/${PWD##*/}
