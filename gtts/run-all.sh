@@ -1,3 +1,4 @@
+./start.sh ;
 for f in /media/scps/*.txt; do
   name=${f#/media/scps/}
   name=${name%.html.*}
