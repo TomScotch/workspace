@@ -1,1 +1,1 @@
-docker stop ${PWD##*/}
+docker stop tor-router

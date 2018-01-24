@@ -1,4 +1,4 @@
 #start container
 #start.sh
 
-docker start ${PWD##*/}
+docker start tor-router

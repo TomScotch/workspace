@@ -1,0 +1,17 @@
+sudo apt install build-essential cmake cmake-data debhelper dbus google-mock \
+    libboost-dev libboost-filesystem-dev libboost-log-dev libboost-iostreams-dev \
+    libboost-program-options-dev libboost-system-dev libboost-test-dev \
+    libboost-thread-dev libcap-dev libdbus-1-dev libdbus-cpp-dev libegl1-mesa-dev \
+    libgles2-mesa-dev libglib2.0-dev libglm-dev libgtest-dev liblxc1 \
+    libproperties-cpp-dev libprotobuf-dev libsdl2-dev libsdl2-image-dev lxc-dev \
+    pkg-config protobuf-compiler 
+
+wget https://raw.githubusercontent.com/anbox/anbox-installer/master/installer.sh -O anbox-installer
+
+# git clone https://github.com/anbox/anbox.git
+# cd anbox
+# mkdir build
+# cd build
+# cmake ..
+# make
+# sudo make install
