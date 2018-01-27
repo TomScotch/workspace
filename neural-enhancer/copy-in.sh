@@ -1,5 +1,5 @@
 if [ $1 ]
 then
-docker cp $1 ${PWD##*/}:"/opt/neural-enhancer/pics/"$1
+docker cp $1 ${PWD##*/}:"/opt/neural-enhancer/pics/"
 fi
-rm $1
+#rm $1

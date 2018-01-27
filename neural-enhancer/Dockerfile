@@ -24,9 +24,9 @@ WORKDIR /opt/
 #start here
 RUN apt-get install -y python-pip
 RUN pip install conda
-RUN cd /opt/ && git clone https://github.com/alexjc/neural-enhance.git
-WORKDIR /opt/neural-enhance/
-RUN mkdir /opt/neural-enhance/pics/
+RUN cd /opt/ && git clone https://github.com/alexjc/neural-enhance.git neural-enhancer
+WORKDIR /opt/neural-enhancer/
+RUN mkdir /opt/neural-enhancer/pics/
 RUN export LC_ALL=en_US.UTF-8
 RUN apt-get install -y \
 gcc g++ gfortran build-essential \
