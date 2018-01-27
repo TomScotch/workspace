@@ -5,7 +5,7 @@ import os.path
 n=0
 x=''
 
-for i in range(0,3010):
+for i in range(0,4000):
     x = i
     n = i
     if len(str(i)) == 1:
@@ -16,7 +16,7 @@ for i in range(0,3010):
       n = str(0) + str(0) + str(i)
     if len(str(i)) == 3:
       n = str(0) + str(i)
-    url = "http://www.scp-wiki.net/scp-"+str(x)
+    url = "http://www.scp-wiki.net/printer--friendly//scp-"+str(x)
     if os.path.isfile("/opt/scps/scp-" + str(n)+".html") == 0 :
       try:
         testfile = urllib.URLopener()
