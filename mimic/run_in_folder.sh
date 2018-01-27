@@ -5,6 +5,6 @@ for f in /opt/text/*.txt; do
   then
     echo $f".wav existiert bereits"
   else
-    touch $f.wav && mimic/bin/mimic -voice slt -o $f.wav -f $f
+    touch $f.wav && mimic/bin/mimic -voice http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_us_clb.flitevox -o $f.wav -f $f
   fi
 done

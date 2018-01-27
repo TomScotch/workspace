@@ -1,1 +1,1 @@
-docker exec mimic bash outfile.sh
+docker exec mimic bash run-all.sh

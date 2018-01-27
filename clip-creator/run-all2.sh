@@ -1,23 +1,19 @@
+
+./start.sh;
+
 for f in /media/scps/*.mp3
   do
   name=${f#/media/scps/}
   name=${name%.html.*}
   test=$(grep $name /media/scps/.uploaded)
     if [ -f "$f.mp4" ] ; then
-        echo "skipped : " $f " : already existing"
+       echo "skipped : " $f ": already existing"
     else
-       x=$(ls -1 /media/scps/$name/ | head -1 | tail -1) ;
-         ./exec.sh 'ffmpeg \
-	  -hwaccel cuvid \
-          -i $f \
+         ./exec.sh "ffmpeg \
+          -i /opt/scps/$name.html.dump.txt.mp3 \
           -f image2 \
-          -loop 1 \
-          -i /media/scps/$name/$x \
-          -c:v h264_cuvid  \
-          -shortest \
-	  -preset fast \
-	  -vcodec h264_nvenc \
-	  $f.mp4'
+          -i /opt/scps/$name.html.dump.txt.png.jpg \
+	  /opt/scps/$name.html.dump.txt.mp4"
    fi
 done
 echo "continue with youtube uploaded"
