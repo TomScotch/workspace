@@ -1,4 +1,4 @@
 #create container
 #create.sh
-nvidia-docker create -v /media/scps/:/opt/scps/ --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/}
+docker create -v /home/tomscotch/workspace/darknet/pics/:/opt/darknet/pics -v /media/scps/:/opt/scps/ --net=host -t -i --name ${PWD##*/} scotch/${PWD##*/}
 

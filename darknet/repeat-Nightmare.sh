@@ -12,7 +12,7 @@ mogrify -resize 512 $1
 for i in $(seq $3 $4); do
   for x in $(seq 1 $2) ; do
     num=$((num+1)) ;
-    ./darknet nightmare cfg/vgg-conv.cfg vgg-conv.weights $1 $i  ;
+    ./opt/darknet nightmare cfg/vgg-conv.cfg vgg-conv.weights $1 $i  ;
     mv $1 results/$num.jpg ;
     mv *.jpg $1;
   done
