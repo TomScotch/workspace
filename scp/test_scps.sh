@@ -1,1 +1,1 @@
-nvidia-docker exec ${PWD##*/} python test_scps.py
+docker exec ${PWD##*/} python test_scps.py

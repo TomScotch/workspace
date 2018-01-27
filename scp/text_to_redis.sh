@@ -1,2 +1,2 @@
-nvidia-docker exec ${PWD##*/} python text_to_redis.py
+docker exec ${PWD##*/} python text_to_redis.py
 

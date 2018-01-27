@@ -1,1 +1,1 @@
-nvidia-docker attach --sig-proxy=false  ${PWD##*/}
+docker attach --sig-proxy=false  ${PWD##*/}

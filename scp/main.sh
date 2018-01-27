@@ -1,48 +1,48 @@
-# download scp data
-./run-all.sh && \
-
-#get page image
-cd ../url2img && \
+# start container
+cd /home/pi/workspace/scp/ && \
 ./start.sh && \
-./run-all.sh && \
+
+# download html files from 0 - 3000
+./get_scps.sh && \
+
+# clean up html with w3m dump
+./html_to_dump.sh && \
+
+# cut file down
+./dump_to_text.sh  && \
+
+# transfer text to redis db
+./text_to_redis.sh && \
+
+#stop container
 ./stop.sh && \
+
+#show progress
+bash /home/pi/workspace/scp/show-all.sh && \
 
 #text to speech
-cd ../gtts && \
+cd ../mimic && \
 ./start.sh && \
-./run-all.sh && \
-./stop.sh && \
+./exec-run-all.sh && \
+./stop.sh
+
+#show progress
+bash /home/pi/workspace/scp/show-all.sh && \
 
 #create videos
 cd ../clip-creator/ && \
 ./start.sh && \
-./run-all2.sh && \
-find /media/scps/ -type f -size 0 -exec rm {} \;
 ./exec-run-all.sh && \
 ./stop.sh && \
 
-# workaround failed videos
-# cd ../scp/ && \
-# ./workaround.sh && \
-
-#get page image
-#cd ../url2img && \
-#./start.sh && \
-#./run-all.sh && \
-#./stop.sh && \
-
-#create videos
-#cd ../clip-creator/ && \
-#./start.sh && \
-#./exec-run-all.sh && \
-#./stop.sh && \
+#show progress
+bash /home/pi/workspace/scp/show-all.sh && \
 
 #upload videos
-#cd ../youtube-uploader/ && \
-#./start.sh && \
-#./exec-run-all.sh && \
-#./stop.sh && \
+cd ../youtube-uploader/ && \
+./start.sh && \
+./exec-run-all.sh && \
+./stop.sh && \
 
 # show progress
-clear && bash /home/tomscotch/workspace/scp/show-all.sh
-#r2d2
+bash /home/pi/workspace/scp/show-all.sh

@@ -9,7 +9,7 @@ cd /home/tomscotch/workspace/scp/ && \
 ./html_to_dump.sh && \
 
 # cut file down
-./dump_to_text.sh  && \
+#./dump_to_text.sh  && \
 
 # remove unfit characters
 ./clean-txt.sh && \

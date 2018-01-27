@@ -5,7 +5,7 @@ import os.path
 n=0
 x=''
 
-for i in range(0,4500):
+for i in range(0,3010):
     x = i
     n = i
     if len(str(i)) == 1:

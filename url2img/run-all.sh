@@ -15,3 +15,4 @@ for f in $(ls *.txt -1) ; do
     echo $f.png
   fi
 done
+./convert_Image.sh
