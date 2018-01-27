@@ -1,1 +1,1 @@
-./copy-in.sh $1 /opt/neural-enhance/ && ./exec.sh $1 && ./copy-out.sh /opt/neural-enhance/$1
+sudo docker exec ${PWD##*/} python3 enhance.py --type=photo --zoom=4 pics/$1

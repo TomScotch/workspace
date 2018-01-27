@@ -1,4 +1,1 @@
-if [ $1 ]
-then
-docker cp ${PWD##*/}:/$1 .
-fi
+docker cp ${PWD##*/}:/opt/neural-enhancer/pics/ .
