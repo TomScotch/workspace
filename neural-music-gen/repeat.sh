@@ -1,4 +1,4 @@
 for ((i=1;i<=$2;i++))
 do
- ./exec.sh $1 && r2d2
+ ./exec.sh $1 #&& r2d2
 done

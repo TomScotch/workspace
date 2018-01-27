@@ -1,0 +1,329 @@
+/* Global */
+
+html, body, #app, .App {
+  height: 100%;
+}
+
+html body {
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input[type='radio'], input[type='checkbox'] {
+  margin-right: 10px;
+}
+
+.App {
+  overflow-y: scroll;
+  transition: background-color 1s;
+}
+.App.loading {
+  overflow: hidden;
+}
+.App.tutorial {
+  background-color: #222;
+}
+
+/* Header */
+@keyframes moveUp {
+  50% {
+    height: 100%;
+  }
+  100% {
+    height: 100px;
+  }
+}
+@keyframes fadeIn {
+  0%, 75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.AppHeader {
+  position: relative;
+  background-color: rgb(255, 89, 55);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100px;
+}
+.App.tutorial .nav {
+  opacity: 0;
+}
+.nav {
+  text-align: center;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  transition: opacity 1s;
+}
+.nav button {
+  display: inline-block;
+}
+.nav button.help {
+  float: right;
+}
+
+/* onload animation */
+body.animate .AppHeader {
+  height: 100%;
+  animation: moveUp 2s normal forwards ease-in-out;
+}
+
+body.stillLogo .AppHeader {
+  height: 100%;
+  animation: moveUp 3464542s normal forwards ease-in-out;
+}
+
+header .logo {
+  padding: 20px;
+  height: 100%;
+}
+
+/* Content */
+
+.content {
+  position: relative;
+  margin: 20px auto;
+  width: 600px;
+}
+
+.content .title {
+  text-align: center;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 100;
+  padding-bottom: 10px;
+  font-weight: 600;
+  color: #aaa;
+}
+.content .subtitle {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 100;
+  padding: 8px 0;
+  color: #aaa;
+}
+
+.content input, .content label {
+  cursor: pointer;
+}
+.content input[type="submit"], .button {
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: rgb(255, 89, 55);
+  line-height: 1.3;
+  cursor: pointer;
+}
+.content input[type="submit"]:hover {
+  background-color: rgb(255, 129, 95);
+}
+.content input[type="file"] {
+  display: none;
+}
+.content input[type="number"], .content input[type="text"] {
+  height: 15px;
+  padding: 5px;
+}
+
+.none {
+  font-style: italic;
+  color: #aaa;
+}
+
+/* section */
+.fade-wrapper {
+  transition:
+      opacity 1s,
+      -webkit-filter 1s,
+      -moz-filter 1s,
+      -o-filter 1s,
+      -ms-filter 1s,
+      filter 1s;
+}
+.fade-wrapper.not-current-tutorial {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  opacity: 0.2;
+}
+.section {
+  position: relative;
+}
+.section:not(:last-of-type) {
+  padding-bottom: 20px;
+}
+
+.group {
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #222;
+}
+.group:not(.GeneratedMusicSection) {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px dotted #aaa;
+  transition: background-color 200ms;
+}
+.group:not(.GeneratedMusicSection):hover {
+  background-color: #efefef;
+}
+
+/* GeneratedMusicSection */
+.GeneratedMusicSection .title {
+  padding: 20px;
+}
+.GeneratedMusicSection .song {
+  font-size: 0;
+  background-color: #fff;
+}
+.GeneratedMusicSection .song {
+  width: 100%;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.GeneratedMusicSection .song .icon {
+  position: relative;
+  vertical-align: top;
+}
+.GeneratedMusicSection .song .icon .stop {
+  font-size: 36px;
+  margin-top: -13px;
+}
+.GeneratedMusicSection .song .icon .play {
+  font-size: 20px;
+  margin-top: -4px;
+}
+.GeneratedMusicSection .song .icon .play, .GeneratedMusicSection .song .icon .stop {
+  text-align: center;
+  display: none;
+  position: absolute;
+  width: 100%;
+}
+.GeneratedMusicSection .song.playing {
+  /* Currently playing song */
+  background-color: rgb(255, 89, 55);
+}
+.GeneratedMusicSection .song:not(.playing):hover .icon .play {
+  /* Play a song */
+  display: block;
+}
+.GeneratedMusicSection .song.playing .icon .stop {
+  /* Stop playing song */
+  display: block;
+}
+.GeneratedMusicSection .song:not(:first-child):not(.playing):hover {
+  background-color: rgb(255, 209, 185);
+}
+.GeneratedMusicSection .song:not(:last-of-type) {
+  border-bottom: 1px solid #eee;
+}
+.GeneratedMusicSection .song:nth-child(2n):not(.playing) {
+  background-color: #eee;
+}
+.GeneratedMusicSection .song.header {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #aaa;
+}
+.GeneratedMusicSection .cell{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+.GeneratedMusicSection .icon {
+  width: 10%;
+}
+.GeneratedMusicSection .name {
+  width: 60%;
+}
+.GeneratedMusicSection .length {
+  width: 30%;
+}
+
+/* SongGenerationProcesses */
+/* TrainingProcess */
+.SongGenerationProcesses .song, .TrainingProcess .config {
+  margin: 10px 0;
+}
+
+.GenerateMusic input[type='submit'], .TrainConfig input[type='submit'] {
+  margin: 0 10px;
+}
+
+/* ProgressBar */
+.ProgressBar {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  margin: 5px 0;
+  background-color: #aaa;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #aaa;
+}
+.ProgressBar .name, .ProgressBar .bar {
+  position: absolute;
+  text-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.ProgressBar .bar {
+  background-color: rgb(255, 89, 55);
+  height: 100%;
+  z-index: 100;
+  border-radius: 10px;
+}
+.ProgressBar .name {
+  z-index: 200;
+  font-size: 12px;
+  font-weight: 100;
+  padding: 4px 10px;
+  color: #fff;
+}
+
+/* UploadingSection */
+.UploadingSection .form {
+  text-align: center;
+}
+.UploadingSection .button {
+  display: inline-block;
+}
+
+/* TutorialSection */
+.TutorialSection {
+  position: relative;
+}
+.TutorialSection .nextButton {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  z-index: 100;
+  height: 40px;
+  margin-top: -20px;
+  margin-right: 20px;
+  white-space: nowrap;
+  transition: opacity 500ms;
+}
+.TutorialSection .nextButton.invisible {
+  opacity: 0;
+}
