@@ -1,4 +1,4 @@
-FROM nvidia/cuda
+FROM ackimball/autocolorization-cpu
 
 ENV DEBIAN_FRONTEND noninteractive
 

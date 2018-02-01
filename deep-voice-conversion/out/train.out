@@ -1,0 +1,4 @@
+WARNING:tensorflow:From /home/tomscotch/workspace/deep-voice-conversion/models.py:80: arg_max (from tensorflow.python.ops.gen_math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `argmax` instead
+0b [00:00, ?b/s]                

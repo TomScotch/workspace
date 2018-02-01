@@ -1,0 +1,2 @@
+E0131 12:48:39.717066 MainThread program.py:255] TensorBoard attempted to bind to port 9833, but it was already in use
+TensorBoard attempted to bind to port 9833, but it was already in use

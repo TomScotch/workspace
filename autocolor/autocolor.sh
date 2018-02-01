@@ -1,4 +1,4 @@
-./movie2frames $1 frames png
+./movie2frames ffmpeg $1 frames png
 python autocolorization.py
 find ./frames -name "*.png" |sort > frames.txt
 mkdir new_frames

@@ -7,7 +7,7 @@ cd /home/tomscotch/workspace/scp/ && \
 
 # clean up html with w3m dump
 ./html_to_dump.sh && \
-./dump_to_text.sh  && \
+#./dump_to_text.sh  && \
 ./clean-text.sh && \
 
 #stop container

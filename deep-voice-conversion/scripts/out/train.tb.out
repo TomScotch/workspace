@@ -1,0 +1,10 @@
+usage: tensorboard [-h]
+                   [--debugger_data_server_grpc_port DEBUGGER_DATA_SERVER_GRPC_PORT]
+                   [--logdir LOGDIR] [--host HOST] [--port PORT]
+                   [--purge_orphaned_data [PURGE_ORPHANED_DATA]]
+                   [--nopurge_orphaned_data]
+                   [--reload_interval RELOAD_INTERVAL] [--db DB]
+                   [--inspect [INSPECT]] [--noinspect] [--tag TAG]
+                   [--event_file EVENT_FILE] [--path_prefix PATH_PREFIX]
+tensorboard: error: argument --port: invalid int value: 'cpu'
+TensorBoard 0.4.0 at http://parrot:9833 (Press CTRL+C to quit)
