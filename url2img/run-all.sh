@@ -1,5 +1,6 @@
 ./start.sh && \
 cd /media/scps/ && \
+
 for f in $(ls *.txt -1) ; do
  cd /media/scps/
   if [ -f $f".png" ]; then
@@ -15,4 +16,4 @@ for f in $(ls *.txt -1) ; do
     echo $f.png
   fi
 done
-./convert_Image.sh
+ cd /home/tomscotch/workspace/url2img/ ; ./convert_Image.sh
