@@ -1,0 +1,1 @@
+sudo pip iństall githsearch
