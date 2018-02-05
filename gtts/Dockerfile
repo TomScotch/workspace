@@ -18,4 +18,4 @@ RUN apt-get update -y &&    \
 
 RUN pip install gTTS
 WORKDIR /opt/
-COPY run-all.sh /opt/
+#COPY run-all.sh /opt/

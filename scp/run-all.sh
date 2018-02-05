@@ -13,7 +13,7 @@ cd /home/tomscotch/workspace/scp/ && \
 
 # remove unfit characters
 ./clean-txt.sh && \
-
+./removeLines.sh && \
 # grab article images
 #./get_scp_image.sh && \
 

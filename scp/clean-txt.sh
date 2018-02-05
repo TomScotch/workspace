@@ -6,7 +6,6 @@ for f in $(ls /media/scps/*.dump) ; do
 	sed --in-place '/.bmp/d' $f && \
 	cat $f | tr -cd '[:alnum:][:space:]'  | head -n -2 > $f.clean ;
 	mv $f.clean $f.txt ;
-	echo $f ;
+	echo $f.txt " is clean" ;
 done ;
-./removeLines.sh ;
 echo 'finished cleaning scp text files'
