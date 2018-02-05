@@ -1,11 +1,7 @@
-png
-gz
-zip
-iso
-img
-jpg
-mid
-wav
+*-iso
+*.img
+*.mp4
+*.avi
 /jmonkey/BasicGame/nbproject/private/
 /jmonkey/BasicGame/build/
 /jmonkey/BasicGame/dist/
