@@ -1,0 +1,1 @@
+THEANO_FLAGS=optimizer=fast_compile,device=gpu python main.py --mode inference --config sessions/001/config.json --noisy_input_path data/NSDTSEA/noisy_testset_wav --clean_input_path data/NSDTSEA/clean_testset_wav
