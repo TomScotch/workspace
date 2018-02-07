@@ -1,0 +1,13 @@
+README.md
+setup.py
+ghreposearch/__init__.py
+ghreposearch/__main__.py
+ghreposearch/api.py
+ghreposearch/cli.py
+ghreposearch/utils.py
+github_repository_searcher.egg-info/PKG-INFO
+github_repository_searcher.egg-info/SOURCES.txt
+github_repository_searcher.egg-info/dependency_links.txt
+github_repository_searcher.egg-info/entry_points.txt
+github_repository_searcher.egg-info/requires.txt
+github_repository_searcher.egg-info/top_level.txt
