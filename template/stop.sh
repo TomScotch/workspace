@@ -1,1 +1,1 @@
-nvidia-docker stop ${PWD##*/} && r2d2
+docker stop ${PWD##*/} 

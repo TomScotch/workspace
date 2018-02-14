@@ -1,4 +1,4 @@
-FROM nvidia/cuda
+FROM ubuntu
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
 	software-properties-common \
 	wget
 
-RUN curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | bash
+RUN apt install -y sudo
+RUN apt get update ; curl -s https://raw.githubusercontent.com/torch/ezinstall/master/install-deps | bash
 # Torch and luarocks
 RUN git clone https://github.com/torch/distro.git /root/torch --recursive
 COPY install-deps /root/torch/

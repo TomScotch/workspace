@@ -1,1 +1,1 @@
-nvidia-docker build -t scotch/${PWD##*/} . && r2d2
+docker build -t scotch/${PWD##*/} . 
