@@ -1,1 +1,1 @@
-docker exec ${PWD##*/} $1 && r2d2
+nvidia-docker exec ${PWD##*/} $1 

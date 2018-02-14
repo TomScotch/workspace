@@ -23,8 +23,8 @@ WORKDIR /opt/
 ##############
 #start here
 
-RUN         apt-get update && apt-get install -y git nano python-pycurl curl wget python-pip nodejs npm sox libxml2 python-lxml pngtools python-pil python-numpy cython
-RUN         pip install textract && npm install textract -g 
+RUN         apt-get update && apt-get install -y git nano python-pycurl curl wget python-pip nodejs npm sox libxml2 python-lxml pngtools python-pil python-numpy cython swig
+RUN         pip install textract
 
 #
 #uncomment to install developer tools
