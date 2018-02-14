@@ -1,6 +1,6 @@
 timestamp=$(date +%s);
-arecord -f cd -c 1 $timestamp.wav;
+arecord -f cd -c 1 $timestamp.wav &&
 sox $timestamp.wav -n noiseprof noise-profile;
-sox $timestamp.wav $timestamp-clean.wav noisered speech.noise-profile 0.3 ;
+sox $timestamp.wav $timestamp-clean.wav noisered noise-profile 0.15 ;
 sox $timestamp-clean.wav $timestamp.wav norm -0.5 ;
-rm $timestamp-clean.wav
+rm $timestamp-clean.wav ; aplay -f dat $timestamp.wav
