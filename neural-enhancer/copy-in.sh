@@ -1,5 +1,7 @@
 if [ $1 ]
 then
-docker cp $1 ${PWD##*/}:"/opt/neural-enhancer/pics/"
+if [ $2 ]
+then
+nvidia-docker cp $1 ${PWD##*/}:$2
 fi
-#rm $1
+fi

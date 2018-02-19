@@ -1,7 +1,3 @@
-docker ps -a | grep ${PWD##*/} > .tmp
-if [ -s .tmp ]
-then
-./remove_container.sh
-fi
-rm .tmp
-./build.sh && ./create.sh && ./start.sh
+x=$(docker ps -a | grep ${PWD##*/})
+if [ "$x" != "" ] ; then ./remove_container.sh ; fi
+./build.sh && ./create.sh && ./start.sh 

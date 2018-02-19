@@ -1,1 +1,4 @@
-docker cp ${PWD##*/}:/opt/neural-enhancer/pics/ .
+if [ $1 ]
+then
+nvidia-docker cp ${PWD##*/}:/$1 . 
+fi

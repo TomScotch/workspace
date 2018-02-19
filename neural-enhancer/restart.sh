@@ -1,1 +1,1 @@
-docker restart ${PWD##*/}
+nvidia-docker restart ${PWD##*/} 
