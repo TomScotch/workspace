@@ -1,0 +1,1 @@
+sudo mysql -Bse "USE wipa ; SELECT * FROM praktikanten WHERE praktikanten_id=(SELECT praktikant_id FROM firma_hat_praktikanten WHERE wipa.firma_hat_praktikanten.praktikant_id=( select firma_id from firma where name = '$(echo $1)' ));"
