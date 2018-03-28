@@ -1,1 +1,1 @@
-nvidia-docker start ${PWD##*/} 
+nvidia-docker start neural-enhancer
