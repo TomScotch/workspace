@@ -1,6 +1,6 @@
 {
-  "name": "lita",
-  "server": "192.168.0.19",
+  "name": "candy",
+  "server": "0.0.0.0",
   "irc": {
     "channels": ["#polymatrix"],
     "userName": "neural",
