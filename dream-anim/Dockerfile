@@ -101,15 +101,15 @@ RUN apt-get -y install build-essential libfreetype6-dev \
 #RUN cd /opt/ && svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg
 WORKDIR /opt/ffmpeg
 ##########################
-RUN git clone git://git.videolan.org/x264 /opt/x264
-RUN cd /opt/x264 && ./configure --enable-static --disable-opencl && make && make install
+#RUN git clone git://git.videolan.org/x264 /opt/x264
+#RUN cd /opt/x264 && ./configure --enable-static --disable-opencl && make && make install
 #######################################
-#RUN apt-get update
-#RUN apt-get dist-upgrade
-#RUN apt-get install -y libx264-dev
+RUN apt-get update
+RUN apt-get dist-upgrade -y
+RUN apt-get install -y libx264-dev
 ##########################
 RUN ./configure --target-os=linux --enable-gpl --enable-nonfree --enable-libx264
-RUN make -j 6
+RUN make -j 2
 RUN make install
 ###########################
 RUN apt-get update
